@@ -1,0 +1,28 @@
+---
+title: "Acronyms Example"
+format: html
+# The `filters` block is important to load the *acronyms* extension.
+filters:
+  - acronyms
+# The `acronyms` block is used to configure the extension.
+acronyms:
+  # `keys` is the most important block: it defines the recognized acronyms!
+  keys:
+  # Each acronym must have a `shortname` and a `longname`.
+  - shortname: RL
+    longname: Reinforcement Learning
+  # `loa_title` is used to change the name of the List of Acronyms generated.
+  loa_title: "Glossary"
+  # `insert_loa` determines where the List of Acronyms is placed.
+  insert_loa: "end"
+  # `sorting` determines the order of definitions within the List of Acronyms.
+  sorting: alphabetical
+  # `style` determines how acronyms are replaced when encountered.
+  style: "short-long"
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And now, in this paragraph, \acr{RL} is in short form.
