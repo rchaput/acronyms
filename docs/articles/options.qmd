@@ -1,0 +1,403 @@
+---
+title: "Available options"
+description: >
+  Learn how to customize the behaviour of **acronyms**.
+---
+
+**acronyms** supports various options to change its behaviour.
+This vignette lists them, what they do, and their allowed values.
+
+Options should be set in the YAML metadata, inside the `acronyms` field.
+
+
+## Overview
+
+The following example gives an overview of available options,
+along with their default values.
+
+```yaml
+---
+acronyms:
+  loa_title: "List of Acronyms"
+  include_unused: true
+  insert_loa: "beginning"
+  insert_links: true
+  id_prefix: "acronyms_"
+  sorting: "alphabetical"
+  non_existing: "key"
+  style: "long-short"
+  fromfile:
+    - ./acronyms.yml
+---
+```
+
+
+## `loa_title`
+
+**acronyms** can generate a List Of Acronyms (LoA) automatically and insert it
+into your document. This option controls the title (header) that precedes this
+list. By default, it is set to `List of Acronyms`.
+
+You may override it to change this title.
+
+Another available behaviour is to disable the creation of
+this header, by setting the value to `""` (the empty string).
+This is particularly useful if you want to control exactly
+where and how to insert the List Of Acronyms. In this case, the
+List Of Acronyms will still be generated and inserted, but
+without its preceding header.
+
+*Examples*:
+
+To set the title to "Glossary":
+```yaml
+---
+acronyms:
+  loa_title: "Glossary"
+---
+```
+
+To disable the title:
+```yaml
+---
+acronyms:
+  loa_title: ""
+---
+```
+
+
+## `include_unused`
+
+This option controls whether unused acronyms should be included
+in the generated List Of Acronyms.
+
+An "unused acronym" is an acronym that has been defined in
+the YAML metadata, but which key does not appear in an `\acr{key}`
+inside the document body.
+
+This option accepts only boolean values: either `true` (the
+default), or `false`.
+
+It is particularly useful if you want to define all possible
+acronyms (e.g., the same for all your documents), but you
+actually use only some of them and do not want to clutter
+the List Of Acronyms.
+
+*Examples*:
+
+To remove unused acronyms from the List Of Acronyms:
+```yaml
+---
+acronyms:
+  include_unused: false
+---
+```
+
+
+## `insert_loa`
+
+By default, **acronyms** generates a List Of Acronyms
+and automatically includes it for you at the beginning of the
+document, i.e., as the first block.
+
+Depending on your desired document structure, that behaviour
+might not be wanted. This option allows you to insert it automatically
+at the end, or even to not insert it automatically.
+
+If you still want to make **acronyms** automatically
+generate a List Of Acronyms, but to insert it somewhere else
+(e.g., after a preface), you can use this option in conjunction
+with the `\printacronyms` command.
+
+This command, which must be used inside the document's body,
+will be replaced by **acronyms** with the List Of Acronyms.
+
+*Note*: due to the way Pandoc Lua Filters work, `\printacronyms`
+needs to be used exactly as-is, inside its own paragraph,
+with nothing else in the paragraph.
+Otherwise, it will not be recognized.
+
+*Examples*:
+
+To insert it automatically at the beginning: (the default)
+```yaml
+---
+acronyms:
+  insert_loa: "beginning"
+---
+```
+
+To insert it automatically at the end:
+```yaml
+---
+acronyms:
+  insert_loa: "end"
+---
+```
+
+To disable the automatic insertion of the List Of Acronyms:
+```yaml
+---
+acronyms:
+  insert_loa: false
+---
+```
+
+*Note*: if you disable the automatic insertion, you must either:
+
+- Insert the LoA manually somewhere in your document by using `\printacronyms`.
+
+```md
+Some text for demonstration...
+
+\printacronyms
+
+And some text after. Note that nothing else is in the same
+paragraph as `\printacronyms`.
+```
+
+- Disable the insertion of links using the [insert_links](#insert_links) option.
+```yaml
+---
+acronyms:
+  insert_loa: false
+  insert_links: false
+---
+```
+
+Otherwise, **acronyms** will try to link the acronyms with their
+definition in the List Of Acronyms... which does not exist!
+
+
+## `insert_links`
+
+Acronyms can be linked to their definition in the List Of Acronyms
+in order to make navigation easier for your readers.
+
+This option controls whether to automatically insert these links: it
+accepts only boolean values (by default, `true`).
+
+*Examples*:
+To disable this behaviour (acronyms are inserted as plain texts):
+```yaml
+---
+acronyms:
+  insert_links: false
+---
+```
+
+
+## `id_prefix`
+
+When acronyms are linked to their definition (see
+[insert_links](#insert_links)), they use an unique ID to do so.
+To ensure that IDs stay unique, they are composed of a common prefix
+and the acronym's key.
+
+This option controls the prefix that is used, by default set to
+`"acronyms_"`.
+
+This means that, for example, an acronym which key is `YAML`
+will use the following ID: `acronyms_YAML`.
+
+Additionally, the List Of Acronyms' title (if inserted, refer
+to the [loa_title option](#loa_title) for more details) will
+have its own ID as well, which is composed of the same prefix
+followed by `"HEADER_LOA"`, for example: `acronyms_HEADER_LOA`.
+
+If you find that, for some reason, one of the IDs conflict with
+another ID in your document, you can use this option to change
+the prefix.
+
+*Note*: Since this option is used to create IDs, it should not
+contain any special character (emoji, punctuation, ...).
+
+*Examples*:
+
+To set the prefix to "my_acronyms_":
+```yaml
+---
+acronyms:
+  id_prefix: "my_acronyms_"
+---
+```
+
+
+## `sorting`
+
+This option controls the sorting criterion that will be used
+to automatically sort the List Of Acronyms when it is generated,
+i.e., the order in which the acronyms are displayed in this list.
+
+Several values are available:
+
+- `alphabetical` (default): Acronyms are sorted by their short
+name, in an alphabetical order. That means that, for example,
+an acronym "Rmd" is sorted before "YAML" (as R < Y).
+- `initial`: Acronyms are displayed in the exact same order they
+defined in your YAML metadata. This is somewhat equivalent
+to not sorting the list.
+- `usage`: Acronyms are sorted in the order in which they
+appear (i.e., are first used) in the document body.
+For example, `\acr{YAML} \acr{Rmd}` means that "YAML" appears
+before "Rmd".
+*Warning*: when this sorting is used, the `include_unused`
+[option](#include_unused) *must* be set to `false`. Otherwise,
+**acronyms** will raise an error, since it cannot sort
+acronyms which are never used.
+
+*Examples*:
+
+To sort by order of appearance in the document:
+```yaml
+---
+acronyms:
+  sorting: usage
+  include_unused: false
+---
+```
+
+To sort by order of definition in the YAML metadata:
+```yaml
+---
+acronyms:
+  sorting: initial
+---
+```
+
+
+## `non_existing`
+
+This option controls what to dot when **acronyms** finds
+an acronym that doesn't exist, i.e., which key was not defined.
+
+The default behaviour is to log a warning and to replace by the
+used key, so that the document may still be readable.
+
+For example, assuming that the "Rmd" key was never defined in
+the YAML metadata, the line:
+```md
+\acr{Rmd} can be used to write technical documents.
+```
+is rendered as:
+> Rmd can be used to write technical documents.
+
+The following warning is also printed to the standard error
+(stderr):
+
+> [WARNING][acronyms] Acronym key Rmd not recognized
+
+Available values are:
+
+- `key`: The default behaviour, logs a warning and replaces the
+command by the used key itself.
+- `??`: Logs a warning and replaces the command by "??". This
+behaviour is similar to what Biblatex achieves for LaTeX when
+an unknown citation key is found.
+- `error`: Stops the parsing by raising an error.
+
+*Examples*:
+
+To visually identify where non-existing acronyms are used:
+```yaml
+---
+acronyms:
+  non_existing: "??"
+---
+```
+
+In this case, the previous example would be rendered as:
+
+> ?? can be used to write technical documents.
+
+To stop the parsing and absolutely avoid using non-existing
+acronyms:
+```yaml
+---
+acronyms:
+  non_existing: error
+---
+```
+
+
+## `on_duplicate`
+
+This option controls what to do when two (or more) acronyms
+are defined with the same key.
+
+By default, **acronyms** prints a warning to the standard
+error (stderr), and keeps the old acronym in its database
+(the new acronym is thus dropped).
+
+Several values are available:
+
+- `warn` (default)
+- `replace`: No warning is issued, and the old acronym is replaced by the new one.
+- `keep`: No warning is issued, and the old acronym is kept.
+- `error`: Raises a descriptive error, and stops the parsing.
+
+*Examples*:
+
+In the following examples, we consider the following acronyms definitions in
+the YAML metadata:
+```yaml
+---
+acronyms:
+  keys:
+    - shortname: Rmd
+      longname: 1st definition
+    - shortname: Rmd
+      longname: 2nd definition
+---
+```
+
+To always replace duplicates:
+```yaml
+---
+acronyms:
+  on_duplicate: replace
+---
+```
+`\acr{Rmd}` would be rendered as `2nd definition (Rmd)`
+
+To always keep duplicates without warning:
+```yaml
+---
+acronyms:
+  on_duplicate: keep
+---
+```
+`\acr{Rmd}` would be rendered as `1st definition (Rmd)`
+
+To always avoid duplicates by raising an error:
+```yaml
+---
+acronyms:
+  on_duplicate: error
+---
+```
+
+
+## `fromfile`
+
+By default, **acronyms** expect to find acronyms definitions
+inside the YAML metadata~; however, you can use `fromfile`
+to specify external YAML files from which acronyms should be
+loaded.
+
+Its usage is described in details in [Advanced usage](advanced_usage.qmd).
+
+
+## `style`
+
+**acronyms** supports several styles to replace acronyms, similarly to how the
+LaTeX package [glossaries](https://www.ctan.org/pkg/glossaries) work for
+abbreviations.
+
+Styles define how to render an acronym in the document body:
+which fields to use, in which order, with emphasis or not,
+with a different style whether this is the acronym's first use
+or not, etc.
+
+The list of available styles, along with a visualization of each
+of them, is displayed in [styles](styles.qmd).

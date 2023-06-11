@@ -1,0 +1,128 @@
+---
+title: "Introduction to acronyms"
+description: >
+  Learn how to get started with the basics of the **acronyms** extension.
+---
+
+The goal of **acronyms** is to provide support for acronyms to Quarto
+documents, in a similar way to what [glossaries] achieve for LaTeX.
+
+Basically, it allows you to define a list of acronyms, and to automatically
+replace acronyms inside the document.
+A list of all defined acronyms along with their definitions is also generated
+and inserted.
+
+Using **acronyms** can be done in 3 simple steps:
+
+1. Installing the extension
+2. Defining acronyms
+3. Using acronyms
+
+
+## Installing the extension
+
+This extension can be installed through the standard Quarto `add` command:
+
+```sh
+quarto add rchaput/acronyms
+```
+
+This command will download the latest version and install it locally to your
+`_extensions` folder. Please see the official
+[Quarto documentation](https://quarto.org/docs/extensions/managing.html)
+for details.
+
+Make sure that your Quarto document(s) contain the following lines in the
+YAML metadata, to load the *acronyms* extension:
+
+```yaml
+---
+filters:
+  - acronyms
+---
+```
+
+
+## Defining acronyms
+
+Prior to using acronyms in the Quarto document, they must be defined in
+the YAML metadata.
+
+An acronym is defined as:
+
+- a *key*, which is used to refer to the acronym throughout the document;
+- a *short name*, which is usually the acronym itself;
+- a *long name*, which is usually what the acronym stands for.
+
+To make the list less verbose, if the key is not provided, **acronyms**
+uses the short name as a default key for the acronym.
+
+The following example defines 2 acronyms:
+
+```yaml
+---
+acronyms:
+  keys:
+    - shortname: qmd
+      longname: Quarto documents
+    - key: yaml
+      shortname: YAML
+      longname: YAML Ain't Markup Language
+---
+```
+
+
+## Using acronyms
+
+Finally, to insert an acronym into the document, simply use `\acr{<KEY>}`,
+where `<KEY>` is an acronym's key, as defined in the YAML metadata.
+
+This command will be automatically replaced by **acronyms**. The result
+depends on the chosen style (see [styles] for more details). Most
+styles will also make a difference between the first use, and the next
+occurrences.
+
+By default, **acronymsdown** will replace as follows:
+
+- first use: `<long name> (<short name>)`
+- next uses: `<short name>`
+
+The next lines show an example of how **acronymsdown** replaces acronyms
+in a document, assuming the acronyms `Rmd` and `yaml` have been defined, as
+per the previous example.
+
+```md
+\acr{qmd} allow to easily write technical content. \acr{qmd} use \acr{yaml}
+for the metadata.
+```
+
+> Quarto documents (qmd) allow to easily write technical content. qmd use
+> YAML Ain't Markup Language (YAML) for the metadata.
+
+
+## Complete example
+
+A complete example showing the previous instructions as a single file can
+be found [here][example].
+
+
+## Next steps
+
+The current vignette gives you the tools for a simple document, using the
+(sane) defaults provided by **acronyms**.
+However, most of the mechanisms are highly configurable and offer various
+options.
+
+An advanced usage is covered in [Advanced Usage][advanced_usage], while the
+available options are described in [Options][options].
+
+[Styles][styles] lists the different styles that can be used, along
+with a small example to visualize each of them.
+
+
+[glossaries]: https://www.ctan.org/pkg/glossaries
+[Lua Filter]: https://pandoc.org/lua-filters.html
+[styles]: articles/styles.qmd
+[example]: https://github.com/rchaput/acronyms/blob/master/example.qmd
+[advanced_usage]: articles/advanced_usage.qmd
+[options]: articles/options.qmd

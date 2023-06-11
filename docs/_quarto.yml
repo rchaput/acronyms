@@ -1,0 +1,37 @@
+project:
+  type: website
+  # The `pre-render` shell command ensures that the website's homepage is the
+  # same as the project's Readme.
+  pre-render: cp ../README.md index.qmd
+  # Build the site to `docs/_site` (i.e., `_site` in this current dir).
+  output-dir: "_site"
+
+website:
+  title: "acronyms"
+  site-url: "https://rchaput.github.io/acronyms/"
+  # Links to GitHub (edit page, report issue) on each page
+  repo-url: https://github.com/rchaput/acronyms
+  repo-actions: [edit, issue]
+  repo-subdir: docs
+  repo-branch: master
+  # Top navigation bar
+  navbar:
+    search: true
+    left:
+      - href: getting_started.qmd
+        text: Getting started
+      - text: Articles
+        menu:
+          - articles/options.qmd
+          - articles/styles.qmd
+          - articles/advanced_usage.qmd
+    right:
+      - text: Source Code
+        href: https://github.com/rchaput/acronyms
+        icon: github
+
+
+format:
+  html:
+    theme: cosmo
+    toc: true

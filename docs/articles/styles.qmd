@@ -1,0 +1,98 @@
+---
+title: "Styles"
+description: >
+  List and preview of the available styles for replacing acronyms.
+# We require `knitr` to use `bash` code chunks.
+engine: knitr
+---
+
+To replace acronyms in your document, **acronyms** offers several
+styles, which are quite similar to the [abbreviations styles] in the
+LaTeX package [glossaries].
+
+This vignette lists the available styles, and shows how they render.
+
+Styles might make a difference between the first use and next uses of an
+acronym. In the following list, the two variations are shown for each
+style.
+
+For each of the style examples, we will use the following document
+(metadata and body):
+
+```yaml
+---
+acronyms:
+  keys:
+    - shortname: qmd
+      longname: Quarto document
+  # Replace `<STYLE>` with the desired style name.
+  style: <STYLE>
+  # We only want to preview the acronyms' style, not the full document.
+  insert_loa: false
+  insert_links: false
+---
+
+First use: \acr{qmd}
+
+Next uses: \acr{qmd}
+```
+
+```{bash test-style-function, echo=FALSE}
+###
+# This code chunk defines an helper function to render
+# style examples.
+# However, Knitr / Rmarkdown does not seem to use the
+# same shell between code chunks. Therefore, this definition
+# is lost. We need to re-include the chunk in each of the actual
+# testing chunks.
+###
+test_style () {
+pandoc -t markdown -f markdown --lua-filter=../../_extensions/acronyms/parse-acronyms.lua <<EOF
+---
+acronyms:
+  keys:
+    - shortname: qmd
+      longname: Quarto document
+  style: $1
+  insert_loa: false
+  insert_links: false
+---
+First use: \acr{qmd}
+
+Next uses: \acr{qmd}
+EOF
+}
+```
+
+[abbreviations styles]: https://mirrors.chevalier.io/CTAN/macros/latex/contrib/glossaries-extra/samples/sample-abbr-styles.pdf
+[glossaries]: https://www.ctan.org/pkg/glossaries
+
+
+## long-short
+
+```{bash, echo=FALSE, results='asis'}
+<<test-style-function>>
+test_style "long-short"
+```
+
+## short-long
+
+```{bash, echo=FALSE, results='asis'}
+<<test-style-function>>
+test_style "short-long"
+```
+
+## long-long
+
+```{bash, echo=FALSE, results='asis'}
+<<test-style-function>>
+test_style "long-long"
+```
+
+## short-footnote
+
+```{bash, echo=FALSE, results='asis'}
+<<test-style-function>>
+test_style "short-footnote"
+```
+

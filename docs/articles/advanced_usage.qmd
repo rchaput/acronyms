@@ -1,0 +1,81 @@
+---
+title: "Advanced usage"
+description: >
+  Learn additional tips on how to best use **acronyms**.
+---
+
+## Defining acronyms in external file(s)
+
+Whereas defining acronyms directly in the YAML metadata is the most
+straightforward way, **acronyms** also support reading definitions
+from one (or several) pseudo-YAML file.
+
+To do so, simply specify the file path in the `fromfile` attribute of
+the YAML metadata.
+This behaviour is particularly useful if you want to define acronyms
+in the same file for multiple projects, or generate it automatically,
+in a similar way to the `.bib` files for LaTeX citations.
+
+This attribute may be either a single path, for example:
+
+```yaml
+---
+acronyms:
+  fromfile: ./acronyms.yml
+---
+```
+
+or a list of paths, for example:
+
+```yaml
+---
+acronyms:
+  fromfile:
+    - ./acronyms1.yml
+    - ./acronyms2.yml
+---
+```
+
+Note that the path may be either absolute or relative. If the path is
+relative, it is resolved with respect to the current working directory
+of Pandoc. By default, when using Quarto, this working directory is
+set to the directory containing the source qmd file.
+
+In our examples, we thus assume that the `acronyms.yml` (respectively,
+`acronyms1.yml` and `acronyms2.yml`) live in the same folder as the qmd
+document.
+
+The content of such files must be as following:
+
+```yaml
+---
+acronyms:
+  keys:
+  # Define your keys here
+    - shortname: qmd
+      longname: Quarto document
+---
+```
+
+Please note that this format is not really YAML; instead, the files are
+read as Quarto documents themselves, hence the presence of the `---`
+fences.
+
+However, only the metadata and more specifically the `acronyms.keys` field
+is used. No other option is taken into account. The eventual document
+body is ignored as well.
+
+The acronyms are read in the following order:
+
+1. Acronyms in the `acronyms.key` field of the source qmd document, in
+   sequential order.
+2. Acronyms in each of the `acronyms.fromfile` files.
+  a. Files are read in sequential order.
+  b. Acronyms inside each file are also read in sequential order.
+
+This order is meaningful in 2 cases:
+
+- When a duplicate key is found, the behaviour (`keep` or `replace`)
+depends on the order in which acronyms are read.
+- When the `initial` sorting is used, the List Of Acronyms displays
+acronyms in the same order as they were defined.
