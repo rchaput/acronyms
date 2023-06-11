@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Learn how to customize the behaviour of acronyms.">
+
+<title>acronyms - Available options</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">acronyms</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../getting_started.html">
+ <span class="menu-text">Getting started</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-articles" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Articles</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-articles">    
+        <li>
+    <a class="dropdown-item" href="../articles/options.html">
+ <span class="dropdown-text">Available options</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../articles/styles.html">
+ <span class="dropdown-text">Styles</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../articles/advanced_usage.html">
+ <span class="dropdown-text">Advanced usage</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/rchaput/acronyms"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">Source Code</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#loa_title" id="toc-loa_title" class="nav-link" data-scroll-target="#loa_title"><code>loa_title</code></a></li>
+  <li><a href="#include_unused" id="toc-include_unused" class="nav-link" data-scroll-target="#include_unused"><code>include_unused</code></a></li>
+  <li><a href="#insert_loa" id="toc-insert_loa" class="nav-link" data-scroll-target="#insert_loa"><code>insert_loa</code></a></li>
+  <li><a href="#insert_links" id="toc-insert_links" class="nav-link" data-scroll-target="#insert_links"><code>insert_links</code></a></li>
+  <li><a href="#id_prefix" id="toc-id_prefix" class="nav-link" data-scroll-target="#id_prefix"><code>id_prefix</code></a></li>
+  <li><a href="#sorting" id="toc-sorting" class="nav-link" data-scroll-target="#sorting"><code>sorting</code></a></li>
+  <li><a href="#non_existing" id="toc-non_existing" class="nav-link" data-scroll-target="#non_existing"><code>non_existing</code></a></li>
+  <li><a href="#on_duplicate" id="toc-on_duplicate" class="nav-link" data-scroll-target="#on_duplicate"><code>on_duplicate</code></a></li>
+  <li><a href="#fromfile" id="toc-fromfile" class="nav-link" data-scroll-target="#fromfile"><code>fromfile</code></a></li>
+  <li><a href="#style" id="toc-style" class="nav-link" data-scroll-target="#style"><code>style</code></a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rchaput/acronyms/edit/master/docs/articles/options.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Available options</h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>Learn how to customize the behaviour of <strong>acronyms</strong>.</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><strong>acronyms</strong> supports various options to change its behaviour. This vignette lists them, what they do, and their allowed values.</p>
+<p>Options should be set in the YAML metadata, inside the <code>acronyms</code> field.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The following example gives an overview of available options, along with their default values.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">loa_title</span><span class="kw">:</span><span class="at"> </span><span class="st">"List of Acronyms"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">include_unused</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_loa</span><span class="kw">:</span><span class="at"> </span><span class="st">"beginning"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_links</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id_prefix</span><span class="kw">:</span><span class="at"> </span><span class="st">"acronyms_"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sorting</span><span class="kw">:</span><span class="at"> </span><span class="st">"alphabetical"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">non_existing</span><span class="kw">:</span><span class="at"> </span><span class="st">"key"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"long-short"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fromfile</span><span class="kw">:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> ./acronyms.yml</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="loa_title" class="level2">
+<h2 class="anchored" data-anchor-id="loa_title"><code>loa_title</code></h2>
+<p><strong>acronyms</strong> can generate a List Of Acronyms (LoA) automatically and insert it into your document. This option controls the title (header) that precedes this list. By default, it is set to <code>List of Acronyms</code>.</p>
+<p>You may override it to change this title.</p>
+<p>Another available behaviour is to disable the creation of this header, by setting the value to <code>""</code> (the empty string). This is particularly useful if you want to control exactly where and how to insert the List Of Acronyms. In this case, the List Of Acronyms will still be generated and inserted, but without its preceding header.</p>
+<p><em>Examples</em>:</p>
+<p>To set the title to “Glossary”:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">loa_title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Glossary"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To disable the title:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">loa_title</span><span class="kw">:</span><span class="at"> </span><span class="st">""</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="include_unused" class="level2">
+<h2 class="anchored" data-anchor-id="include_unused"><code>include_unused</code></h2>
+<p>This option controls whether unused acronyms should be included in the generated List Of Acronyms.</p>
+<p>An “unused acronym” is an acronym that has been defined in the YAML metadata, but which key does not appear in an <code>\acr{key}</code> inside the document body.</p>
+<p>This option accepts only boolean values: either <code>true</code> (the default), or <code>false</code>.</p>
+<p>It is particularly useful if you want to define all possible acronyms (e.g., the same for all your documents), but you actually use only some of them and do not want to clutter the List Of Acronyms.</p>
+<p><em>Examples</em>:</p>
+<p>To remove unused acronyms from the List Of Acronyms:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">include_unused</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="insert_loa" class="level2">
+<h2 class="anchored" data-anchor-id="insert_loa"><code>insert_loa</code></h2>
+<p>By default, <strong>acronyms</strong> generates a List Of Acronyms and automatically includes it for you at the beginning of the document, i.e., as the first block.</p>
+<p>Depending on your desired document structure, that behaviour might not be wanted. This option allows you to insert it automatically at the end, or even to not insert it automatically.</p>
+<p>If you still want to make <strong>acronyms</strong> automatically generate a List Of Acronyms, but to insert it somewhere else (e.g., after a preface), you can use this option in conjunction with the <code>\printacronyms</code> command.</p>
+<p>This command, which must be used inside the document’s body, will be replaced by <strong>acronyms</strong> with the List Of Acronyms.</p>
+<p><em>Note</em>: due to the way Pandoc Lua Filters work, <code>\printacronyms</code> needs to be used exactly as-is, inside its own paragraph, with nothing else in the paragraph. Otherwise, it will not be recognized.</p>
+<p><em>Examples</em>:</p>
+<p>To insert it automatically at the beginning: (the default)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_loa</span><span class="kw">:</span><span class="at"> </span><span class="st">"beginning"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To insert it automatically at the end:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_loa</span><span class="kw">:</span><span class="at"> </span><span class="st">"end"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To disable the automatic insertion of the List Of Acronyms:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_loa</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Note</em>: if you disable the automatic insertion, you must either:</p>
+<ul>
+<li>Insert the LoA manually somewhere in your document by using <code>\printacronyms</code>.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Some text for demonstration...</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>\printacronyms</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>And some text after. Note that nothing else is in the same</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>paragraph as <span class="in">`\printacronyms`</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Disable the insertion of links using the <a href="#insert_links">insert_links</a> option.</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_loa</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_links</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Otherwise, <strong>acronyms</strong> will try to link the acronyms with their definition in the List Of Acronyms… which does not exist!</p>
+</section>
+<section id="insert_links" class="level2">
+<h2 class="anchored" data-anchor-id="insert_links"><code>insert_links</code></h2>
+<p>Acronyms can be linked to their definition in the List Of Acronyms in order to make navigation easier for your readers.</p>
+<p>This option controls whether to automatically insert these links: it accepts only boolean values (by default, <code>true</code>).</p>
+<p><em>Examples</em>: To disable this behaviour (acronyms are inserted as plain texts):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_links</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="id_prefix" class="level2">
+<h2 class="anchored" data-anchor-id="id_prefix"><code>id_prefix</code></h2>
+<p>When acronyms are linked to their definition (see <a href="#insert_links">insert_links</a>), they use an unique ID to do so. To ensure that IDs stay unique, they are composed of a common prefix and the acronym’s key.</p>
+<p>This option controls the prefix that is used, by default set to <code>"acronyms_"</code>.</p>
+<p>This means that, for example, an acronym which key is <code>YAML</code> will use the following ID: <code>acronyms_YAML</code>.</p>
+<p>Additionally, the List Of Acronyms’ title (if inserted, refer to the <a href="#loa_title">loa_title option</a> for more details) will have its own ID as well, which is composed of the same prefix followed by <code>"HEADER_LOA"</code>, for example: <code>acronyms_HEADER_LOA</code>.</p>
+<p>If you find that, for some reason, one of the IDs conflict with another ID in your document, you can use this option to change the prefix.</p>
+<p><em>Note</em>: Since this option is used to create IDs, it should not contain any special character (emoji, punctuation, …).</p>
+<p><em>Examples</em>:</p>
+<p>To set the prefix to “my_acronyms_”:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id_prefix</span><span class="kw">:</span><span class="at"> </span><span class="st">"my_acronyms_"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sorting" class="level2">
+<h2 class="anchored" data-anchor-id="sorting"><code>sorting</code></h2>
+<p>This option controls the sorting criterion that will be used to automatically sort the List Of Acronyms when it is generated, i.e., the order in which the acronyms are displayed in this list.</p>
+<p>Several values are available:</p>
+<ul>
+<li><code>alphabetical</code> (default): Acronyms are sorted by their short name, in an alphabetical order. That means that, for example, an acronym “Rmd” is sorted before “YAML” (as R &lt; Y).</li>
+<li><code>initial</code>: Acronyms are displayed in the exact same order they defined in your YAML metadata. This is somewhat equivalent to not sorting the list.</li>
+<li><code>usage</code>: Acronyms are sorted in the order in which they appear (i.e., are first used) in the document body. For example, <code>\acr{YAML} \acr{Rmd}</code> means that “YAML” appears before “Rmd”. <em>Warning</em>: when this sorting is used, the <code>include_unused</code> <a href="#include_unused">option</a> <em>must</em> be set to <code>false</code>. Otherwise, <strong>acronyms</strong> will raise an error, since it cannot sort acronyms which are never used.</li>
+</ul>
+<p><em>Examples</em>:</p>
+<p>To sort by order of appearance in the document:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sorting</span><span class="kw">:</span><span class="at"> usage</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">include_unused</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To sort by order of definition in the YAML metadata:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sorting</span><span class="kw">:</span><span class="at"> initial</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="non_existing" class="level2">
+<h2 class="anchored" data-anchor-id="non_existing"><code>non_existing</code></h2>
+<p>This option controls what to dot when <strong>acronyms</strong> finds an acronym that doesn’t exist, i.e., which key was not defined.</p>
+<p>The default behaviour is to log a warning and to replace by the used key, so that the document may still be readable.</p>
+<p>For example, assuming that the “Rmd” key was never defined in the YAML metadata, the line:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>\acr{Rmd} can be used to write technical documents.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>is rendered as: &gt; Rmd can be used to write technical documents.</p>
+<p>The following warning is also printed to the standard error (stderr):</p>
+<blockquote class="blockquote">
+<p>[WARNING][acronyms] Acronym key Rmd not recognized</p>
+</blockquote>
+<p>Available values are:</p>
+<ul>
+<li><code>key</code>: The default behaviour, logs a warning and replaces the command by the used key itself.</li>
+<li><code>??</code>: Logs a warning and replaces the command by “??”. This behaviour is similar to what Biblatex achieves for LaTeX when an unknown citation key is found.</li>
+<li><code>error</code>: Stops the parsing by raising an error.</li>
+</ul>
+<p><em>Examples</em>:</p>
+<p>To visually identify where non-existing acronyms are used:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">non_existing</span><span class="kw">:</span><span class="at"> </span><span class="st">"??"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this case, the previous example would be rendered as:</p>
+<blockquote class="blockquote">
+<p>?? can be used to write technical documents.</p>
+</blockquote>
+<p>To stop the parsing and absolutely avoid using non-existing acronyms:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">non_existing</span><span class="kw">:</span><span class="at"> error</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="on_duplicate" class="level2">
+<h2 class="anchored" data-anchor-id="on_duplicate"><code>on_duplicate</code></h2>
+<p>This option controls what to do when two (or more) acronyms are defined with the same key.</p>
+<p>By default, <strong>acronyms</strong> prints a warning to the standard error (stderr), and keeps the old acronym in its database (the new acronym is thus dropped).</p>
+<p>Several values are available:</p>
+<ul>
+<li><code>warn</code> (default)</li>
+<li><code>replace</code>: No warning is issued, and the old acronym is replaced by the new one.</li>
+<li><code>keep</code>: No warning is issued, and the old acronym is kept.</li>
+<li><code>error</code>: Raises a descriptive error, and stops the parsing.</li>
+</ul>
+<p><em>Examples</em>:</p>
+<p>In the following examples, we consider the following acronyms definitions in the YAML metadata:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">keys</span><span class="kw">:</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> Rmd</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> 1st definition</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> Rmd</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> 2nd definition</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To always replace duplicates:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">on_duplicate</span><span class="kw">:</span><span class="at"> replace</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>\acr{Rmd}</code> would be rendered as <code>2nd definition (Rmd)</code></p>
+<p>To always keep duplicates without warning:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">on_duplicate</span><span class="kw">:</span><span class="at"> keep</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>\acr{Rmd}</code> would be rendered as <code>1st definition (Rmd)</code></p>
+<p>To always avoid duplicates by raising an error:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">on_duplicate</span><span class="kw">:</span><span class="at"> error</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fromfile" class="level2">
+<h2 class="anchored" data-anchor-id="fromfile"><code>fromfile</code></h2>
+<p>By default, <strong>acronyms</strong> expect to find acronyms definitions inside the YAML metadata~; however, you can use <code>fromfile</code> to specify external YAML files from which acronyms should be loaded.</p>
+<p>Its usage is described in details in <a href="../articles/advanced_usage.html">Advanced usage</a>.</p>
+</section>
+<section id="style" class="level2">
+<h2 class="anchored" data-anchor-id="style"><code>style</code></h2>
+<p><strong>acronyms</strong> supports several styles to replace acronyms, similarly to how the LaTeX package <a href="https://www.ctan.org/pkg/glossaries">glossaries</a> work for abbreviations.</p>
+<p>Styles define how to render an acronym in the document body: which fields to use, in which order, with emphasis or not, with a different style whether this is the acronym’s first use or not, etc.</p>
+<p>The list of available styles, along with a visualization of each of them, is displayed in <a href="../articles/styles.html">styles</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
