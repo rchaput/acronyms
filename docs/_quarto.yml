@@ -24,6 +24,7 @@ website:
         menu:
           - articles/options.qmd
           - articles/styles.qmd
+          - text: -------
           - articles/advanced_usage.qmd
     right:
       - text: Source Code
