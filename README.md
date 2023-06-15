@@ -29,21 +29,26 @@ provided the same features, but for [RMarkdown][rmarkdown] documents.
   automatically replaces acronyms, based on whether they appear for the
   first time.
 - Generate a List of Acronyms based on your defined acronyms.
-  + The place where this list will be generated can be specified (by
-    default, at the beginning of the document).
+  + The place where this list will be generated can be
+    [specified](https://rchaput.github.io/acronyms/articles/options.html#insert_loa)
+    (by default, at the beginning of the document).
 - Automatic sorting of this list.
-  + You can choose between the *alphabetical*, *usage* or *initial* order.
++ You can choose between the *alphabetical*, *usage* or *initial*
+  [order](https://rchaput.github.io/acronyms/articles/options.html#sorting).
 - Easily manage acronyms
-  + Choose between multiple styles to replace acronyms.
+  + Choose between multiple [styles](https://rchaput.github.io/acronyms/articles/styles.html)
+    to replace acronyms.
   + By default, 1st occurrence is replaced by *long name (short name)*,
     and following occurrences are simply replaced by *short name*.
   + All occurrences can also be linked to the acronym's definition in
     the List of Acronyms.
-- Define acronyms directly in your document or in external files.
+- Define acronyms directly in your document or
+  [in external files](https://rchaput.github.io/acronyms/articles/advanced_usage.html#defining-acronyms-in-external-files).
 - Extensive configuration
-  + Most of this package's mechanisms can be configured: how to handle
-    duplicate keys, whether to raise an error, print a warning or ignore an
-    non-existing key, how to sort, ...
+  + Most of this package's mechanisms can be
+    [configured](https://rchaput.github.io/acronyms/articles/options.html):
+    how to handle duplicate keys, whether to raise an error, print a warning
+    or ignore an non-existing key, how to sort, ...
   + Sane defaults are included, such that this package can be used
     out-of-the-box.
 
