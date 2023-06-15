@@ -1,8 +1,5 @@
 project:
   type: website
-  # The `pre-render` shell command ensures that the website's homepage is the
-  # same as the project's Readme.
-  pre-render: cp ../README.md index.qmd
   # Build the site to `docs/_site` (i.e., `_site` in this current dir).
   output-dir: "_site"
 
