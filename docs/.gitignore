@@ -3,7 +3,3 @@
 
 # Build output
 _site/
-
-# The homepage is copied from the project's Readme, we do not want to check
-# it in the VCS.
-index.qmd
