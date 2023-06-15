@@ -1,0 +1,11 @@
+---
+# We do not need to set the title or description here, as we will use
+# the README's content (at the root folder).
+# It already includes a header title (h1), so defining one here would
+# just be a useless duplicate.
+# The only difference it makes is when setting the page's title, which
+# appears in the tab. But, for a homepage, simply having the website's title
+# is good enough.
+---
+
+{{< include ../README.md >}}
