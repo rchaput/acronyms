@@ -32,6 +32,9 @@
 
 --]]
 
+local Helpers = require("acronyms_helpers")
+
+
 -- The table containing all styles, indexed by the style's name.
 local styles = {}
 
@@ -40,7 +43,7 @@ local styles = {}
 -- depending on whether we want to insert links.
 local function create_element(content, key, insert_links)
     if insert_links then
-        return pandoc.Link(content, key_to_link(key))
+        return pandoc.Link(content, Helpers.key_to_link(key))
     else
         return pandoc.Str(content)
     end

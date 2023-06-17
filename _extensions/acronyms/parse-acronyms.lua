@@ -20,6 +20,9 @@
 local current_dir = debug.getinfo(1).source:match("@?(.*/)")
 package.path = package.path .. ";" .. current_dir .. "/?.lua"
 
+-- Some helper functions
+local Helpers = require("acronyms_helpers")
+
 -- The Acronyms database
 local Acronyms = require("acronyms")
 
@@ -52,55 +55,6 @@ function warn(...)
     io.stderr:write("[WARNING][acronymsdown] ", msg, "\n")
 end
 
--- Helper function to determine pandoc's version.
--- `version` must be a table of numbers, e.g., `{2, 17, 0, 1}`
-function isAtLeastVersion(version)
-    -- `PANDOC_VERSION` exists since 2.1, but we never know...
-    if PANDOC_VERSION == nil then
-        return false
-    end
-    -- Loop up over the components
-    -- e.g., `2.17.0.1` => [0]=2, [1]=17, [2]=0, [3]=1
-    for k, v in ipairs(version) do
-        if PANDOC_VERSION[k] == nil or PANDOC_VERSION[k] < version[k] then
-            -- Examples: 2.17 < 2.17.0.1, or 2.16 < 2.17
-            return false
-        elseif PANDOC_VERSION[k] > version[k] then
-            -- Example: 2.17 > 2.16.2 (we do not need to check the next!)
-            return true
-        end
-    end
-    -- At this point, all components are equal
-    return true
-end
-
-
--- Helper function to determine whether a metadata field is a list.
-function isMetaList(field)
-    -- We want to know whether we have multiple values (MetaList).
-    -- Pandoc 2.17 introduced a compatibility-breaking change for this:
-    --  the `.tag` is no longer present in >= 2.17 ;
-    --  the `pandoc.utils.type` function is only available in >= 2.17
-    if isAtLeastVersion({2, 17}) then
-        -- Use the new `pandoc.utils.type` function
-        return pandoc.utils.type(field) == "List"
-    else
-        -- Use the (old) `.tag` type attribute
-        return field.t == "MetaList"
-    end
-end
-
-
--- Helper function to generate the ID (identifier) from an acronym key.
--- The ID can be used for, e.g., links.
-function key_to_id(key)
-    return options["id_prefix"] .. key
-end
--- Similar helper but for the link itself (based on the ID).
-function key_to_link(key)
-    return "#" .. key_to_id(key)
-end
-
 
 function Meta(m)
     Options:parseOptionsFromMetadata(m)
@@ -110,7 +64,7 @@ function Meta(m)
 
     -- Parse acronyms from external files
     if (m and m.acronyms and m.acronyms.fromfile) then
-        if isMetaList(m.acronyms.fromfile) then
+        if Helpers.isMetaList(m.acronyms.fromfile) then
             -- We have several files to read
             for _, filepath in ipairs(m.acronyms.fromfile) do
                 filepath = pandoc.utils.stringify(filepath)
@@ -144,7 +98,7 @@ function generateLoA()
     for _, acronym in ipairs(sorted) do
         -- The definition's name. A Span with an ID so we can create a link.
         local name = pandoc.Span(acronym.shortname,
-            pandoc.Attr(key_to_id(acronym.key), {}, {}))
+            pandoc.Attr(Helpers.key_to_id(acronym.key), {}, {}))
         -- The definition's value.
         local definition = pandoc.Plain(acronym.longname)
         table.insert(definition_list, { name, definition })
@@ -156,7 +110,7 @@ function generateLoA()
         local loa_classes = {"loa"}
         header = pandoc.Header(1,
             { table.unpack(Options["loa_title"]) },
-            pandoc.Attr(key_to_id("HEADER_LOA"), loa_classes, {})
+            pandoc.Attr(Helpers.key_to_id("HEADER_LOA"), loa_classes, {})
         )
     end
 

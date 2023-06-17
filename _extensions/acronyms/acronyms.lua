@@ -5,6 +5,9 @@
 --]]
 
 
+local Helpers = require("acronyms_helpers")
+
+
 -- Define an Acronym with some default values
 Acronym = {
     -- The acronym's key, or label. Used to identify it. Must be unique.
@@ -133,7 +136,7 @@ function Acronyms:parseFromMetadata(metadata, on_duplicate)
         return
     end
     -- This field should be a Pandoc "MetaList" (so we can iter over it).
-    if not isMetaList(metadata.acronyms.keys) then
+    if not Helpers.isMetaList(metadata.acronyms.keys) then
         error("The acronyms.keys should be a list!")
     end
 
