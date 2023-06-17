@@ -1,0 +1,112 @@
+--[[
+
+This file defines the Options table.
+
+--]]
+
+
+-- The table that holds all options, with their default values.
+-- We will also add a few methods to this table, to handle these options
+-- (parse them from configuration files, get them, ...).
+local Options = {
+
+    -- The prefix to prepend to all acronym's ID (to ensure their uniqueness).
+    -- IDs are especially used to link an acronym to its definition in the List
+    -- of Acronyms.
+    id_prefix = "acronyms_",
+
+    -- How to sort acronyms in the List of Acronyms.
+    -- Please refer to the `sort_acronyms.lua` file for allowed values.
+    sorting = "alphabetical",
+
+    -- The title (header) that precedes the List of Acronyms (LoA).
+    loa_title = pandoc.MetaInlines(pandoc.Str("List Of Acronyms")),
+
+    -- Whether to include in the LoA acronyms that have not been used.
+    include_unused = true,
+
+    -- Whether to insert the LoA, and where.
+    insert_loa = "beginning",
+
+    -- How to deal with non-existing acronyms.
+    non_existing = "key",
+
+    -- How to deal with duplicate definitions of acronyms.
+    on_duplicate = "warn",
+
+    -- The style to use when replacing an acronym.
+    -- Please refer to the `acronyms_styles.lua` for allowed values.
+    style = "long-short",
+
+    -- Whether to insert a link to the acronym's definition in the LoA when
+    -- replacing (rendering) an acronym.
+    insert_links = true,
+
+}
+
+
+--[[
+Parse the options from the Metadata (i.e., the YAML fields).
+--]]
+function Options:parseOptionsFromMetadata(m)
+    -- The options that we are interested in are all grouped under `acronyms`.
+    -- If it does not exist, use an empty table.
+    options = m.acronyms or {}
+
+    if options["id_prefix"] ~= nil then
+        self.id_prefix = pandoc.utils.stringify(options["id_prefix"])
+    end
+
+    if options["sorting"] ~= nil then
+        self.sorting = pandoc.utils.stringify(options["sorting"])
+    end
+
+    if options["loa_title"] ~= nil then
+        if pandoc.utils.stringify(options["loa_title"]) == "" then
+            -- Writing `loa_title: ""` in the YAML returns `{}` (an empty table).
+            -- `pandoc.utils.stringify({})` returns `""` as well.
+            -- This value indicates that the user does not want a Header.
+            self.loa_title = ""
+        else
+            -- For any other case, we want to use the exact same value,
+            -- (not stringified!), i.e., a Pandoc object.
+            self.loa_title = options["loa_title"]
+        end
+    end
+
+    if options["include_unused"] ~= nil then
+        -- This value should be a boolean here, we do not need to stringify it.
+        self.include_unused = options["include_unused"]
+    end
+
+    if options["insert_loa"] ~= nil then
+        if options["insert_loa"] == false then
+            -- Special value: keep it exactly as-is.
+            self.insert_loa = false
+        else
+            -- Default case: it should be "beginning", or "end", we want it
+            -- as a string.
+            self.insert_loa = pandoc.utils.stringify(options["insert_loa"])
+        end
+    end
+
+    if options["non_existing"] ~= nil then
+        self.non_existing = pandoc.utils.stringify(options["non_existing"])
+    end
+
+    if options["on_duplicate"] ~= nil then
+        self.on_duplicate = pandoc.utils.stringify(options["on_duplicate"])
+    end
+
+    if options["style"] ~= nil then
+        self.style = pandoc.utils.stringify(options["style"])
+    end
+
+    if options["insert_links"] ~= nil then
+        -- This value should be a boolean here, we do not need to stringify it.
+        self.insert_links = options["insert_links"]
+    end
+end
+
+
+return Options
