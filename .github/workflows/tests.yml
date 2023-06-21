@@ -1,0 +1,26 @@
+name: automatic-testing
+
+on:
+  push:
+    # Run on all branches, except gh-pages (as it is only for documentation)
+    branches-ignore: [gh-pages]
+  workflow_dispatch:
+    # Allow to run manually
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    # At some point, we will probably want to setup a strategy matrix here
+    # (perhaps, to test with both quarto's latest release and pre-release)
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+
+      - name: Checkout the source code
+        uses: actions/checkout@v3
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Run tests
+        run: quarto run tests/run_tests.ts
