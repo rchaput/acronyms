@@ -1,0 +1,7 @@
+/.quarto/
+
+# We need a symlink to the parent's `_extensions` folder to run the tests.
+# This folder is already checked in the VCS, and the symlink can be created
+# automatically via the `run_tests` script, so we do not need to track the
+# symlink itself, and we ignore it.
+/_extensions

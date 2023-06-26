@@ -1,0 +1,22 @@
+# This configuration will be inherited by every "test" document in the
+# sub-folders (`input.qmd`).
+
+format:
+  # `markdown` (not `md`) is the "full" Pandoc Markdown format.
+  # It notably supports the Definition List. This is particularly useful to
+  # easily check that the output corresponds to what we expect, in a "neutral"
+  # format (e.g., not HTML, nor PDF).
+  markdown:
+    # We want to force "atx" headings, e.g., `# Header 1`.
+    markdown-headings: "atx"
+    # Do not keep the original YAML (metadata), we just want the "rendered"
+    # text. This does not seem to work...
+    keep-yaml: false
+    # We want to preserve wrappings to be able to compare line-by-line
+    # (i.e., no additional line break will be added).
+    wrap: "preserve"
+
+filters:
+  # Load the `acronyms` filter. This requires a symlink to the `_extensions`
+  # folder!
+  - acronyms
