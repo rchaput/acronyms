@@ -193,12 +193,12 @@ function resultToStrMd (results: Array<TestResult>): string {
 
     // 1st section: summary table (short, one-line for each test)
     str += '## Summary\n\n';
-    str += 'Test | Result | :alarm_clock: Duration (s)\n';
-    str += '---|---|---\n';
+    str += '| Test | Result | :alarm_clock: Duration (s) |\n';
+    str += '|---|---|---|\n';
     for (let result of results) {
         const resultEmoji = result.success ? ':white_check_mark: PASS' : ':x: FAIL';
         const headingSlug = result.name.replace(' ', '-');
-        str += sprintf('[%s](#%s) | %s | %d\n',
+        str += sprintf('| [%s](#%s) | %s | %d |\n',
                        result.name,
                        headingSlug,
                        resultEmoji,
@@ -224,8 +224,7 @@ function resultToStrMd (results: Array<TestResult>): string {
     // 3rd section: detailed results for each test
     for (let result of results) {
         // Result header
-        const headingSlug = result.name.replace(' ', '-');
-        str += sprintf('## %s {#%s}\n\n', result.name, headingSlug);
+        str += sprintf('## %s\n\n', result.name);
 
         // Return code == 0?
         if (result.returnCode == 0) {
@@ -236,25 +235,62 @@ function resultToStrMd (results: Array<TestResult>): string {
 
         // Output == expected output?
         if (result.actualOutput == result.expectedOutput) {
-            str += ':white_check_mark: Output corresponds to expected output:\n\n';
+            str += ':white_check_mark: Output corresponds to expected output:\n';
         } else {
-            str += ':x: Output does not correspond to expected output:\n\n';
+            str += ':x: Output does not correspond to expected output:\n';
         }
-        str += '<details><summary>Actual:</summary>\n```md\n' + result.actualOutput + '\n```\n</details>';
-        str += '<details><summary>Expected:</summary>\n```md\n' + result.expectedOutput + '\n```\n</details>\n';
+        str += `
+<details>
+<summary>Actual:</summary>
+
+${result.actualOutputLines.map(line => '    ' + line).join('\n')}
+
+</details>
+
+<details>
+<summary>Expected:</summary>
+
+${result.expectedOutputLines.map(line => '    ' + line).join('\n')}
+
+</details>
+
+`;
 
         // Error == expected error?
         if (result.actualError == result.expectedError) {
-            str += ':white_check_mark: Error corresponds to expected error:\n\n';
+            str += ':white_check_mark: Error corresponds to expected error:\n';
         } else {
-            str += ':x: Error does not correspond to expected error:\n\n';
+            str += ':x: Error does not correspond to expected error:\n';
         }
-        str += '<details><summary>Actual:</summary>\n```md\n' + result.actualError + '\n```\n</details>';
-        str += '<details><summary>Expected:</summary>\n```md\n' + result.expectedError + '\n```\n</details>\n';
+        str += `
+<details>
+<summary>Actual:</summary>
+
+${result.actualErrorLines.map(line => '    ' + line).join('\n')}
+
+</details>
+
+<details>
+<summary>Expected:</summary>
+
+${result.expectedErrorLines.map(line => '    ' + line).join('\n')}
+
+</details>
+
+`;
 
         // The input file, for full details; this includes the YAML metdata
         const testInput = Deno.readTextFileSync(result.inputFilePath);
-        str += ':page_with_curl: Input file:\n<details>\n```md\n' + testInput + '\n```\n</details>';
+        str += `
+:page_with_curl: Input file:
+
+<details>
+
+${testInput.split('\n').map(line => '    ' + line).join('\n')}
+
+</details>
+
+`;
     }
 
     return str;
