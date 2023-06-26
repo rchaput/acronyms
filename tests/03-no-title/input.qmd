@@ -1,0 +1,15 @@
+---
+output:
+  acronymsdown::md_format
+acronyms:
+  loa_title: ""
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And now, in this paragraph, \acr{RL} is in short form.

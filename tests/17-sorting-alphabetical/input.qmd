@@ -1,0 +1,17 @@
+---
+output:
+  acronymsdown::md_format
+acronyms:
+  sorting: alphabetical
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+    - shortname: MORL
+      longname: Multi-Objective Reinforcement Learning
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And now, in this paragraph, \acr{MORL} is used.

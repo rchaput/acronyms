@@ -1,0 +1,22 @@
+---
+output:
+  acronymsdown::md_format
+acronyms:
+  # Warning! The following path must be either absolute or relative to the 
+  # current working directory! Here, we just assume it is also this file's 
+  # directory. It may happen that the current working directory is not this
+  # file's directory, in which case you must either:
+  # - change the current working directory
+  # - fix the following path
+  fromfile: 
+    - ./acronyms1.yml
+    - ./acronyms2.yml
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And now, in this paragraph, \acr{RL} is in short form.
+
+In this paragraph, \acr{MORL} is introduced.
