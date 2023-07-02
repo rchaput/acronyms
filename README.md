@@ -2,9 +2,11 @@
 
 > Author: rchaput <rchaput.pro@gmail.com>
 
-![GitHub License](https://img.shields.io/github/license/rchaput/acronym)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rchaput/acronyms?display_name=tag&label=last%20release&logo=github&sort=semver)
-![GitHub Release Date](https://img.shields.io/github/release-date/rchaput/acronyms?label=last%20release%20date&logo=github)
+[![GitHub License](https://img.shields.io/github/license/rchaput/acronyms)](LICENSE)
+[![GitHub Latest Release](https://img.shields.io/github/v/release/rchaput/acronyms?sort=semver&logo=github&label=Latest%20release)](https://github.com/rchaput/acronyms/releases)
+[![GitHub Release Date](https://img.shields.io/github/release-date/rchaput/acronyms?label=last%20release%20date&logo=github)](https://github.com/rchaput/acronyms/releases)
+[![Documentation Status](https://img.shields.io/github/actions/workflow/status/rchaput/acronyms/docs.yml?logo=ReadTheDocs&label=Documentation)](https://rchaput.github.io/acronyms)
+[![Automatic tests Status](https://img.shields.io/github/actions/workflow/status/rchaput/acronyms/tests.yml?logo=deno&label=Automatic%20testing)](https://github.com/rchaput/acronyms/actions/workflows/tests.yml)
 
 
 ## Description
