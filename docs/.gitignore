@@ -3,3 +3,6 @@
 
 # Build output
 _site/
+
+# The `preview.png` is automatically copied from the root folder when building.
+/preview.png
