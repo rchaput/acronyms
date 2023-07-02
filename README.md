@@ -23,6 +23,8 @@ click.
 It is based on the previous [Acronymsdown][acronymsdown] package, which
 provided the same features, but for [RMarkdown][rmarkdown] documents.
 
+![Example of acronyms document](preview.png)
+
 
 ## Features
 
