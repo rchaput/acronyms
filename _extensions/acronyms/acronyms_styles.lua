@@ -52,9 +52,9 @@ end
 
 -- First use: long name (short name)
 -- Next use: short name
-styles["long-short"] = function(acronym, insert_links)
+styles["long-short"] = function(acronym, insert_links, is_first_use)
     local text
-    if acronym:isFirstUse() then
+    if is_first_use then
         text = acronym.longname .. " (" .. acronym.shortname .. ")"
     else
         text = acronym.shortname
@@ -66,9 +66,9 @@ end
 
 -- First use: short name (long name)
 -- Next use: short name
-styles["short-long"] = function(acronym, insert_links)
+styles["short-long"] = function(acronym, insert_links, is_first_use)
     local text
-    if acronym:isFirstUse() then
+    if is_first_use then
         text = acronym.shortname .. " (" .. acronym.longname .. ")"
     else
         text = acronym.shortname
@@ -89,8 +89,8 @@ end
 -- First use: short name [^1]
 -- [^1]: short name: long name
 -- Next use: short name
-styles["short-footnote"] = function(acronym, insert_links)
-    if acronym:isFirstUse() then
+styles["short-footnote"] = function(acronym, insert_links, is_first_use)
+    if is_first_use then
         -- The inline text (before the footnote)
         local text = pandoc.Str(acronym.shortname)
         -- We create a footnote, which must contain a Block with a Link and
@@ -114,7 +114,7 @@ end
 
 -- The "public" API of this module, the function which is returned by
 -- require.
-return function(acronym, style_name, insert_links)
+return function(acronym, style_name, insert_links, is_first_use)
     -- Check that the requested strategy exists
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
@@ -125,6 +125,10 @@ return function(acronym, style_name, insert_links)
     assert(acronym ~= nil,
         "[acronyms] The acronym must not be nil!")
 
+    -- Determine if it is the first use (if left unspecified)
+    if is_first_use == nil then
+        is_first_use = acronym:isFirstUse()
+    end
     -- Call the style on this acronym
-    return styles[style_name](acronym, insert_links)
+    return styles[style_name](acronym, insert_links, is_first_use)
 end
