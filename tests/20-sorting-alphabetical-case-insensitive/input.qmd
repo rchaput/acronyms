@@ -1,0 +1,23 @@
+---
+output:
+  acronymsdown::md_format
+acronyms:
+  sorting: alphabetical-case-insensitive
+  include_unused: false
+  keys:
+    - shortname: Qt
+      longname: Quarto
+    - shortname: iQt
+      longname: inside-Quarto
+    - shortname: aA
+      longname: alphabetically
+    - shortname: H
+      longname: handle
+---
+
+# Introduction {#intro}
+
+This \acr{Qt} extension adds the ability to automatically \acr{H}
+\acr{iQt} acronyms.
+
+Would love to be able to sort \acr{aA}, independent of letter case.
