@@ -16,12 +16,16 @@
 local sorting_strategies = {}
 
 
--- Sort acronyms by their shortname, in alphabetical order.
+-- Sort acronyms by their shortname, in case-sensitive alphabetical order.
 sorting_strategies["alphabetical"] = function(acronym1, acronym2)
     -- TODO: check that this works with UTF-8 characters
     return acronym1.shortname < acronym2.shortname
 end
 
+-- Sort acronyms by their shortname, in non-case-sensitive alphabetical order.
+sorting_strategies["alphabetical_ignore_case"] = function(acronym1, acronym2)
+    return acronym1.shortname:upper() < acronym2.shortname:upper()
+end
 
 -- Sort acronyms by their definition order (first to last).
 sorting_strategies["initial"] = function(acronym1, acronym2)
