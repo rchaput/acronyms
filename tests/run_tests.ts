@@ -317,6 +317,7 @@ const testDirs = [
     '17-sorting-alphabetical',
     '18-sorting-initial',
     '19-sorting-usage',
+    '20-sorting-alphabetical-case-insensitive',
 ];
 
 
