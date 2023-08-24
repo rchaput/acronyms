@@ -234,6 +234,8 @@ Several values are available:
 - `alphabetical` (default): Acronyms are sorted by their short
 name, in an alphabetical order. That means that, for example,
 an acronym "Rmd" is sorted before "YAML" (as R < Y).
+- `alphabetical-case-insensitive`: Similar to `alphabetical`, but
+  ignoring the letter case (lowercase/uppercase).
 - `initial`: Acronyms are displayed in the exact same order they
 defined in your YAML metadata. This is somewhat equivalent
 to not sorting the list.
