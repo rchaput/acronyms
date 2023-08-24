@@ -2,3 +2,6 @@
 *.html
 *.pdf
 *_files/
+
+# macOS files
+.DS_Store
