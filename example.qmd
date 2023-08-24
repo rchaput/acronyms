@@ -26,3 +26,5 @@ acronyms:
 This paragraph mentions \acr{RL} for the first time.
 
 And now, in this paragraph, \acr{RL} is in short form.
+
+Using a shortcode: {{< acr RL >}}.
