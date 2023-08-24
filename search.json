@@ -1,17 +1,45 @@
 [
   {
-    "objectID": "articles/advanced_usage.html",
-    "href": "articles/advanced_usage.html",
-    "title": "Advanced usage",
+    "objectID": "getting_started.html",
+    "href": "getting_started.html",
+    "title": "Introduction to acronyms",
     "section": "",
-    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file.\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document.\nThe content of such files must be as following:\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nPlease note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the metadata and more specifically the acronyms.keys field is used. No other option is taken into account. The eventual document body is ignored as well.\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
+    "text": "The goal of acronyms is to provide support for acronyms to Quarto documents, in a similar way to what glossaries achieve for LaTeX.\nBasically, it allows you to define a list of acronyms, and to automatically replace acronyms inside the document. A list of all defined acronyms along with their definitions is also generated and inserted.\nUsing acronyms can be done in 3 simple steps:"
   },
   {
-    "objectID": "articles/advanced_usage.html#defining-acronyms-in-external-files",
-    "href": "articles/advanced_usage.html#defining-acronyms-in-external-files",
-    "title": "Advanced usage",
-    "section": "",
-    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file.\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document.\nThe content of such files must be as following:\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nPlease note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the metadata and more specifically the acronyms.keys field is used. No other option is taken into account. The eventual document body is ignored as well.\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
+    "objectID": "getting_started.html#installing-the-extension",
+    "href": "getting_started.html#installing-the-extension",
+    "title": "Introduction to acronyms",
+    "section": "Installing the extension",
+    "text": "Installing the extension\nThis extension can be installed through the standard Quarto add command:\nquarto add rchaput/acronyms\nThis command will download the latest version and install it locally to your _extensions folder. Please see the official Quarto documentation for details.\nMake sure that your Quarto document(s) contain the following lines in the YAML metadata, to load the acronyms extension:\n---\nfilters:\n  - acronyms\n---"
+  },
+  {
+    "objectID": "getting_started.html#defining-acronyms",
+    "href": "getting_started.html#defining-acronyms",
+    "title": "Introduction to acronyms",
+    "section": "Defining acronyms",
+    "text": "Defining acronyms\nPrior to using acronyms in the Quarto document, they must be defined in the YAML metadata.\nAn acronym is defined as:\n\na key, which is used to refer to the acronym throughout the document;\na short name, which is usually the acronym itself;\na long name, which is usually what the acronym stands for.\n\nTo make the list less verbose, if the key is not provided, acronyms uses the short name as a default key for the acronym.\nThe following example defines 2 acronyms:\n---\nacronyms:\n  keys:\n    - shortname: qmd\n      longname: Quarto documents\n    - key: yaml\n      shortname: YAML\n      longname: YAML Ain't Markup Language\n---"
+  },
+  {
+    "objectID": "getting_started.html#using-acronyms",
+    "href": "getting_started.html#using-acronyms",
+    "title": "Introduction to acronyms",
+    "section": "Using acronyms",
+    "text": "Using acronyms\nFinally, to insert an acronym into the document, simply use \\acr{&lt;KEY&gt;}, where &lt;KEY&gt; is an acronym’s key, as defined in the YAML metadata.\nThis command will be automatically replaced by acronyms. The result depends on the chosen style (see styles for more details). Most styles will also make a difference between the first use, and the next occurrences.\nBy default, acronymsdown will replace as follows:\n\nfirst use: &lt;long name&gt; (&lt;short name&gt;)\nnext uses: &lt;short name&gt;\n\nThe next lines show an example of how acronymsdown replaces acronyms in a document, assuming the acronyms Rmd and yaml have been defined, as per the previous example.\n\\acr{qmd} allow to easily write technical content. \\acr{qmd} use \\acr{yaml}\nfor the metadata.\n\nQuarto documents (qmd) allow to easily write technical content. qmd use YAML Ain’t Markup Language (YAML) for the metadata."
+  },
+  {
+    "objectID": "getting_started.html#complete-example",
+    "href": "getting_started.html#complete-example",
+    "title": "Introduction to acronyms",
+    "section": "Complete example",
+    "text": "Complete example\nA complete example showing the previous instructions as a single file can be found here."
+  },
+  {
+    "objectID": "getting_started.html#next-steps",
+    "href": "getting_started.html#next-steps",
+    "title": "Introduction to acronyms",
+    "section": "Next steps",
+    "text": "Next steps\nThe current vignette gives you the tools for a simple document, using the (sane) defaults provided by acronyms. However, most of the mechanisms are highly configurable and offer various options.\nAn advanced usage is covered in Advanced Usage, while the available options are described in Options.\nStyles lists the different styles that can be used, along with a small example to visualize each of them."
   },
   {
     "objectID": "articles/styles.html",
@@ -54,48 +82,6 @@
     "title": "Styles",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nqmd: Quarto document↩︎"
-  },
-  {
-    "objectID": "getting_started.html",
-    "href": "getting_started.html",
-    "title": "Introduction to acronyms",
-    "section": "",
-    "text": "The goal of acronyms is to provide support for acronyms to Quarto documents, in a similar way to what glossaries achieve for LaTeX.\nBasically, it allows you to define a list of acronyms, and to automatically replace acronyms inside the document. A list of all defined acronyms along with their definitions is also generated and inserted.\nUsing acronyms can be done in 3 simple steps:"
-  },
-  {
-    "objectID": "getting_started.html#installing-the-extension",
-    "href": "getting_started.html#installing-the-extension",
-    "title": "Introduction to acronyms",
-    "section": "Installing the extension",
-    "text": "Installing the extension\nThis extension can be installed through the standard Quarto add command:\nquarto add rchaput/acronyms\nThis command will download the latest version and install it locally to your _extensions folder. Please see the official Quarto documentation for details.\nMake sure that your Quarto document(s) contain the following lines in the YAML metadata, to load the acronyms extension:\n---\nfilters:\n  - acronyms\n---"
-  },
-  {
-    "objectID": "getting_started.html#defining-acronyms",
-    "href": "getting_started.html#defining-acronyms",
-    "title": "Introduction to acronyms",
-    "section": "Defining acronyms",
-    "text": "Defining acronyms\nPrior to using acronyms in the Quarto document, they must be defined in the YAML metadata.\nAn acronym is defined as:\n\na key, which is used to refer to the acronym throughout the document;\na short name, which is usually the acronym itself;\na long name, which is usually what the acronym stands for.\n\nTo make the list less verbose, if the key is not provided, acronyms uses the short name as a default key for the acronym.\nThe following example defines 2 acronyms:\n---\nacronyms:\n  keys:\n    - shortname: qmd\n      longname: Quarto documents\n    - key: yaml\n      shortname: YAML\n      longname: YAML Ain't Markup Language\n---"
-  },
-  {
-    "objectID": "getting_started.html#using-acronyms",
-    "href": "getting_started.html#using-acronyms",
-    "title": "Introduction to acronyms",
-    "section": "Using acronyms",
-    "text": "Using acronyms\nFinally, to insert an acronym into the document, simply use \\acr{&lt;KEY&gt;}, where &lt;KEY&gt; is an acronym’s key, as defined in the YAML metadata.\nThis command will be automatically replaced by acronyms. The result depends on the chosen style (see styles for more details). Most styles will also make a difference between the first use, and the next occurrences.\nBy default, acronymsdown will replace as follows:\n\nfirst use: &lt;long name&gt; (&lt;short name&gt;)\nnext uses: &lt;short name&gt;\n\nThe next lines show an example of how acronymsdown replaces acronyms in a document, assuming the acronyms Rmd and yaml have been defined, as per the previous example.\n\\acr{qmd} allow to easily write technical content. \\acr{qmd} use \\acr{yaml}\nfor the metadata.\n\nQuarto documents (qmd) allow to easily write technical content. qmd use YAML Ain’t Markup Language (YAML) for the metadata."
-  },
-  {
-    "objectID": "getting_started.html#complete-example",
-    "href": "getting_started.html#complete-example",
-    "title": "Introduction to acronyms",
-    "section": "Complete example",
-    "text": "Complete example\nA complete example showing the previous instructions as a single file can be found here."
-  },
-  {
-    "objectID": "getting_started.html#next-steps",
-    "href": "getting_started.html#next-steps",
-    "title": "Introduction to acronyms",
-    "section": "Next steps",
-    "text": "Next steps\nThe current vignette gives you the tools for a simple document, using the (sane) defaults provided by acronyms. However, most of the mechanisms are highly configurable and offer various options.\nAn advanced usage is covered in Advanced Usage, while the available options are described in Options.\nStyles lists the different styles that can be used, along with a small example to visualize each of them."
   },
   {
     "objectID": "articles/options.html",
@@ -151,7 +137,7 @@
     "href": "articles/options.html#sorting",
     "title": "Available options",
     "section": "sorting",
-    "text": "sorting\nThis option controls the sorting criterion that will be used to automatically sort the List Of Acronyms when it is generated, i.e., the order in which the acronyms are displayed in this list.\nSeveral values are available:\n\nalphabetical (default): Acronyms are sorted by their short name, in an alphabetical order. That means that, for example, an acronym “Rmd” is sorted before “YAML” (as R &lt; Y).\ninitial: Acronyms are displayed in the exact same order they defined in your YAML metadata. This is somewhat equivalent to not sorting the list.\nusage: Acronyms are sorted in the order in which they appear (i.e., are first used) in the document body. For example, \\acr{YAML} \\acr{Rmd} means that “YAML” appears before “Rmd”. Warning: when this sorting is used, the include_unused option must be set to false. Otherwise, acronyms will raise an error, since it cannot sort acronyms which are never used.\n\nExamples:\nTo sort by order of appearance in the document:\n---\nacronyms:\n  sorting: usage\n  include_unused: false\n---\nTo sort by order of definition in the YAML metadata:\n---\nacronyms:\n  sorting: initial\n---"
+    "text": "sorting\nThis option controls the sorting criterion that will be used to automatically sort the List Of Acronyms when it is generated, i.e., the order in which the acronyms are displayed in this list.\nSeveral values are available:\n\nalphabetical (default): Acronyms are sorted by their short name, in an alphabetical order. That means that, for example, an acronym “Rmd” is sorted before “YAML” (as R &lt; Y).\nalphabetical-case-insensitive: Similar to alphabetical, but ignoring the letter case (lowercase/uppercase).\ninitial: Acronyms are displayed in the exact same order they defined in your YAML metadata. This is somewhat equivalent to not sorting the list.\nusage: Acronyms are sorted in the order in which they appear (i.e., are first used) in the document body. For example, \\acr{YAML} \\acr{Rmd} means that “YAML” appears before “Rmd”. Warning: when this sorting is used, the include_unused option must be set to false. Otherwise, acronyms will raise an error, since it cannot sort acronyms which are never used.\n\nExamples:\nTo sort by order of appearance in the document:\n---\nacronyms:\n  sorting: usage\n  include_unused: false\n---\nTo sort by order of definition in the YAML metadata:\n---\nacronyms:\n  sorting: initial\n---"
   },
   {
     "objectID": "articles/options.html#non_existing",
@@ -180,5 +166,19 @@
     "title": "Available options",
     "section": "style",
     "text": "style\nacronyms supports several styles to replace acronyms, similarly to how the LaTeX package glossaries work for abbreviations.\nStyles define how to render an acronym in the document body: which fields to use, in which order, with emphasis or not, with a different style whether this is the acronym’s first use or not, etc.\nThe list of available styles, along with a visualization of each of them, is displayed in styles."
+  },
+  {
+    "objectID": "articles/advanced_usage.html",
+    "href": "articles/advanced_usage.html",
+    "title": "Advanced usage",
+    "section": "",
+    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file.\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document.\nThe content of such files must be as following:\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nPlease note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the metadata and more specifically the acronyms.keys field is used. No other option is taken into account. The eventual document body is ignored as well.\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
+  },
+  {
+    "objectID": "articles/advanced_usage.html#defining-acronyms-in-external-files",
+    "href": "articles/advanced_usage.html#defining-acronyms-in-external-files",
+    "title": "Advanced usage",
+    "section": "",
+    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file.\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document.\nThe content of such files must be as following:\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nPlease note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the metadata and more specifically the acronyms.keys field is used. No other option is taken into account. The eventual document body is ignored as well.\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
   }
 ]

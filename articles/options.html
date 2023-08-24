@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -323,6 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Several values are available:</p>
 <ul>
 <li><code>alphabetical</code> (default): Acronyms are sorted by their short name, in an alphabetical order. That means that, for example, an acronym “Rmd” is sorted before “YAML” (as R &lt; Y).</li>
+<li><code>alphabetical-case-insensitive</code>: Similar to <code>alphabetical</code>, but ignoring the letter case (lowercase/uppercase).</li>
 <li><code>initial</code>: Acronyms are displayed in the exact same order they defined in your YAML metadata. This is somewhat equivalent to not sorting the list.</li>
 <li><code>usage</code>: Acronyms are sorted in the order in which they appear (i.e., are first used) in the document body. For example, <code>\acr{YAML} \acr{Rmd}</code> means that “YAML” appears before “Rmd”. <em>Warning</em>: when this sorting is used, the <code>include_unused</code> <a href="#include_unused">option</a> <em>must</em> be set to <code>false</code>. Otherwise, <strong>acronyms</strong> will raise an error, since it cannot sort acronyms which are never used.</li>
 </ul>
