@@ -1,0 +1,44 @@
+# Docs
+
+- Maybe we can specify the version next to the title?
+  + Pre-render script to read the version from the extension's YAML config file
+  + Should we put it directly in the title or in a new field?
+    We need to change the template if we want a new field. Apply some CSS...
+
+- Maybe create an icon / logo
+
+- Perhaps build the example in the documentation website
+  + Include the source code with https://github.com/pandoc/lua-filters/tree/master/include-code-files?
+  + Difficult to build the example because we do not have access to the acronyms
+    extension.
+
+- Enlever `quarto publish`, faire un `render` puis utiliser les actions GitHub
+  pour faire un artéfact et déployer les Pages. `publish` requiert de push
+  sur la branche `gh-pages`, ce qui déclenche un autre workflow pour build et
+  déployer... (donc branche additionnelle + workflow additionnel).
+
+# Features
+
+- Shortcodes
+
+- Books
+  Maybe we can support books by adding a `loa_on_different_page` option?
+  If the option is set to `false` or `nil`, we assume that the LoA is on the same
+    page.
+  Otherwise, we must build a link to the specified page, e.g., `[loa.qmd#acr1]`.
+  Check first that such manually-built links do work!!
+
+# Bugfixes
+
+-- We want to require the Lua files which are in the same folder.
+-- However, as we are invoking this file through Quarto, we do not have control
+-- over the `LUA_PATH` environment variable, nor the current working directory.
+-- It seems to me that we need to add this current file's directory
+-- to the list of searched directories, i.e., `package.path`.
+local current_dir = debug.getinfo(1).source:match("@?(.*/)")
+package.path = package.path .. ";" .. current_dir .. "/?.lua"
+
+- FIX THE PREVIEW_STYLE !!
+
+- Fix the docs
+  "See [external_file.qmd] for a detailed explanation" in multi_document.qmd

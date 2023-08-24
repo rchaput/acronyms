@@ -1,0 +1,15 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+  style: long-short
+---
+
+# Introduction {#intro}
+
+{{< acr RL >}} should be in long form, using default style.
+
+And now, {{< acr RL >}} is in short form, using the default style again.
+
+Here, {{< acr RL style=long-long >}} uses the `long-long` style.
