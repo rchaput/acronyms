@@ -54,11 +54,12 @@ In a terminal, in the same directory as your Quarto document (or project),
 enter the following command:
 
 ```sh
-quarto add rchaput/acronyms
+quarto add rchaput/acronyms@master
 ```
 
 This will automatically install the latest version from GitHub into your
-`_extensions/` folder.
+`_extensions/` folder. (You may also specify a version tag instead of `master`;
+see the list of [releases](https://github.com/rchaput/acronyms/releases)).
 Then, in your Quarto document (or project configuration), add the following
 lines to your YAML metadata:
 
