@@ -342,6 +342,10 @@ const testDirs = [
     '18-sorting-initial',
     '19-sorting-usage',
     '20-sorting-alphabetical-case-insensitive',
+    '21-loa-unnumbered-section',
+    '22-shortcode-simple',
+    '23-shortcode-specific-style',
+    '24-shortcode-listofacronyms',
 ];
 
 
