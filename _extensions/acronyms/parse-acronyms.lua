@@ -11,15 +11,6 @@
     List.
 ]]
 
--- We want to require the Lua files which are in the same folder.
--- However, as we are invoking this file through Pandoc (and potentially
--- Quarto), we do not have control over the `LUA_PATH` environment variable,
--- nor the current working directory.
--- It seems to me that we need to add this current file's directory
--- to the list of searched directories, i.e., `package.path`.
-local current_dir = debug.getinfo(1).source:match("@?(.*/)")
-package.path = package.path .. ";" .. current_dir .. "/?.lua"
-
 -- Some helper functions
 local Helpers = require("acronyms_helpers")
 
@@ -106,6 +97,7 @@ function generateLoA()
 
     -- Create the Header (only if the title is not empty)
     local header = nil
+    local loa_extra_classes = {}
     if Options["loa_title"] ~= "" then
         local loa_classes = {"loa"}
         header = pandoc.Header(1,
