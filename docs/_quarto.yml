@@ -27,6 +27,7 @@ website:
         menu:
           - advanced/external_file.qmd
           - advanced/multi_document.qmd
+          - advanced/customized_loa_header.qmd
     right:
       - text: Source Code
         href: https://github.com/rchaput/acronyms

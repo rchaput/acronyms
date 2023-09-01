@@ -1,0 +1,83 @@
+---
+title: "Customizing the List of Acronyms title"
+description: >
+  Read how to customize the List of Acronyms title (header), including putting
+  it in an unnumbered section.
+---
+
+
+## Using an unnumbered section
+
+By default, the List Of Acronyms (loa) is generated with its own header;
+depending on your document configuration, this header may be numbered.
+
+To obtain an unnumbered section, you may add the extra class `unnumbered`
+(as per the standard Pandoc and Quarto way to create an unnumbered section)
+by using the `loa_header_classes` metadata option.
+
+For example:
+
+```md
+---
+format:
+  pdf:
+    number-sections: true
+acronyms:
+  loa_header_classes:
+    - unnumbered
+  keys:
+    - shortname: qmd
+      longname: Quarto document
+---
+
+# Introduction
+
+Using an acronym: \acr{qmd}
+```
+
+This will generate a PDF with sections `List of Acronyms` (unnumbered), and
+`1. Introduction` (numbered). Note that the List of Acronyms is, by default,
+generated at the beginning of the document, but you may customize it to put
+at the end, or even at your desired location, by using the [options].
+
+
+## Manually customizing the title
+
+You may also want to fully customize the header of the List of Acronyms; this
+can be done by disabling the automatic generation, and then writing your
+own header, for which you can leverage all Pandoc and Quarto features.
+
+To do so, simply set the [insert_loa] option to `false` to disable the
+automatic generation of the List of Acronyms, and set [loa_title] to `''` (the
+empty string) to disable the generation of the header.
+You may then write exactly what you want as a header, and use `\printacronyms`
+to generate the List of Acronyms after your header.
+
+For example, to use a level-2 header (*subsection*):
+
+```md
+---
+acronyms:
+  insert_loa: false
+  loa_title: ''
+  keys:
+    - shortname: qmd
+      longname: Quarto document
+---
+
+# Introduction
+
+Using an acronym: \acr{qmd}
+
+## List of Acronyms in a subsection
+
+\printacronyms
+
+# Another section
+
+At the end of the document
+```
+
+[options]: ../articles/options.qmd
+[loa_title]: ../articles/options.qmd#loa_title
+[insert_loa]: ../articles/options.qmd#insert_loa
