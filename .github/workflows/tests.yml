@@ -9,7 +9,18 @@ on:
 
 jobs:
   testing:
-    runs-on: ubuntu-latest
+    strategy:
+      # We want to try all combinations, even if one fails
+      fail-fast: false
+      # Run the release version of quarto (empty string) for all OS
+      matrix:
+        quarto_version: ['']
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        # Additionally, we want to run the `pre-release` version for Ubuntu
+        include:
+          - os: ubuntu-latest
+            quarto_version: pre-release
+    runs-on: ${{ matrix.os }}
     # At some point, we will probably want to setup a strategy matrix here
     # (perhaps, to test with both quarto's latest release and pre-release)
     env:
@@ -21,6 +32,8 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: ${{ matrix.quarto_version }}
 
       - name: Run tests
         run: quarto run tests/run_tests.ts
