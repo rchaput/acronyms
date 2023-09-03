@@ -84,16 +84,18 @@ function generateLoA()
 
     -- Create the Header (only if the title is not empty)
     local header = nil
-    local loa_extra_classes = {}
     if Options["loa_title"] ~= "" then
-        local loa_classes = {"loa"}
+        local extra_classes = Options["loa_header_classes"]
+        -- Create a table specifically for this LoA, and copy all "extra classes"
+        -- (from the Options) to this table. The table will also contain `"loa"`.
+        local loa_classes = table.move(extra_classes, 1, #extra_classes, 2, {"loa"})
         header = pandoc.Header(1,
-        { table.unpack(Options["loa_title"]) },
-        pandoc.Attr(Helpers.key_to_id("HEADER_LOA"), loa_classes, {})
-    )
-end
+            { table.unpack(Options["loa_title"]) },
+            pandoc.Attr(Helpers.key_to_id("HEADER_LOA"), loa_classes, {})
+        )
+    end
 
-return header, pandoc.DefinitionList(definition_list)
+    return header, pandoc.DefinitionList(definition_list)
 end
 
 

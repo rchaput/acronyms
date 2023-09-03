@@ -42,6 +42,9 @@ local Options = {
     -- replacing (rendering) an acronym.
     insert_links = true,
 
+    -- Additional classes to add to the List of Acronyms header.
+    loa_header_classes = {},
+
 }
 
 
@@ -106,6 +109,12 @@ function Options:parseOptionsFromMetadata(m)
     if options["insert_links"] ~= nil then
         -- This value should be a boolean here, we do not need to stringify it.
         self.insert_links = options["insert_links"]
+    end
+
+    if options["loa_header_classes"] ~= nil then
+        for _, v in ipairs(options["loa_header_classes"]) do
+            table.insert(self.loa_header_classes, pandoc.utils.stringify(v))
+        end
     end
 end
 
