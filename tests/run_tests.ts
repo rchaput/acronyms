@@ -9,9 +9,9 @@ import {
 } from "https://deno.land/std/fmt/colors.ts";
 // We need `ensureSymlinkSync` to create a symlink to the `_extensions` folder
 // in the root dir.
-import { ensureSymlinkSync } from "https://deno.land/std/fs/ensure_symlink.ts";
+import { ensureSymlinkSync } from "https://deno.land/std/fs/mod.ts";
 // We need `writeAllSync` to write directly to the console (avoids `\n`).
-import { writeAllSync } from "https://deno.land/std/streams/conversion.ts";
+import { writeAllSync } from "https://deno.land/std/streams/mod.ts";
 // We need path manipulations to get the `tests` folder path based on the
 // path to the current running script.
 import {
