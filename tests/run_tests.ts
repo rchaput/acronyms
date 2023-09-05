@@ -99,6 +99,10 @@ function filterStderr (stderr: string) {
     const endOfSecondBlock = stderrLines.indexOf('  ', endOfFirstBlock + 1);
     // Now, take only the lines following these blocks.
     stderrLines = stderrLines.slice(endOfSecondBlock + 1);
+    // Remove the line that states that `input.md` was created (+ the following
+    // empty line).
+    const outputCreatedLine = stderrLines.indexOf('Output created: input.md');
+    stderrLines.splice(outputCreatedLine, 2);
     stderr = stderrLines.join('\n');
     return { stderr, stderrLines };
 }
@@ -112,6 +116,9 @@ function testSingleDir (dirName: string): TestResult {
     const testsPath = getPathToTestsFolder();
     // Path to the input file path in the desired folder.
     const inputFilePath = resolve(testsPath, `${dirName}/input.qmd`);
+    // Path to output file (in the test folder, same name as input file,
+    // but with `.md` extension).
+    const outputPath = resolve(testsPath, `${dirName}/input.md`);
 
     // Create a new process and ask quarto to render the document.
     const command = new Deno.Command(
@@ -120,22 +127,28 @@ function testSingleDir (dirName: string): TestResult {
             args: [
                 'render',
                 inputFilePath,
-                // We want to compare the rendered document, we do not need it as
-                // a file; printing to stdout is perfect, as we can directly
-                // retrieve it when using `Deno.Command`.
-                '--output', '-',
-                ]
+                // Rendering to stdout does not work on Windows until Quarto 1.4,
+                // we need to output to a file instead.
+                // Using `--output filename` outputs to the current working dir
+                // (not what we want); we cannot specify a path in `--output`;
+                // using `--output-dir` does not work, because this is not a
+                // project. So we have no choice (?) but to leave Quarto create
+                // the default file, which has the same name as input, with the
+                // `.md` extension.
+                // '--output', '-',
+            ],
         }
     );
 
     // Execute the command, and get the return code (0 if success), standard
     // output (the document), and standard error (the errors or warnings log).
     const startTime = performance.now();
-    let { code, stdout, stderr } = command.outputSync();
+    let { code, stderr } = command.outputSync();
     const endTime = performance.now();
-    stdout = new TextDecoder().decode(stdout);
     stderr = new TextDecoder().decode(stderr);
 
+    // Read the output
+    let stdout = Deno.readTextFileSync(outputPath);
     // Filter the stdout and stderr because Quarto *loves* adding stuff...
     let res = filterStdout(stdout);
     stdout = res.stdout;
