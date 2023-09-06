@@ -26,14 +26,12 @@ interface TestResult {
     success: boolean;
     returnCode: number;
     inputFilePath: string;
-    actualOutput: string;
-    actualOutputLines: Array<string>;
+    originalOutput: string; // Unfiltered result
+    actualOutput: string; // Filtered result to remove Quarto details
     expectedOutput: string;
-    expectedOutputLines: Array<string>;
-    actualError: string;
-    actualErrorLines: Array<string>;
+    originalError: string; // Unfiltered error logs
+    actualError: string; // Filtered errors to remove Quarto details
     expectedError: string;
-    expectedErrorLines: Array<string>;
     executionTimeMs: number;
 }
 
@@ -79,8 +77,7 @@ function filterStdout (stdout: string) {
     // (+2 because we do not want the '---' itself, nor the next blank line).
     stdoutLines = stdoutLines.slice(metadataEndIndex + 2);
     stdout = stdoutLines.join('\n');
-
-    return { stdout, stdoutLines };
+    return stdout;
 }
 
 
@@ -104,7 +101,7 @@ function filterStderr (stderr: string) {
     const outputCreatedLine = stderrLines.indexOf('Output created: input.md');
     stderrLines.splice(outputCreatedLine, 2);
     stderr = stderrLines.join('\n');
-    return { stderr, stderrLines };
+    return stderr;
 }
 
 
@@ -150,12 +147,8 @@ function testSingleDir (dirName: string): TestResult {
     // Read the output
     let stdout = Deno.readTextFileSync(outputPath);
     // Filter the stdout and stderr because Quarto *loves* adding stuff...
-    let res = filterStdout(stdout);
-    stdout = res.stdout;
-    const stdoutLines = res.stdoutLines;
-    res = filterStderr(stderr);
-    stderr = res.stderr;
-    const stderrLines = res.stderrLines;
+    const filteredStdout = filterStdout(stdout);
+    const filteredStderr = filterStderr(stderr);
 
     // The expected output document
     const expectedOutputPath = `tests/${dirName}/expected.md`;
@@ -166,22 +159,20 @@ function testSingleDir (dirName: string): TestResult {
     const expectedError = readFileOrDefault(expectedErrorPath, '');
 
     const success = (code == 0) &&
-        (stdout == expectedOutput) &&
-        (stderr == expectedError);
+        (filteredStdout == expectedOutput) &&
+        (filteredStderr == expectedError);
 
     return {
         'name': dirName,
         'success': success,
         'returnCode': code,
         'inputFilePath': inputFilePath,
-        'actualOutput': stdout,
-        'actualOutputLines': stdoutLines,
+        'originalOutput': stdout,
+        'actualOutput': filteredStdout,
         'expectedOutput': expectedOutput,
-        'expectedOutputLines': expectedOutput.split('\n'),
-        'actualError': stderr,
-        'actualErrorLines': stderrLines,
+        'originalError': stderr,
+        'actualError': filteredStderr,
         'expectedError': expectedError,
-        'expectedErrorLines': expectedError.split('\n'),
         'executionTimeMs': endTime - startTime,
     };
 }
@@ -256,14 +247,14 @@ function resultToStrMd (results: Array<TestResult>): string {
 <details>
 <summary>Actual:</summary>
 
-${result.actualOutputLines.map(line => '    ' + line).join('\n')}
+${result.actualOutput.split('\n').map(line => '    ' + line).join('\n')}
 
 </details>
 
 <details>
 <summary>Expected:</summary>
 
-${result.expectedOutputLines.map(line => '    ' + line).join('\n')}
+${result.expectedOutput.split('\n').map(line => '    ' + line).join('\n')}
 
 </details>
 
@@ -279,14 +270,14 @@ ${result.expectedOutputLines.map(line => '    ' + line).join('\n')}
 <details>
 <summary>Actual:</summary>
 
-${result.actualErrorLines.map(line => '    ' + line).join('\n')}
+${result.actualError.split('\n').map(line => '    ' + line).join('\n')}
 
 </details>
 
 <details>
 <summary>Expected:</summary>
 
-${result.expectedErrorLines.map(line => '    ' + line).join('\n')}
+${result.expectedError.split('\n').map(line => '    ' + line).join('\n')}
 
 </details>
 
@@ -295,11 +286,27 @@ ${result.expectedErrorLines.map(line => '    ' + line).join('\n')}
         // The input file, for full details; this includes the YAML metdata
         const testInput = Deno.readTextFileSync(result.inputFilePath);
         str += `
-:page_with_curl: Input file:
+
+:page_with_curl: Details:
 
 <details>
+<summary>Input file:</summary>
 
 ${testInput.split('\n').map(line => '    ' + line).join('\n')}
+
+</details>
+
+<details>
+<summary>Original stdout</summary>
+
+${result.originalOutput.split('\n').map(line => '    ' + line).join('\n')}
+
+</details>
+
+<details>
+<summary>Original stderr</summary>
+
+${result.originalError.split('\n').map(line => '    ' + line).join('\n')}
 
 </details>
 
