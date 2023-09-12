@@ -35,6 +35,10 @@ interface TestResult {
     executionTimeMs: number;
 }
 
+// We need this to handle CRLF / LF line separators (thank you Windows...).
+const eolRegex = /\r?\n/;
+const eol = Deno.build.os === "windows" ? "\r\n" : "\n";
+
 
 /*
  * This function returns the path to the `tests` folder.
@@ -69,14 +73,14 @@ function filterStdout (stdout: string) {
     // Unfortunately, Quarto renders the YAML metadata inside the md document
     // (when using the `md` format), contrary to "pure" Pandoc.
     // We need to remove these lines to compare the output to the expected one.
-    let stdoutLines = stdout.split('\n');
+    let stdoutLines = stdout.split(eolRegex);
     const metadataStartIndex = stdoutLines.indexOf('---');
     // We want to find the 2nd `'---'` line, i.e., the one after the first!
     const metadataEndIndex = stdoutLines.indexOf('---', metadataStartIndex + 1);
     // We want to take only lines after the last `---` + 2
     // (+2 because we do not want the '---' itself, nor the next blank line).
     stdoutLines = stdoutLines.slice(metadataEndIndex + 2);
-    stdout = stdoutLines.join('\n');
+    stdout = stdoutLines.join(eol);
     return stdout;
 }
 
@@ -91,7 +95,7 @@ function filterStderr (stderr: string) {
     // Using `--quiet` removes *all* output on stderr, so we cannot use it.
     // We need to filter out the first lines, which consist of 2 "blocks",
     // indented by 2 spaces (`  `). They end by a line with only these spaces.
-    let stderrLines = stderr.split('\n');
+    let stderrLines = stderr.split(eolRegex);
     const endOfFirstBlock = stderrLines.indexOf('  ');
     const endOfSecondBlock = stderrLines.indexOf('  ', endOfFirstBlock + 1);
     // Now, take only the lines following these blocks.
@@ -100,7 +104,7 @@ function filterStderr (stderr: string) {
     // empty line).
     const outputCreatedLine = stderrLines.indexOf('Output created: input.md');
     stderrLines.splice(outputCreatedLine, 2);
-    stderr = stderrLines.join('\n');
+    stderr = stderrLines.join(eol);
     return stderr;
 }
 
