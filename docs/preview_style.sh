@@ -12,7 +12,7 @@
 # (depending on whether we run this script manually or from a Quarto document).
 # Thus, we need to obtain the path to the filter, relatively to this script.
 docs_dir=$(dirname "$0")
-path_to_filter="${docs_dir}/../_extensions/acronyms/parse-acronyms.lua"
+path_to_filter="${docs_dir}/../_extensions/acronyms/"
 
 
 # We require the `style` parameter (do not care about other arguments...)
@@ -21,7 +21,7 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 # If the Lua filter cannot be found, we have a problem
-if [ ! -f "$path_to_filter" ]; then
+if [ ! -d "$path_to_filter" ]; then
   echo >&2 "Error in $0: filter $path_to_filter ($(realpath "$path_to_filter")) does not exist!"
   exit 2
 fi
@@ -32,7 +32,16 @@ if ! type pandoc >/dev/null; then
 fi
 
 
-pandoc -t markdown -f markdown --lua-filter="${path_to_filter}" <<EOF
+# Remember the current directory so we can cd back to it after.
+# We need to cd to the extensions dir, so that the requires (using, e.g.,
+# `require('acronyms_helpers')`) work.
+# Quarto automatically sets the path, but we cannot use Quarto here (too
+# complicated to point to the correct folder, render a temporary file, etc.).
+previous_dir=$(pwd)
+cd "${path_to_filter}"
+
+
+pandoc -t markdown -f markdown --lua-filter="parse-acronyms.lua" <<EOF
 ---
 acronyms:
   keys:
@@ -47,3 +56,4 @@ First use: \acr{qmd}
 Next uses: \acr{qmd}
 EOF
 
+cd "${previous_dir}"
