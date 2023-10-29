@@ -12,9 +12,9 @@ jobs:
     strategy:
       # We want to try all combinations, even if one fails
       fail-fast: false
-      # Run the release version of quarto (empty string) for all OS
+      # Run the release version of quarto for all OS
       matrix:
-        quarto_version: ['']
+        quarto_version: [release]
         os: [ubuntu-latest, windows-latest, macos-latest]
         # Additionally, we want to run the `pre-release` version for Ubuntu
         include:
