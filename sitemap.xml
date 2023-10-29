@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rchaput.github.io/acronyms/getting_started.html</loc>
-    <lastmod>2023-09-03T17:23:02.643Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rchaput.github.io/acronyms/articles/advanced_usage.html</loc>
-    <lastmod>2023-09-03T17:23:00.975Z</lastmod>
-  </url>
-  <url>
     <loc>https://rchaput.github.io/acronyms/articles/options.html</loc>
-    <lastmod>2023-09-03T17:22:58.519Z</lastmod>
+    <lastmod>2023-10-29T15:01:33.154Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/articles/styles.html</loc>
-    <lastmod>2023-09-03T17:23:00.523Z</lastmod>
+    <lastmod>2023-10-29T15:01:31.846Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/index.html</loc>
-    <lastmod>2023-09-03T17:23:01.855Z</lastmod>
+    <lastmod>2023-10-29T15:01:29.273Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/getting_started.html</loc>
+    <lastmod>2023-10-29T15:01:30.289Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/articles/advanced_usage.html</loc>
+    <lastmod>2023-10-29T15:01:32.226Z</lastmod>
   </url>
 </urlset>
