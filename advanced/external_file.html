@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Learn additional tips on how to best use acronyms.">
+<meta name="description" content="Learn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).">
 
-<title>acronyms - Advanced usage</title>
+<title>acronyms - Defining acronyms in external file(s)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,10 +132,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../articles/styles.html" rel="" target="">
  <span class="dropdown-text">Styles</span></a>
   </li>  
-        <li><hr class="dropdown-divider"></li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-advanced-usage" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Advanced usage</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-advanced-usage">    
         <li>
-    <a class="dropdown-item" href="../articles/advanced_usage.html" rel="" target="">
- <span class="dropdown-text">Advanced usage</span></a>
+    <a class="dropdown-item" href="../advanced/external_file.html" rel="" target="">
+ <span class="dropdown-text">Defining acronyms in external file(s)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../advanced/multi_document.html" rel="" target="">
+ <span class="dropdown-text">Using acronyms in a multi-document project</span></a>
   </li>  
     </ul>
   </li>
@@ -162,21 +172,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#defining-acronyms-in-external-files" id="toc-defining-acronyms-in-external-files" class="nav-link active" data-scroll-target="#defining-acronyms-in-external-files">Defining acronyms in external file(s)</a></li>
+  <li><a href="#referring-to-an-external-definition-file-in-a-quarto-document" id="toc-referring-to-an-external-definition-file-in-a-quarto-document" class="nav-link active" data-scroll-target="#referring-to-an-external-definition-file-in-a-quarto-document">Referring to an external definition file in a Quarto document</a></li>
+  <li><a href="#content-of-the-definition-files" id="toc-content-of-the-definition-files" class="nav-link" data-scroll-target="#content-of-the-definition-files">Content of the definition file(s)</a></li>
+  <li><a href="#loading-order-for-acronyms" id="toc-loading-order-for-acronyms" class="nav-link" data-scroll-target="#loading-order-for-acronyms">Loading order for acronyms</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rchaput/acronyms/edit/master/docs/articles/advanced_usage.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/external_file.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Advanced usage</h1>
+<h1 class="title">Defining acronyms in external file(s)</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Learn additional tips on how to best use <strong>acronyms</strong>.</p>
+    <p>Learn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).</p>
   </div>
 </div>
 
@@ -191,9 +203,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="defining-acronyms-in-external-files" class="level2">
-<h2 class="anchored" data-anchor-id="defining-acronyms-in-external-files">Defining acronyms in external file(s)</h2>
 <p>Whereas defining acronyms directly in the YAML metadata is the most straightforward way, <strong>acronyms</strong> also support reading definitions from one (or several) pseudo-YAML file.</p>
+<section id="referring-to-an-external-definition-file-in-a-quarto-document" class="level2">
+<h2 class="anchored" data-anchor-id="referring-to-an-external-definition-file-in-a-quarto-document">Referring to an external definition file in a Quarto document</h2>
 <p>To do so, simply specify the file path in the <code>fromfile</code> attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the <code>.bib</code> files for LaTeX citations.</p>
 <p>This attribute may be either a single path, for example:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -209,6 +221,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.</p>
 <p>In our examples, we thus assume that the <code>acronyms.yml</code> (respectively, <code>acronyms1.yml</code> and <code>acronyms2.yml</code>) live in the same folder as the qmd document.</p>
+</section>
+<section id="content-of-the-definition-files" class="level2">
+<h2 class="anchored" data-anchor-id="content-of-the-definition-files">Content of the definition file(s)</h2>
 <p>The content of such files must be as following:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
@@ -219,14 +234,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Please note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the <code>---</code> fences.</p>
 <p>However, only the metadata and more specifically the <code>acronyms.keys</code> field is used. No other option is taken into account. The eventual document body is ignored as well.</p>
+</section>
+<section id="loading-order-for-acronyms" class="level2">
+<h2 class="anchored" data-anchor-id="loading-order-for-acronyms">Loading order for acronyms</h2>
 <p>The acronyms are read in the following order:</p>
 <ol type="1">
 <li>Acronyms in the <code>acronyms.key</code> field of the source qmd document, in sequential order.</li>
-<li>Acronyms in each of the <code>acronyms.fromfile</code> files.</li>
-</ol>
+<li>Acronyms in each of the <code>acronyms.fromfile</code> files.
 <ol type="a">
 <li>Files are read in sequential order.</li>
 <li>Acronyms inside each file are also read in sequential order.</li>
+</ol></li>
 </ol>
 <p>This order is meaningful in 2 cases:</p>
 <ul>
