@@ -1,14 +1,17 @@
 ---
-title: "Advanced usage"
+title: "Defining acronyms in external file(s)"
 description: >
-  Learn additional tips on how to best use **acronyms**.
+  Learn how to define acronyms in one or several external files, which can
+  be reused throughout documents or projects (rather than directly in the
+  YAML metadata).
 ---
 
-## Defining acronyms in external file(s)
 
 Whereas defining acronyms directly in the YAML metadata is the most
 straightforward way, **acronyms** also support reading definitions
 from one (or several) pseudo-YAML file.
+
+## Referring to an external definition file in a Quarto document
 
 To do so, simply specify the file path in the `fromfile` attribute of
 the YAML metadata.
@@ -45,6 +48,8 @@ In our examples, we thus assume that the `acronyms.yml` (respectively,
 `acronyms1.yml` and `acronyms2.yml`) live in the same folder as the qmd
 document.
 
+## Content of the definition file(s)
+
 The content of such files must be as following:
 
 ```yaml
@@ -65,17 +70,19 @@ However, only the metadata and more specifically the `acronyms.keys` field
 is used. No other option is taken into account. The eventual document
 body is ignored as well.
 
+## Loading order for acronyms
+
 The acronyms are read in the following order:
 
 1. Acronyms in the `acronyms.key` field of the source qmd document, in
    sequential order.
 2. Acronyms in each of the `acronyms.fromfile` files.
-  a. Files are read in sequential order.
-  b. Acronyms inside each file are also read in sequential order.
+    a. Files are read in sequential order.
+    b. Acronyms inside each file are also read in sequential order.
 
 This order is meaningful in 2 cases:
 
 - When a duplicate key is found, the behaviour (`keep` or `replace`)
-depends on the order in which acronyms are read.
+  depends on the order in which acronyms are read.
 - When the `initial` sorting is used, the List Of Acronyms displays
-acronyms in the same order as they were defined.
+  acronyms in the same order as they were defined.

@@ -1,0 +1,245 @@
+---
+title: "Using acronyms in a multi-document project"
+description: >
+  Learn how to use acronyms in several documents, for example a website or
+  book; how to control where the List of Acronyms appear, which acronyms
+  appear on which pages, etc.
+---
+
+
+Because Quarto renders each document separately, the **acronyms** extension
+does not know that your project is a multi-document one. This means that, by
+default, the rendering might not correspond to what you expect for a book
+or a website.
+
+This vignette describes how to configure **acronyms** for several use-cases,
+such as using a single List of Acronyms, or one for each chapter, etc.
+
+*Note:* Future versions of Quarto might offer new mechanisms that **acronyms**
+will be able to leverage, bringing new features to multi-document projects.
+Until then, some functionalities might not work, or require additional
+(manual) setup.
+
+## Using a single List of Acronyms
+
+The "classic" setup for a book or website is to have a single List of Acronyms
+(LoA), and have various acronyms usages throughout the documents.
+
+To achieve this, the LoA must be configured on the desired page (for example,
+the index page), and **acronyms** must be configured on each page.
+The following code blocks show the required configuration, for each of the
+project files:
+
+- `_quarto.yml`: defining the section order (to illustrate), and loading the
+  **acronyms** filter (to avoid having to add it on each page).
+
+```yaml
+project:
+  type: book
+book:
+  title: "Test book"
+  chapters:
+    - index.qmd
+    - chap1.qmd
+    - chap2.qmd
+filters:
+  - acronyms
+acronyms:
+  fromfile: acronyms.yml
+```
+
+The **acronyms** filter may also be loaded individually on desired pages, if
+it should not be enabled for some of them.
+
+- `acronyms.yml`: defining the various acronyms in an external file, to
+  simplify re-usability.
+
+```yaml
+---
+acronyms:
+  keys:
+    - shortname: acr1
+      longname: first acronym
+    - shortname: acr2
+      longname: second acronym
+---
+```
+
+See [external_file.qmd] for a detailed explanation; this file is not required
+(acronyms could be defined in each document), but greatly simplifies the setup
+and avoids potential errors.
+
+- `index.qmd`: defining the LoA in the first page; it must be set to include
+  all acronyms, even those unused, since the acronyms usages will appear on
+  other pages.
+
+```markdown
+---
+acronyms:
+  include_unused: true
+  insert_loa: false
+  insert_links: false
+---
+
+\printacronyms
+
+Home page; place here any title, or introduction...
+```
+
+The `\printacronyms` paragraph must be placed where you want the List of
+Acronyms to be shown; in this example, we put it at the beginning of the
+index page, but it could be elsewhere (after an introduction, in the last
+page, ...).
+
+*Missing feature:* the `insert_links` option must be set to `false`, because
+**acronyms** will not be able to create links between different documents.
+This could change in future versions of Quarto.
+
+- `chap1.qmd`: the first chapter; you may name this file as you want, we
+  simply reuse the name defined in `_quarto.yml`. In this file, we must setup
+  **acronyms** to *not* create a LoA.
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  insert_links: false
+---
+
+# 1st chapter
+
+This paragraph mentions \acr{acr1} for the first time.
+
+And now, in this paragraph, \acr{acr1} is in short form.
+```
+
+Note that, as mentioned previously, links are unfortunately disabled.
+If the option `insert_links` is set to `true` on this page, the acronyms will
+be provided with a link, but the link itself will not work, because the LoA
+will not be found on the same page.
+
+- `chap2.qmd`: the second chapter, just like the previous file. Again, the
+  name can be different.
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  insert_links: false
+---
+
+# 2nd chapter
+
+This paragraph mentions \acr{acr2} for the first time.
+
+And now, in this paragraph, \acr{acr2} is in short form.
+
+However, \acr{acr1} should be again in long form.
+```
+
+*Missing feature:* because a completely new instance of **acronyms** is launched
+by Quarto for each separate page, it "forgets" which acronyms have already
+been used. As described in this 2nd file, acronym *acr1* will be printed in the
+long form again, even though it was already shown in the previous chapter.
+
+
+## Using separate List of Acronyms in each page
+
+When creating a separate List of Acronyms (LoA) in each page, it should be
+configured to be printed at an appropriate location, and with an appropriate
+header.
+
+By default, the LoA would appear as the first element, which would make it the
+chapter title in a website. Instead, we want the chapter title to be the first
+element; ideally, the LoA should also be a 2nd level heading (a section rather
+than a chapter). In this example, we will also make it an unnumbered header.
+
+- `_quarto.yml`: just like the previous example, we simply load configure the
+  book, and load the **acronyms** filter.
+
+```yaml
+project:
+  type: book
+book:
+  title: "Test book"
+  chapters:
+    - index.qmd
+    - chap1.qmd
+    - chap2.qmd
+filters:
+  - acronyms
+acronyms:
+  fromfile: acronyms.yml
+```
+
+- `acronyms.yml`: defining the various acronyms in an external file, to
+simplify re-usability.
+
+```yaml
+---
+acronyms:
+  keys:
+    - shortname: acr1
+      longname: first acronym
+    - shortname: acr2
+      longname: second acronym
+---
+```
+
+- `index.qmd`: if no acronyms are used on this page, we must disable the
+  LoA creation.
+ 
+```markdown
+---
+acronyms:
+  insert_loa: false
+---
+
+Home page; place here any title, or introduction...
+```
+
+- `chap1.qmd`: the first chapter; you may name this file as you want. In this
+  file, we put the LoA at the beginning of the document, just below the chapter
+  title. The LoA title must be set to `""` so that we can configure it
+  manually.
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  loa_title: ""
+---
+
+# 1st chapter
+
+## List of Acronyms {.unnumbered}
+
+\printacronyms
+
+This paragraph mentions \acr{acr1} for the first time.
+
+And now, in this paragraph, \acr{acr1} is in short form.
+```
+
+- `chap2.qmd`: the second chapter, just like the previous file. Again, the
+  name can be different. In this file, we put the LoA at the end.
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  loa_title: ""
+---
+
+# 2nd chapter
+
+This paragraph mentions \acr{acr2} for the first time.
+
+And now, in this paragraph, \acr{acr2} is in short form.
+
+However, \acr{acr1} should be again in long form.
+
+## List of Acronyms {.unnumbered}
+
+\printacronyms
+```

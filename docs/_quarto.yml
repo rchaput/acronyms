@@ -23,8 +23,10 @@ website:
         menu:
           - articles/options.qmd
           - articles/styles.qmd
-          - text: -------
-          - articles/advanced_usage.qmd
+      - text: Advanced usage
+        menu:
+          - advanced/external_file.qmd
+          - advanced/multi_document.qmd
     right:
       - text: Source Code
         href: https://github.com/rchaput/acronyms
