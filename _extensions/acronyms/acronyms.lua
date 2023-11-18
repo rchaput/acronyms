@@ -99,13 +99,15 @@ end
 
 -- Add a new acronym to the table. Also handles duplicates.
 function Acronyms:add(acronym, on_duplicate)
+    quarto.log.debug("[acronyms] Trying to add a new acronym...", acronym)
     assert(acronym.key ~= nil,
-        "The acronym key should not be nil!")
+        "[acronyms] The acronym key should not be nil in Acronyms:add!")
     assert(on_duplicate ~= nil,
-        "on_duplicate should not be nil!")
+        "[acronyms] The parameter on_duplicate should not be nil in Acronyms:add!")
 
     -- Handling duplicate keys
     if self:contains(acronym.key) then
+        quarto.log.debug("[acronyms] Found an acronym with a duplicate key: ", acronym.key)
         if on_duplicate == "replace" then
             -- Do nothing, let us replace the previous acronym.
         elseif on_duplicate == "keep" then
@@ -113,13 +115,15 @@ function Acronyms:add(acronym, on_duplicate)
             return
         elseif on_duplicate == "warn" then
             -- Warn, and do not replace.
-            warn("Duplicate key: ", acronym.key)
+            quarto.log.warning("[acronyms] Found an acronym with a duplicate key: ", acronym.key)
             return
         elseif on_duplicate == "error" then
             -- Stop execution.
-            error("Duplicate key: " .. acronym.key)
+            quarto.log.error("[acronyms] Found an acronym with a duplicate key: ", acronym.key)
+            assert(false)
         else
-            error("Unrecognized option on_duplicate = " .. on_duplicate)
+            quarto.log.error("[acronyms] Unrecognized option `on_duplicate`=", tostring(on_duplicate), " in Acronyms:add.")
+            assert(false)
         end
     end
 
@@ -131,13 +135,15 @@ end
 
 -- Populate the Acronyms database from a YAML metadata
 function Acronyms:parseFromMetadata(metadata, on_duplicate)
+    quarto.log.debug("[acronyms] Parsing acronyms from metadata...", metadata.acronyms)
     -- We expect the acronyms to be in the `metadata.acronyms.keys` field.
     if not (metadata and metadata.acronyms and metadata.acronyms.keys) then
         return
     end
     -- This field should be a Pandoc "MetaList" (so we can iter over it).
     if not Helpers.isMetaList(metadata.acronyms.keys) then
-        error("The acronyms.keys should be a list!")
+        quarto.log.error("[acronyms] The `acronyms.keys` metadata should be a list!")
+        assert(false)
     end
 
     -- Iterate over the defined acronyms. We use `ipairs` since we want to
@@ -161,13 +167,14 @@ end
 -- Populate the Acronyms database from a YAML file
 -- Inspired from https://github.com/dsanson/pandoc-abbreviations.lua/
 function Acronyms:parseFromYamlFile(filepath, on_duplicate)
+    quarto.log.debug("[acronyms] Trying to parse acronyms from file: ", filepath)
     assert(filepath ~= nil,
-        "filepath must not be nil!")
+        "[acronyms] filepath must not be nil when parsing from external file!")
 
     -- First, read the file's content.
     local file = io.open(filepath, "r")
     if file == nil then
-        warn("File ", filepath, " could not be read! (does not exist?)")
+        quarto.log.warning("[acronyms] File ", filepath, " could not be read! (does not exist?)")
         return
     end
     local content = file:read("*a")

@@ -49,6 +49,7 @@ local Options = {
 Parse the options from the Metadata (i.e., the YAML fields).
 --]]
 function Options:parseOptionsFromMetadata(m)
+    quarto.log.debug("[acronyms] Parsing options from metadata...", m.acronyms)
     -- The options that we are interested in are all grouped under `acronyms`.
     -- If it does not exist, use an empty table.
     options = m.acronyms or {}
