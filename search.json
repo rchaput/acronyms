@@ -165,35 +165,28 @@
     "href": "articles/styles.html#long-short",
     "title": "Styles",
     "section": "long-short",
-    "text": "long-short\nFirst use: Quarto document (qmd)\nNext uses: qmd"
+    "text": "long-short\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "articles/styles.html#short-long",
     "href": "articles/styles.html#short-long",
     "title": "Styles",
     "section": "short-long",
-    "text": "short-long\nFirst use: qmd (Quarto document)\nNext uses: qmd"
+    "text": "short-long\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "articles/styles.html#long-long",
     "href": "articles/styles.html#long-long",
     "title": "Styles",
     "section": "long-long",
-    "text": "long-long\nFirst use: Quarto document\nNext uses: Quarto document"
+    "text": "long-long\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "articles/styles.html#short-footnote",
     "href": "articles/styles.html#short-footnote",
     "title": "Styles",
     "section": "short-footnote",
-    "text": "short-footnote\nFirst use: qmd1\nNext uses: qmd"
-  },
-  {
-    "objectID": "articles/styles.html#footnotes",
-    "href": "articles/styles.html#footnotes",
-    "title": "Styles",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nqmd: Quarto document↩︎"
+    "text": "short-footnote\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "index.html",
