@@ -62,4 +62,17 @@ function Helpers.key_to_link(key)
 end
 
 
+-- Helper to print a Pandoc Metadata.
+-- From a metadata (e.g., a YAML map), it returns a table-like string:
+-- `{ key1: value1 ; key2: value2 ; ... }`.
+function Helpers.metadata_to_str(metadata)
+    -- We need to reformat a bit the table
+    local t = {}
+    for k, v in pairs(metadata) do
+        table.insert(t, k .. ": " .. pandoc.utils.stringify(v))
+    end
+    return "{ " .. table.concat(t, " ; ") .. " }"
+end
+
+
 return Helpers

@@ -25,16 +25,42 @@ Acronym = {
 }
 
 
+-- Helper method to generate a precise error message describing the user the
+-- problem when creating an acronym (e.g., if the shortname is missing).
+local function raiseAcronymCreationError(object)
+    local msg = lunacolors.red("Error when creating an acronym:\n")
+    msg = msg .. "! Both `shortname`` and `longname` must be specified:\n"
+    if object.shortname == nil then
+        msg = msg .. "x `shortname` was nil\n"
+    end
+    if object.longname == nil then
+        msg = msg .. "x `longname` was nil\n"
+    end
+    local unexpected_keys = {}
+    for k, _ in pairs(object.original_metadata) do
+        if k ~= "shortname" and k ~= "longname" and k ~= "key" then
+            table.insert(unexpected_keys, k)
+        end
+    end
+    msg = msg .. "i Found unexpected keys: " .. table.concat(unexpected_keys, ",") .. ".\n"
+    -- This str here represents the original metadata, not the formatted
+    -- Acronym (which could be obtained with `tostring(object)`).
+    local acronym_str = Helpers.metadata_to_str(object.original_metadata)
+    msg = msg .. "i The acronym was defined as: " .. acronym_str .. "\n"
+    quarto.log.error("[acronyms]", msg, "\n")
+    assert(false)
+end
+
+
 -- Create a new Acronym
 function Acronym:new(object)
     setmetatable(object, self)
     self.__index = self
 
     -- Check that important attributes are non-nil
-    assert(object.shortname ~= nil,
-        "An Acronym shortname should not be nil!")
-    assert(object.longname ~= nil,
-        "An Acronym longname should not be nil!")
+    if object.shortname == nil or object.longname == nil then
+        raiseAcronymCreationError(object)
+    end
 
     -- If the key is not set, we want to use the shortname instead.
     -- (Most of the time, the key is the shortname in lower case anyway...)
@@ -158,6 +184,7 @@ function Acronyms:parseFromMetadata(metadata, on_duplicate)
             key = key,
             shortname = shortname,
             longname = longname,
+            original_metadata = v,
         }
         Acronyms:add(acronym, on_duplicate)
     end
