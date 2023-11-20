@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rchaput.github.io/acronyms/advanced/external_file.html</loc>
-    <lastmod>2023-11-18T17:08:43.093Z</lastmod>
-  </url>
-  <url>
     <loc>https://rchaput.github.io/acronyms/getting_started.html</loc>
-    <lastmod>2023-11-18T17:08:42.369Z</lastmod>
+    <lastmod>2023-11-20T22:20:00.217Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/articles/options.html</loc>
-    <lastmod>2023-11-18T17:08:41.305Z</lastmod>
+    <lastmod>2023-11-20T22:19:59.149Z</lastmod>
   </url>
   <url>
-    <loc>https://rchaput.github.io/acronyms/articles/styles.html</loc>
-    <lastmod>2023-11-18T17:08:40.337Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rchaput.github.io/acronyms/index.html</loc>
-    <lastmod>2023-11-18T17:08:41.853Z</lastmod>
+    <loc>https://rchaput.github.io/acronyms/advanced/external_file.html</loc>
+    <lastmod>2023-11-20T22:19:57.385Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/advanced/multi_document.html</loc>
-    <lastmod>2023-11-18T17:08:42.793Z</lastmod>
+    <lastmod>2023-11-20T22:19:56.693Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/advanced/customized_loa_header.html</loc>
+    <lastmod>2023-11-20T22:19:55.965Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/advanced/index.html</loc>
+    <lastmod>2023-11-20T22:19:57.073Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/articles/styles.html</loc>
+    <lastmod>2023-11-20T22:19:58.461Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/index.html</loc>
+    <lastmod>2023-11-20T22:19:59.709Z</lastmod>
   </url>
 </urlset>

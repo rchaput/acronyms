@@ -1,33 +1,5 @@
 [
   {
-    "objectID": "advanced/external_file.html",
-    "href": "advanced/external_file.html",
-    "title": "Defining acronyms in external file(s)",
-    "section": "",
-    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file."
-  },
-  {
-    "objectID": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
-    "href": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
-    "title": "Defining acronyms in external file(s)",
-    "section": "Referring to an external definition file in a Quarto document",
-    "text": "Referring to an external definition file in a Quarto document\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document."
-  },
-  {
-    "objectID": "advanced/external_file.html#content-of-the-definition-files",
-    "href": "advanced/external_file.html#content-of-the-definition-files",
-    "title": "Defining acronyms in external file(s)",
-    "section": "Content of the definition file(s)",
-    "text": "Content of the definition file(s)\nThe content of such files must be as following:\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nPlease note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the metadata and more specifically the acronyms.keys field is used. No other option is taken into account. The eventual document body is ignored as well."
-  },
-  {
-    "objectID": "advanced/external_file.html#loading-order-for-acronyms",
-    "href": "advanced/external_file.html#loading-order-for-acronyms",
-    "title": "Defining acronyms in external file(s)",
-    "section": "Loading order for acronyms",
-    "text": "Loading order for acronyms\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
-  },
-  {
     "objectID": "getting_started.html",
     "href": "getting_started.html",
     "title": "Introduction to acronyms",
@@ -67,7 +39,7 @@
     "href": "getting_started.html#next-steps",
     "title": "Introduction to acronyms",
     "section": "Next steps",
-    "text": "Next steps\nThe current vignette gives you the tools for a simple document, using the (sane) defaults provided by acronyms. However, most of the mechanisms are highly configurable and offer various options.\nAn advanced usage is covered in Advanced Usage, while the available options are described in Options.\nStyles lists the different styles that can be used, along with a small example to visualize each of them."
+    "text": "Next steps\nThe current vignette gives you the tools for a simple document, using the (sane) defaults provided by acronyms. However, most of the mechanisms are highly configurable and offer various options.\nAvailable options are described in Options, and several tutorials for advanced usages are listed in Advanced usage.\nStyles lists the different styles that can be used, along with a small example to visualize each of them."
   },
   {
     "objectID": "articles/options.html",
@@ -81,7 +53,7 @@
     "href": "articles/options.html#overview",
     "title": "Available options",
     "section": "Overview",
-    "text": "Overview\nThe following example gives an overview of available options, along with their default values.\n---\nacronyms:\n  loa_title: \"List of Acronyms\"\n  include_unused: true\n  insert_loa: \"beginning\"\n  insert_links: true\n  id_prefix: \"acronyms_\"\n  sorting: \"alphabetical\"\n  non_existing: \"key\"\n  style: \"long-short\"\n  fromfile:\n    - ./acronyms.yml\n---"
+    "text": "Overview\nThe following example gives an overview of available options, along with their default values.\n---\nacronyms:\n  loa_title: \"List of Acronyms\"\n  loa_header_classes: []\n  include_unused: true\n  insert_loa: \"beginning\"\n  insert_links: true\n  id_prefix: \"acronyms_\"\n  sorting: \"alphabetical\"\n  non_existing: \"key\"\n  style: \"long-short\"\n  fromfile:\n    - ./acronyms.yml\n---"
   },
   {
     "objectID": "articles/options.html#loa_title",
@@ -89,6 +61,13 @@
     "title": "Available options",
     "section": "loa_title",
     "text": "loa_title\nacronyms can generate a List Of Acronyms (LoA) automatically and insert it into your document. This option controls the title (header) that precedes this list. By default, it is set to List of Acronyms.\nYou may override it to change this title.\nAnother available behaviour is to disable the creation of this header, by setting the value to \"\" (the empty string). This is particularly useful if you want to control exactly where and how to insert the List Of Acronyms. In this case, the List Of Acronyms will still be generated and inserted, but without its preceding header.\nExamples:\nTo set the title to “Glossary”:\n---\nacronyms:\n  loa_title: \"Glossary\"\n---\nTo disable the title:\n---\nacronyms:\n  loa_title: \"\"\n---"
+  },
+  {
+    "objectID": "articles/options.html#loa_header_classes",
+    "href": "articles/options.html#loa_header_classes",
+    "title": "Available options",
+    "section": "loa_header_classes",
+    "text": "loa_header_classes\nThis options allows to add more classes to the List Of Acronyms (loa) header. By default, the header uses the loa class, which should not do anything by itself. It may be used to customize the LoA with CSS rules, but has no default behaviour.\nAny additional class can be put to the LoA by putting them in this option, in the form of a list. By default, this list is empty, which means that the LoA only has the loa class.\nExamples:\nTo put the LoA in an unnumbered section:\n---\nacronyms:\n  loa_header_classes:\n    - unnumbered\n---"
   },
   {
     "objectID": "articles/options.html#include_unused",
@@ -154,6 +133,83 @@
     "text": "style\nacronyms supports several styles to replace acronyms, similarly to how the LaTeX package glossaries work for abbreviations.\nStyles define how to render an acronym in the document body: which fields to use, in which order, with emphasis or not, with a different style whether this is the acronym’s first use or not, etc.\nThe list of available styles, along with a visualization of each of them, is displayed in styles."
   },
   {
+    "objectID": "advanced/external_file.html",
+    "href": "advanced/external_file.html",
+    "title": "Defining acronyms in external file(s)",
+    "section": "",
+    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file."
+  },
+  {
+    "objectID": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
+    "href": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
+    "title": "Defining acronyms in external file(s)",
+    "section": "Referring to an external definition file in a Quarto document",
+    "text": "Referring to an external definition file in a Quarto document\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document."
+  },
+  {
+    "objectID": "advanced/external_file.html#content-of-the-definition-files",
+    "href": "advanced/external_file.html#content-of-the-definition-files",
+    "title": "Defining acronyms in external file(s)",
+    "section": "Content of the definition file(s)",
+    "text": "Content of the definition file(s)\nThe content of such files must be as following:\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nPlease note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the metadata and more specifically the acronyms.keys field is used. No other option is taken into account. The eventual document body is ignored as well."
+  },
+  {
+    "objectID": "advanced/external_file.html#loading-order-for-acronyms",
+    "href": "advanced/external_file.html#loading-order-for-acronyms",
+    "title": "Defining acronyms in external file(s)",
+    "section": "Loading order for acronyms",
+    "text": "Loading order for acronyms\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
+  },
+  {
+    "objectID": "advanced/multi_document.html",
+    "href": "advanced/multi_document.html",
+    "title": "Using acronyms in a multi-document project",
+    "section": "",
+    "text": "Because Quarto renders each document separately, the acronyms extension does not know that your project is a multi-document one. This means that, by default, the rendering might not correspond to what you expect for a book or a website.\nThis vignette describes how to configure acronyms for several use-cases, such as using a single List of Acronyms, or one for each chapter, etc.\nNote: Future versions of Quarto might offer new mechanisms that acronyms will be able to leverage, bringing new features to multi-document projects. Until then, some functionalities might not work, or require additional (manual) setup."
+  },
+  {
+    "objectID": "advanced/multi_document.html#using-a-single-list-of-acronyms",
+    "href": "advanced/multi_document.html#using-a-single-list-of-acronyms",
+    "title": "Using acronyms in a multi-document project",
+    "section": "Using a single List of Acronyms",
+    "text": "Using a single List of Acronyms\nThe “classic” setup for a book or website is to have a single List of Acronyms (LoA), and have various acronyms usages throughout the documents.\nTo achieve this, the LoA must be configured on the desired page (for example, the index page), and acronyms must be configured on each page. The following code blocks show the required configuration, for each of the project files:\n\n_quarto.yml: defining the section order (to illustrate), and loading the acronyms filter (to avoid having to add it on each page).\n\nproject:\n  type: book\nbook:\n  title: \"Test book\"\n  chapters:\n    - index.qmd\n    - chap1.qmd\n    - chap2.qmd\nfilters:\n  - acronyms\nacronyms:\n  fromfile: acronyms.yml\nThe acronyms filter may also be loaded individually on desired pages, if it should not be enabled for some of them.\n\nacronyms.yml: defining the various acronyms in an external file, to simplify re-usability.\n\n---\nacronyms:\n  keys:\n    - shortname: acr1\n      longname: first acronym\n    - shortname: acr2\n      longname: second acronym\n---\nSee [external_file.qmd] for a detailed explanation; this file is not required (acronyms could be defined in each document), but greatly simplifies the setup and avoids potential errors.\n\nindex.qmd: defining the LoA in the first page; it must be set to include all acronyms, even those unused, since the acronyms usages will appear on other pages.\n\n---\nacronyms:\n  include_unused: true\n  insert_loa: false\n  insert_links: false\n---\n\n\\printacronyms\n\nHome page; place here any title, or introduction...\nThe \\printacronyms paragraph must be placed where you want the List of Acronyms to be shown; in this example, we put it at the beginning of the index page, but it could be elsewhere (after an introduction, in the last page, …).\nMissing feature: the insert_links option must be set to false, because acronyms will not be able to create links between different documents. This could change in future versions of Quarto.\n\nchap1.qmd: the first chapter; you may name this file as you want, we simply reuse the name defined in _quarto.yml. In this file, we must setup acronyms to not create a LoA.\n\n---\nacronyms:\n  insert_loa: false\n  insert_links: false\n---\n\n# 1st chapter\n\nThis paragraph mentions \\acr{acr1} for the first time.\n\nAnd now, in this paragraph, \\acr{acr1} is in short form.\nNote that, as mentioned previously, links are unfortunately disabled. If the option insert_links is set to true on this page, the acronyms will be provided with a link, but the link itself will not work, because the LoA will not be found on the same page.\n\nchap2.qmd: the second chapter, just like the previous file. Again, the name can be different.\n\n---\nacronyms:\n  insert_loa: false\n  insert_links: false\n---\n\n# 2nd chapter\n\nThis paragraph mentions \\acr{acr2} for the first time.\n\nAnd now, in this paragraph, \\acr{acr2} is in short form.\n\nHowever, \\acr{acr1} should be again in long form.\nMissing feature: because a completely new instance of acronyms is launched by Quarto for each separate page, it “forgets” which acronyms have already been used. As described in this 2nd file, acronym acr1 will be printed in the long form again, even though it was already shown in the previous chapter."
+  },
+  {
+    "objectID": "advanced/multi_document.html#using-separate-list-of-acronyms-in-each-page",
+    "href": "advanced/multi_document.html#using-separate-list-of-acronyms-in-each-page",
+    "title": "Using acronyms in a multi-document project",
+    "section": "Using separate List of Acronyms in each page",
+    "text": "Using separate List of Acronyms in each page\nWhen creating a separate List of Acronyms (LoA) in each page, it should be configured to be printed at an appropriate location, and with an appropriate header.\nBy default, the LoA would appear as the first element, which would make it the chapter title in a website. Instead, we want the chapter title to be the first element; ideally, the LoA should also be a 2nd level heading (a section rather than a chapter). In this example, we will also make it an unnumbered header.\n\n_quarto.yml: just like the previous example, we simply load configure the book, and load the acronyms filter.\n\nproject:\n  type: book\nbook:\n  title: \"Test book\"\n  chapters:\n    - index.qmd\n    - chap1.qmd\n    - chap2.qmd\nfilters:\n  - acronyms\nacronyms:\n  fromfile: acronyms.yml\n\nacronyms.yml: defining the various acronyms in an external file, to simplify re-usability.\n\n---\nacronyms:\n  keys:\n    - shortname: acr1\n      longname: first acronym\n    - shortname: acr2\n      longname: second acronym\n---\n\nindex.qmd: if no acronyms are used on this page, we must disable the LoA creation.\n\n---\nacronyms:\n  insert_loa: false\n---\n\nHome page; place here any title, or introduction...\n\nchap1.qmd: the first chapter; you may name this file as you want. In this file, we put the LoA at the beginning of the document, just below the chapter title. The LoA title must be set to \"\" so that we can configure it manually.\n\n---\nacronyms:\n  insert_loa: false\n  loa_title: \"\"\n---\n\n# 1st chapter\n\n## List of Acronyms {.unnumbered}\n\n\\printacronyms\n\nThis paragraph mentions \\acr{acr1} for the first time.\n\nAnd now, in this paragraph, \\acr{acr1} is in short form.\n\nchap2.qmd: the second chapter, just like the previous file. Again, the name can be different. In this file, we put the LoA at the end.\n\n---\nacronyms:\n  insert_loa: false\n  loa_title: \"\"\n---\n\n# 2nd chapter\n\nThis paragraph mentions \\acr{acr2} for the first time.\n\nAnd now, in this paragraph, \\acr{acr2} is in short form.\n\nHowever, \\acr{acr1} should be again in long form.\n\n## List of Acronyms {.unnumbered}\n\n\\printacronyms"
+  },
+  {
+    "objectID": "advanced/customized_loa_header.html",
+    "href": "advanced/customized_loa_header.html",
+    "title": "Customizing the List of Acronyms title",
+    "section": "",
+    "text": "By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.\nTo obtain an unnumbered section, you may add the extra class unnumbered (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the loa_header_classes metadata option.\nFor example:\n---\nformat:\n  pdf:\n    number-sections: true\nacronyms:\n  loa_header_classes:\n    - unnumbered\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\nThis will generate a PDF with sections List of Acronyms (unnumbered), and 1. Introduction (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the options."
+  },
+  {
+    "objectID": "advanced/customized_loa_header.html#using-an-unnumbered-section",
+    "href": "advanced/customized_loa_header.html#using-an-unnumbered-section",
+    "title": "Customizing the List of Acronyms title",
+    "section": "",
+    "text": "By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.\nTo obtain an unnumbered section, you may add the extra class unnumbered (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the loa_header_classes metadata option.\nFor example:\n---\nformat:\n  pdf:\n    number-sections: true\nacronyms:\n  loa_header_classes:\n    - unnumbered\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\nThis will generate a PDF with sections List of Acronyms (unnumbered), and 1. Introduction (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the options."
+  },
+  {
+    "objectID": "advanced/customized_loa_header.html#manually-customizing-the-title",
+    "href": "advanced/customized_loa_header.html#manually-customizing-the-title",
+    "title": "Customizing the List of Acronyms title",
+    "section": "Manually customizing the title",
+    "text": "Manually customizing the title\nYou may also want to fully customize the header of the List of Acronyms; this can be done by disabling the automatic generation, and then writing your own header, for which you can leverage all Pandoc and Quarto features.\nTo do so, simply set the insert_loa option to false to disable the automatic generation of the List of Acronyms, and set loa_title to '' (the empty string) to disable the generation of the header. You may then write exactly what you want as a header, and use \\printacronyms to generate the List of Acronyms after your header.\nFor example, to use a level-2 header (subsection):\n---\nacronyms:\n  insert_loa: false\n  loa_title: ''\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\n\n## List of Acronyms in a subsection\n\n\\printacronyms\n\n# Another section\n\nAt the end of the document"
+  },
+  {
+    "objectID": "advanced/index.html",
+    "href": "advanced/index.html",
+    "title": "Advanced usage tutorials",
+    "section": "",
+    "text": "Customizing the List of Acronyms title\n\n\n\n\n\nRead how to customize the List of Acronyms title (header), including putting it in an unnumbered section.\n\n\n\n\n \n\n\n\n\n\n\nUsing acronyms in a multi-document project\n\n\n\n\n\nLearn how to use acronyms in several documents, for example a website or book; how to control where the List of Acronyms appear, which acronyms appear on which pages, etc.\n\n\n\n\n \n\n\n\n\n\n\nDefining acronyms in external file(s)\n\n\n\n\n\nLearn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).\n\n\n\n\n \n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "articles/styles.html",
     "href": "articles/styles.html",
     "title": "Styles",
@@ -165,28 +221,28 @@
     "href": "articles/styles.html#long-short",
     "title": "Styles",
     "section": "long-short",
-    "text": "long-short\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
+    "text": "long-short\nError running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "articles/styles.html#short-long",
     "href": "articles/styles.html#short-long",
     "title": "Styles",
     "section": "short-long",
-    "text": "short-long\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
+    "text": "short-long\nError running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "articles/styles.html#long-long",
     "href": "articles/styles.html#long-long",
     "title": "Styles",
     "section": "long-long",
-    "text": "long-long\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
+    "text": "long-long\nError running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "articles/styles.html#short-footnote",
     "href": "articles/styles.html#short-footnote",
     "title": "Styles",
     "section": "short-footnote",
-    "text": "short-footnote\nError running filter parse-acronyms.lua: ./acronyms_options.lua:52: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
+    "text": "short-footnote\nError running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’"
   },
   {
     "objectID": "index.html",
@@ -229,26 +285,5 @@
     "title": "Acronyms: List of Acronyms support for Quarto documents",
     "section": "",
     "text": "This package was inspired from:\n\nan issue on bookdown ;\na lua filter to sort a definition list ;\nthe pagedown’s insertion of a List of Figures/Tables ;\nthe pandoc-abbreviations filter ;\nthe LaTeX glossaries package."
-  },
-  {
-    "objectID": "advanced/multi_document.html",
-    "href": "advanced/multi_document.html",
-    "title": "Using acronyms in a multi-document project",
-    "section": "",
-    "text": "Because Quarto renders each document separately, the acronyms extension does not know that your project is a multi-document one. This means that, by default, the rendering might not correspond to what you expect for a book or a website.\nThis vignette describes how to configure acronyms for several use-cases, such as using a single List of Acronyms, or one for each chapter, etc.\nNote: Future versions of Quarto might offer new mechanisms that acronyms will be able to leverage, bringing new features to multi-document projects. Until then, some functionalities might not work, or require additional (manual) setup."
-  },
-  {
-    "objectID": "advanced/multi_document.html#using-a-single-list-of-acronyms",
-    "href": "advanced/multi_document.html#using-a-single-list-of-acronyms",
-    "title": "Using acronyms in a multi-document project",
-    "section": "Using a single List of Acronyms",
-    "text": "Using a single List of Acronyms\nThe “classic” setup for a book or website is to have a single List of Acronyms (LoA), and have various acronyms usages throughout the documents.\nTo achieve this, the LoA must be configured on the desired page (for example, the index page), and acronyms must be configured on each page. The following code blocks show the required configuration, for each of the project files:\n\n_quarto.yml: defining the section order (to illustrate), and loading the acronyms filter (to avoid having to add it on each page).\n\nproject:\n  type: book\nbook:\n  title: \"Test book\"\n  chapters:\n    - index.qmd\n    - chap1.qmd\n    - chap2.qmd\nfilters:\n  - acronyms\nacronyms:\n  fromfile: acronyms.yml\nThe acronyms filter may also be loaded individually on desired pages, if it should not be enabled for some of them.\n\nacronyms.yml: defining the various acronyms in an external file, to simplify re-usability.\n\n---\nacronyms:\n  keys:\n    - shortname: acr1\n      longname: first acronym\n    - shortname: acr2\n      longname: second acronym\n---\nSee [external_file.qmd] for a detailed explanation; this file is not required (acronyms could be defined in each document), but greatly simplifies the setup and avoids potential errors.\n\nindex.qmd: defining the LoA in the first page; it must be set to include all acronyms, even those unused, since the acronyms usages will appear on other pages.\n\n---\nacronyms:\n  include_unused: true\n  insert_loa: false\n  insert_links: false\n---\n\n\\printacronyms\n\nHome page; place here any title, or introduction...\nThe \\printacronyms paragraph must be placed where you want the List of Acronyms to be shown; in this example, we put it at the beginning of the index page, but it could be elsewhere (after an introduction, in the last page, …).\nMissing feature: the insert_links option must be set to false, because acronyms will not be able to create links between different documents. This could change in future versions of Quarto.\n\nchap1.qmd: the first chapter; you may name this file as you want, we simply reuse the name defined in _quarto.yml. In this file, we must setup acronyms to not create a LoA.\n\n---\nacronyms:\n  insert_loa: false\n  insert_links: false\n---\n\n# 1st chapter\n\nThis paragraph mentions \\acr{acr1} for the first time.\n\nAnd now, in this paragraph, \\acr{acr1} is in short form.\nNote that, as mentioned previously, links are unfortunately disabled. If the option insert_links is set to true on this page, the acronyms will be provided with a link, but the link itself will not work, because the LoA will not be found on the same page.\n\nchap2.qmd: the second chapter, just like the previous file. Again, the name can be different.\n\n---\nacronyms:\n  insert_loa: false\n  insert_links: false\n---\n\n# 2nd chapter\n\nThis paragraph mentions \\acr{acr2} for the first time.\n\nAnd now, in this paragraph, \\acr{acr2} is in short form.\n\nHowever, \\acr{acr1} should be again in long form.\nMissing feature: because a completely new instance of acronyms is launched by Quarto for each separate page, it “forgets” which acronyms have already been used. As described in this 2nd file, acronym acr1 will be printed in the long form again, even though it was already shown in the previous chapter."
-  },
-  {
-    "objectID": "advanced/multi_document.html#using-separate-list-of-acronyms-in-each-page",
-    "href": "advanced/multi_document.html#using-separate-list-of-acronyms-in-each-page",
-    "title": "Using acronyms in a multi-document project",
-    "section": "Using separate List of Acronyms in each page",
-    "text": "Using separate List of Acronyms in each page\nWhen creating a separate List of Acronyms (LoA) in each page, it should be configured to be printed at an appropriate location, and with an appropriate header.\nBy default, the LoA would appear as the first element, which would make it the chapter title in a website. Instead, we want the chapter title to be the first element; ideally, the LoA should also be a 2nd level heading (a section rather than a chapter). In this example, we will also make it an unnumbered header.\n\n_quarto.yml: just like the previous example, we simply load configure the book, and load the acronyms filter.\n\nproject:\n  type: book\nbook:\n  title: \"Test book\"\n  chapters:\n    - index.qmd\n    - chap1.qmd\n    - chap2.qmd\nfilters:\n  - acronyms\nacronyms:\n  fromfile: acronyms.yml\n\nacronyms.yml: defining the various acronyms in an external file, to simplify re-usability.\n\n---\nacronyms:\n  keys:\n    - shortname: acr1\n      longname: first acronym\n    - shortname: acr2\n      longname: second acronym\n---\n\nindex.qmd: if no acronyms are used on this page, we must disable the LoA creation.\n\n---\nacronyms:\n  insert_loa: false\n---\n\nHome page; place here any title, or introduction...\n\nchap1.qmd: the first chapter; you may name this file as you want. In this file, we put the LoA at the beginning of the document, just below the chapter title. The LoA title must be set to \"\" so that we can configure it manually.\n\n---\nacronyms:\n  insert_loa: false\n  loa_title: \"\"\n---\n\n# 1st chapter\n\n## List of Acronyms {.unnumbered}\n\n\\printacronyms\n\nThis paragraph mentions \\acr{acr1} for the first time.\n\nAnd now, in this paragraph, \\acr{acr1} is in short form.\n\nchap2.qmd: the second chapter, just like the previous file. Again, the name can be different. In this file, we put the LoA at the end.\n\n---\nacronyms:\n  insert_loa: false\n  loa_title: \"\"\n---\n\n# 2nd chapter\n\nThis paragraph mentions \\acr{acr2} for the first time.\n\nAnd now, in this paragraph, \\acr{acr2} is in short form.\n\nHowever, \\acr{acr1} should be again in long form.\n\n## List of Acronyms {.unnumbered}\n\n\\printacronyms"
   }
 ]

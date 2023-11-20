@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="List and preview of the available styles for replacing acronyms.">
+<meta name="description" content="Read how to customize the List of Acronyms title (header), including putting it in an unnumbered section.">
 
-<title>acronyms - Styles</title>
+<title>acronyms - Customizing the List of Acronyms title</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -176,24 +176,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#long-short" id="toc-long-short" class="nav-link active" data-scroll-target="#long-short">long-short</a></li>
-  <li><a href="#short-long" id="toc-short-long" class="nav-link" data-scroll-target="#short-long">short-long</a></li>
-  <li><a href="#long-long" id="toc-long-long" class="nav-link" data-scroll-target="#long-long">long-long</a></li>
-  <li><a href="#short-footnote" id="toc-short-footnote" class="nav-link" data-scroll-target="#short-footnote">short-footnote</a></li>
+  <li><a href="#using-an-unnumbered-section" id="toc-using-an-unnumbered-section" class="nav-link active" data-scroll-target="#using-an-unnumbered-section">Using an unnumbered section</a></li>
+  <li><a href="#manually-customizing-the-title" id="toc-manually-customizing-the-title" class="nav-link" data-scroll-target="#manually-customizing-the-title">Manually customizing the title</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rchaput/acronyms/edit/master/docs/articles/styles.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/customized_loa_header.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Styles</h1>
+<h1 class="title">Customizing the List of Acronyms title</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>List and preview of the available styles for replacing acronyms.</p>
+    <p>Read how to customize the List of Acronyms title (header), including putting it in an unnumbered section.</p>
   </div>
 </div>
 
@@ -208,40 +206,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>To replace acronyms in your document, <strong>acronyms</strong> offers several styles, which are quite similar to the <a href="https://mirrors.chevalier.io/CTAN/macros/latex/contrib/glossaries-extra/samples/sample-abbr-styles.pdf">abbreviations styles</a> in the LaTeX package <a href="https://www.ctan.org/pkg/glossaries">glossaries</a>.</p>
-<p>This vignette lists the available styles, and shows how they render.</p>
-<p>Styles might make a difference between the first use and next uses of an acronym. In the following list, the two variations are shown for each style.</p>
-<p>For each of the style examples, we will use the following document (metadata and body):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">keys</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> qmd</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> Quarto document</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  # Replace `&lt;STYLE&gt;` with the desired style name.</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">style</span><span class="kw">:</span><span class="at"> &lt;STYLE&gt;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  # We only want to preview the acronyms' style, not the full document.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_loa</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">insert_links</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<section id="using-an-unnumbered-section" class="level2">
+<h2 class="anchored" data-anchor-id="using-an-unnumbered-section">Using an unnumbered section</h2>
+<p>By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.</p>
+<p>To obtain an unnumbered section, you may add the extra class <code>unnumbered</code> (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the <code>loa_header_classes</code> metadata option.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">  pdf:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  loa_header_classes:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - unnumbered</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: qmd</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto document</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">First use</span><span class="kw">:</span><span class="at"> \acr{qmd}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">Next uses</span><span class="kw">:</span><span class="at"> \acr{qmd}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="long-short" class="level2">
-<h2 class="anchored" data-anchor-id="long-short">long-short</h2>
-<p>Error running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’</p>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Using an acronym: \acr{qmd}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will generate a PDF with sections <code>List of Acronyms</code> (unnumbered), and <code>1. Introduction</code> (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the <a href="../articles/options.html">options</a>.</p>
 </section>
-<section id="short-long" class="level2">
-<h2 class="anchored" data-anchor-id="short-long">short-long</h2>
-<p>Error running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’</p>
-</section>
-<section id="long-long" class="level2">
-<h2 class="anchored" data-anchor-id="long-long">long-long</h2>
-<p>Error running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’</p>
-</section>
-<section id="short-footnote" class="level2">
-<h2 class="anchored" data-anchor-id="short-footnote">short-footnote</h2>
-<p>Error running filter parse-acronyms.lua: ./acronyms_options.lua:55: attempt to index a nil value (global ‘quarto’) stack traceback: parse-acronyms.lua:38: in function ‘Meta’</p>
+<section id="manually-customizing-the-title" class="level2">
+<h2 class="anchored" data-anchor-id="manually-customizing-the-title">Manually customizing the title</h2>
+<p>You may also want to fully customize the header of the List of Acronyms; this can be done by disabling the automatic generation, and then writing your own header, for which you can leverage all Pandoc and Quarto features.</p>
+<p>To do so, simply set the <a href="../articles/options.html#insert_loa">insert_loa</a> option to <code>false</code> to disable the automatic generation of the List of Acronyms, and set <a href="../articles/options.html#loa_title">loa_title</a> to <code>''</code> (the empty string) to disable the generation of the header. You may then write exactly what you want as a header, and use <code>\printacronyms</code> to generate the List of Acronyms after your header.</p>
+<p>For example, to use a level-2 header (<em>subsection</em>):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">  loa_title: ''</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: qmd</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto document</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Using an acronym: \acr{qmd}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## List of Acronyms in a subsection</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>\printacronyms</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># Another section</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>At the end of the document</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
