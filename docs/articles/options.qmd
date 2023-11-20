@@ -387,7 +387,8 @@ inside the YAML metadata~; however, you can use `fromfile`
 to specify external YAML files from which acronyms should be
 loaded.
 
-Its usage is described in details in [Advanced usage](advanced_usage.qmd).
+Its usage is described in details in
+[Advanced usage](../advanced/external_file.qmd).
 
 
 ## `style`

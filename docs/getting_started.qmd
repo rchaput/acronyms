@@ -113,8 +113,8 @@ The current vignette gives you the tools for a simple document, using the
 However, most of the mechanisms are highly configurable and offer various
 options.
 
-An advanced usage is covered in [Advanced Usage][advanced_usage], while the
-available options are described in [Options][options].
+Available options are described in [Options][options], and several tutorials
+for advanced usages are listed in [Advanced usage][advanced_usage].
 
 [Styles][styles] lists the different styles that can be used, along
 with a small example to visualize each of them.
@@ -124,5 +124,5 @@ with a small example to visualize each of them.
 [Lua Filter]: https://pandoc.org/lua-filters.html
 [styles]: articles/styles.qmd
 [example]: https://github.com/rchaput/acronyms/blob/master/example.qmd
-[advanced_usage]: articles/advanced_usage.qmd
+[advanced_usage]: advanced/index.qmd
 [options]: articles/options.qmd
