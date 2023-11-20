@@ -19,6 +19,7 @@ along with their default values.
 ---
 acronyms:
   loa_title: "List of Acronyms"
+  loa_header_classes: []
   include_unused: true
   insert_loa: "beginning"
   insert_links: true
@@ -62,6 +63,29 @@ To disable the title:
 ---
 acronyms:
   loa_title: ""
+---
+```
+
+
+## `loa_header_classes`
+
+This options allows to add more classes to the List Of Acronyms (loa) header.
+By default, the header uses the `loa` class, which should not do anything by
+itself. It may be used to customize the LoA with CSS rules, but has no default
+behaviour.
+
+Any additional class can be put to the LoA by putting them in this option,
+in the form of a list. By default, this list is empty, which means that the
+LoA only has the `loa` class.
+
+*Examples*:
+
+To put the LoA in an unnumbered section:
+```yaml
+---
+acronyms:
+  loa_header_classes:
+    - unnumbered
 ---
 ```
 
