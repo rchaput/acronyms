@@ -1,0 +1,12 @@
+---
+title: "Advanced usage tutorials"
+listing:
+  type: default
+  sort: "date"
+  # Customize fields to improve appearance
+  fields: [title, description]
+  # Ignore self page
+  exclude:
+    title: "Advanced usage tutorials"
+  sort-ui: false
+---
