@@ -119,7 +119,7 @@ return function(acronym, style_name, insert_links, is_first_use)
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
     assert(styles[style_name] ~= nil,
-        "[acronyms] Style " .. style_name .. " does not exist!")
+        "[acronyms] Style " .. tostring(style_name) .. " does not exist!")
 
     -- Check that the acronym exists
     assert(acronym ~= nil,

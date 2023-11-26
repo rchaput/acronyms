@@ -126,6 +126,8 @@ end
 -- Add a new acronym to the table. Also handles duplicates.
 function Acronyms:add(acronym, on_duplicate)
     quarto.log.debug("[acronyms] Trying to add a new acronym...", acronym)
+    assert(acronym ~= nil,
+        "[acronyms] The acronym should not be nil in Acronyms:add!")
     assert(acronym.key ~= nil,
         "[acronyms] The acronym key should not be nil in Acronyms:add!")
     assert(on_duplicate ~= nil,
