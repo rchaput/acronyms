@@ -26,13 +26,6 @@ local replaceExistingAcronymWithStyle = require("acronyms_styles")
 -- The options for the List Of Acronyms, as defined in the document's metadata.
 local Options = require("acronyms_options")
 
---[[
-The current "usage order" value.
-We increment this value each time we find a new acronym, and we use it
-to register the order in which acronyms appear.
---]]
-local current_order = 0
-
 
 function Meta(m)
     Options:parseOptionsFromMetadata(m)
@@ -198,8 +191,7 @@ function replaceExistingAcronym(acr_key)
     acronym:incrementOccurrences()
     if acronym:isFirstUse() then
         -- This acronym never appeared! We first set its usage order.
-        current_order = current_order + 1
-        acronym.usage_order = current_order
+        Acronyms:setAcronymUsageOrder(acronym)
     end
 
     -- Replace the acronym with the desired style
