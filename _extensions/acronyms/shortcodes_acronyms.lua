@@ -29,6 +29,26 @@ local Options = require("acronyms_options")
 
 
 --[[
+    Parse the value and return its string representation if it is not `""`
+    (the empty string), or `nil` otherwise.
+
+    Keyworded arguments in Quarto shortcodes return an empty Inlines (`{}`)
+    if they are not specified, which makes it a bit harder to know whether
+    the argument was really supplied, or was just empty.
+--]]
+local function getOrNil (value)
+    -- Alternatively, we could check for `pandoc.utils.stringify(value) == ""`
+    -- But that does not seem very resilient for other corner cases.
+    -- For example, what if we want to specify the empty string as a value?
+    if value == pandoc.Inlines{} then
+        return nil
+    else
+        return pandoc.utils.stringify(value)
+    end
+end
+
+
+--[[
     Define the "main" shortcode behaviour: replacing an acronym.
 
     This function is associated to shortcodes `acronym` and `acr` so that it is
@@ -49,10 +69,22 @@ function replaceAcronym (args, kwargs, meta)
     local acronym_key = pandoc.utils.stringify(args[1])
     if Acronyms:contains(acronym_key) then
         -- The acronym exists (and is recognized)
-        return AcronymsPandoc.replaceExistingAcronym(acronym_key)
+        local style = getOrNil(kwargs["style"])
+        local first_use = getOrNil(kwargs["first_use"])
+        local insert_links = getOrNil(kwargs["insert_links"])
+        return AcronymsPandoc.replaceExistingAcronym(
+            acronym_key,
+            style,
+            first_use,
+            insert_links
+        )
     else
         -- The acronym does not exists
-        return AcronymsPandoc.replaceNonExistingAcronym(acronym_key)
+        local non_existing = getOrNil(kwargs["non_existing"])
+        return AcronymsPandoc.replaceNonExistingAcronym(
+            acronym_key,
+            non_existing
+        )
     end
 end
 
@@ -68,7 +100,18 @@ function generateListOfAcronyms (args, kwargs, meta)
         )
     end
 
-    local header, definition_list = AcronymsPandoc.generateLoA()
+    -- Parse (optional) keyworded-arguments
+    local sorting = getOrNil(kwargs["sorting"])
+    local include_unused = getOrNil(kwargs["include_unused"])
+    local title = getOrNil(kwargs["title"])
+    local header_classes = getOrNil(kwargs["header_classes"])
+
+    local header, definition_list = AcronymsPandoc.generateLoA(
+        sorting,
+        include_unused,
+        title,
+        header_classes
+    )
 
     if header ~= nil then
         return { header, definition_list }
