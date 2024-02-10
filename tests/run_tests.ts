@@ -149,14 +149,14 @@ function testSingleDir (dirName: string): TestResult {
     stderr = new TextDecoder().decode(stderr);
 
     // Read the output
-    let stdout = Deno.readTextFileSync(outputPath);
+    let stdout = readFileOrDefault(outputPath);
     // Filter the stdout and stderr because Quarto *loves* adding stuff...
     const filteredStdout = filterStdout(stdout);
     const filteredStderr = filterStderr(stderr);
 
     // The expected output document
     const expectedOutputPath = `tests/${dirName}/expected.md`;
-    const expectedOutput = Deno.readTextFileSync(expectedOutputPath);
+    const expectedOutput = readFileOrDefault(expectedOutputPath);
 
     // The expected errors / warnings log
     const expectedErrorPath = `tests/${dirName}/expected.stderr`;
