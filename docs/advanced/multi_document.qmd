@@ -65,9 +65,9 @@ acronyms:
 ---
 ```
 
-See [external_file.qmd] for a detailed explanation; this file is not required
-(acronyms could be defined in each document), but greatly simplifies the setup
-and avoids potential errors.
+See [Defining acronyms in external file(s)](external_file.qmd) for a detailed
+explanation; this file is not required (acronyms could be defined in each
+document), but greatly simplifies the setup and avoids potential errors.
 
 - `index.qmd`: defining the LoA in the first page; it must be set to include
   all acronyms, even those unused, since the acronyms usages will appear on
