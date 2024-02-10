@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Learn how to use acronyms in several documents, for example a website or book; how to control where the List of Acronyms appear, which acronyms appear on which pages, etc.">
+<meta name="description" content="Learn how to use the new shortcode syntax.">
 
-<title>acronyms - Using acronyms in a multi-document project</title>
+<title>acronyms - Shortcodes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -187,22 +187,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#using-a-single-list-of-acronyms" id="toc-using-a-single-list-of-acronyms" class="nav-link active" data-scroll-target="#using-a-single-list-of-acronyms">Using a single List of Acronyms</a></li>
-  <li><a href="#using-separate-list-of-acronyms-in-each-page" id="toc-using-separate-list-of-acronyms-in-each-page" class="nav-link" data-scroll-target="#using-separate-list-of-acronyms-in-each-page">Using separate List of Acronyms in each page</a></li>
+  <li><a href="#the-acronym-shortcode" id="toc-the-acronym-shortcode" class="nav-link active" data-scroll-target="#the-acronym-shortcode">The <code>acronym</code> shortcode</a>
+  <ul class="collapse">
+  <li><a href="#style" id="toc-style" class="nav-link" data-scroll-target="#style"><code>style</code></a></li>
+  <li><a href="#first_use" id="toc-first_use" class="nav-link" data-scroll-target="#first_use"><code>first_use</code></a></li>
+  <li><a href="#insert_links" id="toc-insert_links" class="nav-link" data-scroll-target="#insert_links"><code>insert_links</code></a></li>
+  <li><a href="#non_existing" id="toc-non_existing" class="nav-link" data-scroll-target="#non_existing"><code>non_existing</code></a></li>
+  </ul></li>
+  <li><a href="#the-print-acronyms-shortcode" id="toc-the-print-acronyms-shortcode" class="nav-link" data-scroll-target="#the-print-acronyms-shortcode">The <code>print-acronyms</code> shortcode</a>
+  <ul class="collapse">
+  <li><a href="#sorting" id="toc-sorting" class="nav-link" data-scroll-target="#sorting"><code>sorting</code></a></li>
+  <li><a href="#include_unused" id="toc-include_unused" class="nav-link" data-scroll-target="#include_unused"><code>include_unused</code></a></li>
+  <li><a href="#title" id="toc-title" class="nav-link" data-scroll-target="#title"><code>title</code></a></li>
+  <li><a href="#header_classes" id="toc-header_classes" class="nav-link" data-scroll-target="#header_classes"><code>header_classes</code></a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/multi_document.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/articles/shortcodes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Using acronyms in a multi-document project</h1>
+<h1 class="title">Shortcodes</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Learn how to use acronyms in several documents, for example a website or book; how to control where the List of Acronyms appear, which acronyms appear on which pages, etc.</p>
+    <p>Learn how to use the new shortcode syntax.</p>
   </div>
 </div>
 
@@ -219,168 +231,153 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Because Quarto renders each document separately, the <strong>acronyms</strong> extension does not know that your project is a multi-document one. This means that, by default, the rendering might not correspond to what you expect for a book or a website.</p>
-<p>This vignette describes how to configure <strong>acronyms</strong> for several use-cases, such as using a single List of Acronyms, or one for each chapter, etc.</p>
-<p><em>Note:</em> Future versions of Quarto might offer new mechanisms that <strong>acronyms</strong> will be able to leverage, bringing new features to multi-document projects. Until then, some functionalities might not work, or require additional (manual) setup.</p>
-<section id="using-a-single-list-of-acronyms" class="level2">
-<h2 class="anchored" data-anchor-id="using-a-single-list-of-acronyms">Using a single List of Acronyms</h2>
-<p>The “classic” setup for a book or website is to have a single List of Acronyms (LoA), and have various acronyms usages throughout the documents.</p>
-<p>To achieve this, the LoA must be configured on the desired page (for example, the index page), and <strong>acronyms</strong> must be configured on each page. The following code blocks show the required configuration, for each of the project files:</p>
-<ul>
-<li><code>_quarto.yml</code>: defining the section order (to illustrate), and loading the <strong>acronyms</strong> filter (to avoid having to add it on each page).</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> book</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">book</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Test book"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">chapters</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> chap1.qmd</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> chap2.qmd</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> acronyms</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fromfile</span><span class="kw">:</span><span class="at"> acronyms.yml</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <strong>acronyms</strong> filter may also be loaded individually on desired pages, if it should not be enabled for some of them.</p>
-<ul>
-<li><code>acronyms.yml</code>: defining the various acronyms in an external file, to simplify re-usability.</li>
-</ul>
+<p>From version 2.0.0, <strong>acronyms</strong> now uses the Quarto shortcode syntax (in addition to its legacy filter syntax).</p>
+<p>Shortcodes are clearer to use, and may have additional keyworded-arguments that can be used to override the behaviour described in the <a href="Options">options.qmd</a> (which are the same for all acronyms in a given document). For example, a specific acronym may use a different style than the others.</p>
+<p>This article describes this new syntax, how to use the shortcodes, the arguments that can be used, and gives a few example.</p>
+<section id="the-acronym-shortcode" class="level2">
+<h2 class="anchored" data-anchor-id="the-acronym-shortcode">The <code>acronym</code> shortcode</h2>
+<p>The <code></code> shortcode replaces an acronym in the document, where <code>KEY</code> identifies the acronym we want to replace (exactly as <code>\acr{KEY}</code> does in the legacy syntax).</p>
+<p>For convenience, the shorter <code></code> can be used instead; both will invoke the same function, and thus have the same arguments and behaviour.</p>
+<p>The key is mandatory, and <strong>acronyms</strong> will raise an error if not provided. In addition, the following arguments can be provided:</p>
+<section id="style" class="level3">
+<h3 class="anchored" data-anchor-id="style"><code>style</code></h3>
+<p>This argument controls the acronym’s style, that is, how it will be replaced. It must be used similarly to the <a href="style option">options.qmd#style</a>. Only the current acronym will use this specific style, so it is not recommended to provide this argument to set the same style for each acronym; prefer using the metadata option in this case to simplify your workload.</p>
+<p>The list of possible values can be found in the <a href="Styles">styles.qmd</a> article.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">  # Acronyms will use the long-short style by default.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  style: long-short</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>First use (using default options): </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Now we force the long-long style </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>And now we reuse the default style: </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="first_use" class="level3">
+<h3 class="anchored" data-anchor-id="first_use"><code>first_use</code></h3>
+<p>In <strong>acronyms</strong>, most style will replace the acronym differently, based on whether they appear for the first time. For example, a first use may show the acronym longname, but only the shortname on subsequent uses. The <code>first_use</code> argument can be used to force the “first use” or “subsequent use” appearance.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">keys</span><span class="kw">:</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> acr1</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> first acronym</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> acr2</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> second acronym</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>See [external_file.qmd] for a detailed explanation; this file is not required (acronyms could be defined in each document), but greatly simplifies the setup and avoids potential errors.</p>
-<ul>
-<li><code>index.qmd</code>: defining the LoA in the first page; it must be set to include all acronyms, even those unused, since the acronyms usages will appear on other pages.</li>
-</ul>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> Qmd</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> Quarto documents</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Forced next use</span><span class="kw">:</span><span class="at"> </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="insert_links" class="level3">
+<h3 class="anchored" data-anchor-id="insert_links"><code>insert_links</code></h3>
+<p>This argument controls whether the acronym will be rendered with a link to its definition in the List Of Acronyms. This is similar to the <a href="insert_links option">options.qmd#insert_links</a>. As for the <code>style</code> argument, this only changes the current acronym behaviour; to change all acronyms, prefer using the option directly.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">  include_unused: true</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_links: false</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>\printacronyms</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>Home page; place here any title, or introduction...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>\printacronyms</code> paragraph must be placed where you want the List of Acronyms to be shown; in this example, we put it at the beginning of the index page, but it could be elsewhere (after an introduction, in the last page, …).</p>
-<p><em>Missing feature:</em> the <code>insert_links</code> option must be set to <code>false</code>, because <strong>acronyms</strong> will not be able to create links between different documents. This could change in future versions of Quarto.</p>
-<ul>
-<li><code>chap1.qmd</code>: the first chapter; you may name this file as you want, we simply reuse the name defined in <code>_quarto.yml</code>. In this file, we must setup <strong>acronyms</strong> to <em>not</em> create a LoA.</li>
-</ul>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="non_existing" class="level3">
+<h3 class="anchored" data-anchor-id="non_existing"><code>non_existing</code></h3>
+<p>This argument controls the behaviour when an acronym is not found. <strong>acronyms</strong> may print a warning and render it as a special token, such as <code>??</code> (like the BibTeX default behaviour), or raise an error, depending on the configuration. Like previous arguments, this one is similar to the <a href="non-existing option">options.qmd#non_existing</a>, but changes only the current acronym. Note that it has no impact when the acronym is found.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_links: false</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1st chapter</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>This paragraph mentions \acr{acr1} for the first time.</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>And now, in this paragraph, \acr{acr1} is in short form.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that, as mentioned previously, links are unfortunately disabled. If the option <code>insert_links</code> is set to <code>true</code> on this page, the acronyms will be provided with a link, but the link itself will not work, because the LoA will not be found on the same page.</p>
-<ul>
-<li><code>chap2.qmd</code>: the second chapter, just like the previous file. Again, the name can be different.</li>
-</ul>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Note that the following acronym is mis-typed: </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="the-print-acronyms-shortcode" class="level2">
+<h2 class="anchored" data-anchor-id="the-print-acronyms-shortcode">The <code>print-acronyms</code> shortcode</h2>
+<p>The <code></code> shortcode can be used to generate the List Of Acronyms (LoA), which lists the acronyms’ definitions (exactly as <code>\printacronyms</code> does in the legacy syntax).</p>
+<p>It is recommended to disable the automatic generation of the LoA when using this shortcode, to avoid duplicating the LoA in the resulting document. It is useful when you want to generate the LoA at some exact place.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_links: false</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2nd chapter</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto document</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>This paragraph mentions \acr{acr2} for the first time.</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>And now, in this paragraph, \acr{acr2} is in short form.</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>However, \acr{acr1} should be again in long form.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><em>Missing feature:</em> because a completely new instance of <strong>acronyms</strong> is launched by Quarto for each separate page, it “forgets” which acronyms have already been used. As described in this 2nd file, acronym <em>acr1</em> will be printed in the long form again, even though it was already shown in the previous chapter.</p>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>Lorem ipsum dolor sit amet</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The LoA can be customized by using the following keyworded arguments:</p>
+<section id="sorting" class="level3">
+<h3 class="anchored" data-anchor-id="sorting"><code>sorting</code></h3>
+<p>This argument controls how the acronyms are sorted when printed in the LoA. It works similarly to the <a href="sorting option">options.qmd#sorting</a>. See this option for a list of possible behaviours and accepted values.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: YAML</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Yaml Ain't Markup Language</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="using-separate-list-of-acronyms-in-each-page" class="level2">
-<h2 class="anchored" data-anchor-id="using-separate-list-of-acronyms-in-each-page">Using separate List of Acronyms in each page</h2>
-<p>When creating a separate List of Acronyms (LoA) in each page, it should be configured to be printed at an appropriate location, and with an appropriate header.</p>
-<p>By default, the LoA would appear as the first element, which would make it the chapter title in a website. Instead, we want the chapter title to be the first element; ideally, the LoA should also be a 2nd level heading (a section rather than a chapter). In this example, we will also make it an unnumbered header.</p>
-<ul>
-<li><code>_quarto.yml</code>: just like the previous example, we simply load configure the book, and load the <strong>acronyms</strong> filter.</li>
-</ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> book</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">book</span><span class="kw">:</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Test book"</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">chapters</span><span class="kw">:</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> chap1.qmd</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> chap2.qmd</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> acronyms</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fromfile</span><span class="kw">:</span><span class="at"> acronyms.yml</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>acronyms.yml</code>: defining the various acronyms in an external file, to simplify re-usability.</li>
-</ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">keys</span><span class="kw">:</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> acr1</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> first acronym</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> acr2</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> second acronym</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>index.qmd</code>: if no acronyms are used on this page, we must disable the LoA creation.</li>
-</ul>
+<section id="include_unused" class="level3">
+<h3 class="anchored" data-anchor-id="include_unused"><code>include_unused</code></h3>
+<p>This argument controls whether to include the unused acronyms in the generated LoA. In the previous example, we had to insert the both acronyms in the document to make them appear in the LoA; this can be prevented by using this argument.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: YAML</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Yaml Ain't Markup Language</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="title" class="level3">
+<h3 class="anchored" data-anchor-id="title"><code>title</code></h3>
+<p>This argument controls the title of the generated LoA, similarly to the <a href="loa_title option">options.qmd#loa_title</a>. When using a shortcode, you will most likely want to disable this title, and specify the header exactly as you want directly in the document.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Home page; place here any title, or introduction...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>chap1.qmd</code>: the first chapter; you may name this file as you want. In this file, we put the LoA at the beginning of the document, just below the chapter title. The LoA title must be set to <code>""</code> so that we can configure it manually.</li>
-</ul>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># My custom title</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="header_classes" class="level3">
+<h3 class="anchored" data-anchor-id="header_classes"><code>header_classes</code></h3>
+<p>This argument controls the additional classes that are set to the LoA title, similarly to the <a href="loa_header_classes options">options.qmd#loa_header_classes</a>. Note that it has no impact when the LoA title is not generated.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">  loa_title: ""</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1st chapter</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## List of Acronyms {.unnumbered}</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>\printacronyms</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>This paragraph mentions \acr{acr1} for the first time.</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>And now, in this paragraph, \acr{acr1} is in short form.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>chap2.qmd</code>: the second chapter, just like the previous file. Again, the name can be different. In this file, we put the LoA at the end.</li>
-</ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">acronyms:</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">  insert_loa: false</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">  loa_title: ""</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2nd chapter</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>This paragraph mentions \acr{acr2} for the first time.</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>And now, in this paragraph, \acr{acr2} is in short form.</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>However, \acr{acr1} should be again in long form.</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## List of Acronyms {.unnumbered}</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>\printacronyms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">  keys:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - shortname: Qmd</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">      longname: Quarto documents</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -776,4 +773,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/multi_document.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/articles/shortcodes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -2,9 +2,9 @@
   {
     "listing": "/advanced/index.html",
     "items": [
-      "/advanced/customized_loa_header.html",
+      "/advanced/external_file.html",
       "/advanced/multi_document.html",
-      "/advanced/external_file.html"
+      "/advanced/customized_loa_header.html"
     ]
   }
 ]
