@@ -8,7 +8,7 @@ From version 2.0.0, **acronyms** now uses the Quarto shortcode syntax (in
 addition to its legacy filter syntax).
 
 Shortcodes are clearer to use, and may have additional keyworded-arguments that
-can be used to override the behaviour described in the [options.qmd](Options)
+can be used to override the behaviour described in the [Options](options.qmd)
 (which are the same for all acronyms in a given document). For example, a
 specific acronym may use a different style than the others.
 
@@ -32,16 +32,16 @@ In addition, the following arguments can be provided:
 ### `style`
 
 This argument controls the acronym's style, that is, how it will be replaced.
-It must be used similarly to the [options.qmd#style](style option).
+It must be used similarly to the [style options](options.qmd#style).
 Only the current acronym will use this specific style, so it is not recommended
 to provide this argument to set the same style for each acronym; prefer using
 the metadata option in this case to simplify your workload.
 
-The list of possible values can be found in the [styles.qmd](Styles) article.
+The list of possible values can be found in the [Styles](styles.qmd) article.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   # Acronyms will use the long-short style by default.
@@ -69,7 +69,7 @@ use" appearance.
 
 For example:
 
-```yaml
+```markdown {shortcodes=false}
 ---
 acronyms:
   keys:
@@ -85,13 +85,13 @@ Forced next use: {{< acr Qmd first_use=false >}}
 
 This argument controls whether the acronym will be rendered with a link to
 its definition in the List Of Acronyms. This is similar to the
-[options.qmd#insert_links](insert_links option). As for the `style` argument,
+[`insert_links` option](options.qmd#insert_links). As for the `style` argument,
 this only changes the current acronym behaviour; to change all acronyms, prefer
 using the option directly.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   keys:
@@ -109,12 +109,12 @@ This argument controls the behaviour when an acronym is not found. **acronyms**
 may print a warning and render it as a special token, such as `??` (like the
 BibTeX default behaviour), or raise an error, depending on the configuration.
 Like previous arguments, this one is similar to the
-[options.qmd#non_existing](non-existing option), but changes only the current
+[`non_existing` option](options.qmd#non_existing), but changes only the current
 acronym. Note that it has no impact when the acronym is found.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   keys:
@@ -138,7 +138,7 @@ It is useful when you want to generate the LoA at some exact place.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   insert_loa: false
@@ -160,12 +160,12 @@ The LoA can be customized by using the following keyworded arguments:
 ### `sorting`
 
 This argument controls how the acronyms are sorted when printed in the LoA.
-It works similarly to the [options.qmd#sorting](sorting option). See this option
+It works similarly to the [sorting option](options.qmd#sorting). See this option
 for a list of possible behaviours and accepted values.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   insert_loa: false
@@ -185,12 +185,13 @@ acronyms:
 ### `include_unused`
 
 This argument controls whether to include the unused acronyms in the generated
-LoA. In the previous example, we had to insert the both acronyms in the document
-to make them appear in the LoA; this can be prevented by using this argument.
+LoA. It works just as the [`include_unused` option](options.qmd#include_unused).
+In the previous example, we had to insert both acronyms in the document to make
+them appear in the LoA; this can be prevented by using this argument.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   insert_loa: false
@@ -208,13 +209,13 @@ acronyms:
 ### `title`
 
 This argument controls the title of the generated LoA, similarly to the
-[options.qmd#loa_title](loa_title option). When using a shortcode, you will
+[`loa_title` option](options.qmd#loa_title). When using a shortcode, you will
 most likely want to disable this title, and specify the header exactly as
 you want directly in the document.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   insert_loa: false
@@ -232,12 +233,12 @@ acronyms:
 ### `header_classes`
 
 This argument controls the additional classes that are set to the LoA title,
-similarly to the [options.qmd#loa_header_classes](loa_header_classes options).
+similarly to the [`loa_header_classes` options](options.qmd#loa_header_classes).
 Note that it has no impact when the LoA title is not generated.
 
 For example:
 
-```markdown
+```markdown {shortcodes=false}
 ---
 acronyms:
   insert_loa: false
