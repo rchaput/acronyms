@@ -6,6 +6,9 @@
 # The only difference it makes is when setting the page's title, which
 # appears in the tab. But, for a homepage, simply having the website's title
 # is good enough.
+
+# We also specify that the input markdown contains emojis.
+from: markdown+emoji
 ---
 
 {{< include ../README.md >}}

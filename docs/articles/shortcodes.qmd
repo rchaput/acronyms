@@ -1,0 +1,250 @@
+---
+title: "Shortcodes"
+description: >
+  Learn how to use the new shortcode syntax.
+---
+
+From version 2.0.0, **acronyms** now uses the Quarto shortcode syntax (in
+addition to its legacy filter syntax).
+
+Shortcodes are clearer to use, and may have additional keyworded-arguments that
+can be used to override the behaviour described in the [options.qmd](Options)
+(which are the same for all acronyms in a given document). For example, a
+specific acronym may use a different style than the others.
+
+This article describes this new syntax, how to use the shortcodes, the
+arguments that can be used, and gives a few example.
+
+
+## The `acronym` shortcode
+
+The `{{< acronym KEY >}}` shortcode replaces an acronym in the document, where
+`KEY` identifies the acronym we want to replace (exactly as `\acr{KEY}` does
+in the legacy syntax).
+
+For convenience, the shorter `{{< acr KEY >}}` can be used instead; both will
+invoke the same function, and thus have the same arguments and behaviour.
+
+The key is mandatory, and **acronyms** will raise an error if not provided.
+In addition, the following arguments can be provided:
+
+
+### `style`
+
+This argument controls the acronym's style, that is, how it will be replaced.
+It must be used similarly to the [options.qmd#style](style option).
+Only the current acronym will use this specific style, so it is not recommended
+to provide this argument to set the same style for each acronym; prefer using
+the metadata option in this case to simplify your workload.
+
+The list of possible values can be found in the [styles.qmd](Styles) article.
+
+For example:
+
+```markdown
+---
+acronyms:
+  # Acronyms will use the long-short style by default.
+  style: long-short
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+---
+
+First use (using default options): {{< acr Qmd >}}
+
+Now we force the long-long style {{< acr Qmd style=long-long >}}
+
+And now we reuse the default style: {{< acr Qmd >}}
+```
+
+
+### `first_use`
+
+In **acronyms**, most style will replace the acronym differently, based on
+whether they appear for the first time. For example, a first use may show the
+acronym longname, but only the shortname on subsequent uses.
+The `first_use` argument can be used to force the "first use" or "subsequent
+use" appearance.
+
+For example:
+
+```yaml
+---
+acronyms:
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+---
+
+Forced next use: {{< acr Qmd first_use=false >}}
+```
+
+
+### `insert_links`
+
+This argument controls whether the acronym will be rendered with a link to
+its definition in the List Of Acronyms. This is similar to the
+[options.qmd#insert_links](insert_links option). As for the `style` argument,
+this only changes the current acronym behaviour; to change all acronyms, prefer
+using the option directly.
+
+For example:
+
+```markdown
+---
+acronyms:
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+---
+
+{{< acr Qmd insert_links=false >}}
+```
+
+
+### `non_existing`
+
+This argument controls the behaviour when an acronym is not found. **acronyms**
+may print a warning and render it as a special token, such as `??` (like the
+BibTeX default behaviour), or raise an error, depending on the configuration.
+Like previous arguments, this one is similar to the
+[options.qmd#non_existing](non-existing option), but changes only the current
+acronym. Note that it has no impact when the acronym is found.
+
+For example:
+
+```markdown
+---
+acronyms:
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+---
+
+Note that the following acronym is mis-typed: {{< acr qmd non_existing=error >}}
+```
+
+
+## The `print-acronyms` shortcode
+
+The `{{< print-acronyms >}}` shortcode can be used to generate the List Of
+Acronyms (LoA), which lists the acronyms' definitions (exactly as
+`\printacronyms` does in the legacy syntax).
+
+It is recommended to disable the automatic generation of the LoA when using
+this shortcode, to avoid duplicating the LoA in the resulting document.
+It is useful when you want to generate the LoA at some exact place.
+
+For example:
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  keys:
+    - shortname: Qmd
+      longname: Quarto document
+---
+
+# Introduction
+
+Lorem ipsum dolor sit amet
+
+{{< print-acronyms >}}
+```
+
+The LoA can be customized by using the following keyworded arguments:
+
+
+### `sorting`
+
+This argument controls how the acronyms are sorted when printed in the LoA.
+It works similarly to the [options.qmd#sorting](sorting option). See this option
+for a list of possible behaviours and accepted values.
+
+For example:
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+    - shortname: YAML
+      longname: Yaml Ain't Markup Language
+---
+
+{{< acr Qmd >}} {{< acr YAML >}}
+
+{{< print-acronyms sorting=alphabetical >}}
+```
+
+
+### `include_unused`
+
+This argument controls whether to include the unused acronyms in the generated
+LoA. In the previous example, we had to insert the both acronyms in the document
+to make them appear in the LoA; this can be prevented by using this argument.
+
+For example:
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+    - shortname: YAML
+      longname: Yaml Ain't Markup Language
+---
+
+{{< print-acronyms include_unused=true >}}
+```
+
+
+### `title`
+
+This argument controls the title of the generated LoA, similarly to the
+[options.qmd#loa_title](loa_title option). When using a shortcode, you will
+most likely want to disable this title, and specify the header exactly as
+you want directly in the document.
+
+For example:
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+---
+
+# My custom title
+
+{{< print-acronyms title="" >}}
+```
+
+
+### `header_classes`
+
+This argument controls the additional classes that are set to the LoA title,
+similarly to the [options.qmd#loa_header_classes](loa_header_classes options).
+Note that it has no impact when the LoA title is not generated.
+
+For example:
+
+```markdown
+---
+acronyms:
+  insert_loa: false
+  keys:
+    - shortname: Qmd
+      longname: Quarto documents
+---
+
+{{< print-acronyms header_classes=.unnumbered >}}
+```
