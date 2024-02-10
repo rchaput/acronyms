@@ -25,6 +25,8 @@ provided the same features, but for [RMarkdown][rmarkdown] documents.
 
 ![Example of acronyms document](preview.png)
 
+:fire: Now with the Quarto shortcode syntax!
+
 
 ## Features
 
@@ -100,11 +102,16 @@ acronyms:
 ---
 ```
 
-2. Use your acronyms in your qmd document with the `\acr{<KEY>}` special command!
+2. Use your acronyms in your qmd document. You may use the older syntax with
+   the `\acr{KEY}` special command:
 
 `\acr{qmd} can be used to write technical content. \acr{qmd} use \acr{YAML}.`
 
-which renders as (using default options):
+or the newer shortcode syntax `{{< acr KEY >}}`:
+
+`{{< acr qmd >}} can be used to write technical content. {{< acr qmd >}} use {<< acr YAML >}}.`
+
+Both syntaxes render as (using default options):
 
 > Quarto documents can be used to write technical content. qmd use YAML Ain't Markup Language.
 

@@ -22,6 +22,7 @@ website:
       - text: Articles
         menu:
           - articles/options.qmd
+          - articles/shortcodes.qmd
           - articles/styles.qmd
       - text: Advanced usage
         menu:
