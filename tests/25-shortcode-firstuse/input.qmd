@@ -1,0 +1,16 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+---
+
+# Introduction {#intro}
+
+This paragraph mentions {{< acr RL >}} for the first time.
+
+And now, in this paragraph, {{< acr RL >}} is in short form.
+
+Here, we force the first use again: {{< acr RL first_use=true >}}.
+
+And here in "next use" (also case-insensitive): {{< acr RL first_use=FaLSe >}}.

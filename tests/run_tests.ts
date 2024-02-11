@@ -346,6 +346,9 @@ const testDirs = [
     '22-shortcode-simple',
     '23-shortcode-specific-style',
     '24-shortcode-listofacronyms',
+    '25-shortcode-firstuse',
+    '26-shortcode-insertlinks',
+    '27-shortcode-nonexisting',
 ];
 
 

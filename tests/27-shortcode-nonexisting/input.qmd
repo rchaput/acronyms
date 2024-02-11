@@ -1,0 +1,9 @@
+---
+acronyms: {}
+---
+
+# Introduction {#intro}
+
+The non-existing acronym will be replaced by "??": {{< acr RL non_existing=?? >}}.
+
+Here, with its key: {{< acr RL non_existing=key >}}.

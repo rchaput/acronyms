@@ -1,0 +1,12 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+---
+
+# Introduction {#intro}
+
+This paragraph has a link: {{< acr RL insert_links=true >}}.
+
+But this one will not: {{< acr RL insert_links=false >}}.
