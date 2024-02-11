@@ -81,6 +81,9 @@ function replaceAcronym (args, kwargs, meta)
     local acronym_key = pandoc.utils.stringify(args[1])
     if Acronyms:contains(acronym_key) then
         -- The acronym exists (and is recognized)
+        quarto.log.output("[acronyms] Replacing acronym ", acronym_key)
+        quarto.log.output("[acronyms] occurrences = ", Acronyms:get(acronym_key).occurrences)
+        quarto.log.output("[acronyms] isFirstUse = ", Acronyms:get(acronym_key):isFirstUse())
         local style = getOrNil(kwargs["style"])
         local first_use = getBooleanOrNil(kwargs["first_use"])
         local insert_links = getBooleanOrNil(kwargs["insert_links"])
@@ -133,6 +136,21 @@ function generateListOfAcronyms (args, kwargs, meta)
 end
 
 
+function resetAcronymsUsage (args, kwargs, meta)
+    quarto.log.output("[acronyms] in resetAcronymsUsage")
+    for acronym_key, acronym in pairs(Acronyms.acronyms) do
+        quarto.log.output("[acronyms] Handling acronym: ", acronym_key, acronym)
+        quarto.log.output("[acronyms] occurrences before = ", acronym.occurrences)
+        acronym:resetOccurrences()
+        quarto.log.output("[acronyms] occurrences after = ", acronym.occurrences)
+        quarto.log.output("[acronyms] isFirstUse = ", acronym:isFirstUse())
+    end
+    -- We must return something other than `nil`, otherwise Quarto thinks the
+    -- shortcode was not found!
+    return ""
+end
+
+
 --[[
     Define the possible shortcodes for Quarto.
 --]]
@@ -141,4 +159,5 @@ return {
     -- Same function but with a shorter name.
     ["acr"] = replaceAcronym,
     ["print-acronyms"] = generateListOfAcronyms,
+    ["reset-acronyms-usage"] = resetAcronymsUsage,
 }

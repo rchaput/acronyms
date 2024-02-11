@@ -96,6 +96,12 @@ function Acronym:isFirstUse()
 end
 
 
+-- Reset the count of occurrences, as if this acronym was never used
+function Acronym:resetOccurrences()
+    self.occurrences = 0
+end
+
+
 -- The Acronyms database.
 Acronyms = {
     -- The table that contains all acronyms, indexed by their key.
