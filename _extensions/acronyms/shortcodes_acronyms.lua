@@ -49,6 +49,18 @@ end
 
 
 --[[
+    Parse an optional value and convert it to a boolean if it was not `nil`.
+--]]
+local function getBooleanOrNil (value)
+    local value = getOrNil(value)
+    if value ~= nil then
+        value = Helpers.str_to_boolean(value)
+    end
+    return value
+end
+
+
+--[[
     Define the "main" shortcode behaviour: replacing an acronym.
 
     This function is associated to shortcodes `acronym` and `acr` so that it is
@@ -70,8 +82,8 @@ function replaceAcronym (args, kwargs, meta)
     if Acronyms:contains(acronym_key) then
         -- The acronym exists (and is recognized)
         local style = getOrNil(kwargs["style"])
-        local first_use = getOrNil(kwargs["first_use"])
-        local insert_links = getOrNil(kwargs["insert_links"])
+        local first_use = getBooleanOrNil(kwargs["first_use"])
+        local insert_links = getBooleanOrNil(kwargs["insert_links"])
         return AcronymsPandoc.replaceExistingAcronym(
             acronym_key,
             style,
@@ -102,7 +114,7 @@ function generateListOfAcronyms (args, kwargs, meta)
 
     -- Parse (optional) keyworded-arguments
     local sorting = getOrNil(kwargs["sorting"])
-    local include_unused = getOrNil(kwargs["include_unused"])
+    local include_unused = getBooleanOrNil(kwargs["include_unused"])
     local title = getOrNil(kwargs["title"])
     local header_classes = getOrNil(kwargs["header_classes"])
 

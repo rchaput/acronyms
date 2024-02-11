@@ -75,4 +75,28 @@ function Helpers.metadata_to_str(metadata)
 end
 
 
+-- Helper to convert a (case-insensitive) string to a boolean
+-- Recognized values: `true`, `false`, `yes`, `no`, `y`, `n`
+function Helpers.str_to_boolean(value)
+    local converts = {
+        ["true"] = true,
+        ["false"] = false,
+        ["yes"] = true,
+        ["no"] = false,
+        ["y"] = true,
+        ["n"] = false,
+    }
+    local result = converts[string.lower(value)]
+    if result == nil then
+        quarto.log.warning(
+            "[acronyms] Could not convert string to boolean, unrecognized value:",
+            value,
+            " ! Assuming `false`."
+        )
+        result = false
+    end
+    return result
+end
+
+
 return Helpers

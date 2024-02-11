@@ -103,7 +103,7 @@ function AcronymsPandoc.replaceExistingAcronym(acr_key, style, first_use, insert
 
     -- Use default values from Options if not specified
     style = style or Options["style"]
-    insert_links = insert_links or Options["insert_links"]
+    if insert_links == nil then insert_links = Options["insert_links"] end
 
     -- Replace the acronym with the desired style
     return replaceExistingAcronymWithStyle(
