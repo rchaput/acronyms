@@ -3,7 +3,9 @@ project:
   # Build the site to `docs/_site` (i.e., `_site` in this current dir).
   output-dir: "_site"
   # Automatically copy resources from parent folder (not detected by Quarto)
-  pre-render: cp ../preview.png preview.png
+  pre-render:
+    - cp ../preview.png preview.png
+    - ln -fs ../_extensions _extensions
 
 website:
   title: "acronyms"

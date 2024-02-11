@@ -6,3 +6,6 @@ _site/
 
 # The `preview.png` is automatically copied from the root folder when building.
 /preview.png
+
+# The `_extensions` symlink is automatically created when building.
+/_extensions

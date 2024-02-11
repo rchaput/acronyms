@@ -18,11 +18,11 @@ arguments that can be used, and gives a few example.
 
 ## The `acronym` shortcode
 
-The `{{< acronym KEY >}}` shortcode replaces an acronym in the document, where
+The `{{{< acronym KEY >}}}` shortcode replaces an acronym in the document, where
 `KEY` identifies the acronym we want to replace (exactly as `\acr{KEY}` does
 in the legacy syntax).
 
-For convenience, the shorter `{{< acr KEY >}}` can be used instead; both will
+For convenience, the shorter `{{{< acr KEY >}}}` can be used instead; both will
 invoke the same function, and thus have the same arguments and behaviour.
 
 The key is mandatory, and **acronyms** will raise an error if not provided.

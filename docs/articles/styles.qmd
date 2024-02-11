@@ -2,8 +2,15 @@
 title: "Styles"
 description: >
   List and preview of the available styles for replacing acronyms.
-# We require `knitr` to use `bash` code chunks.
-engine: knitr
+filters:
+  - acronyms
+acronyms:
+  keys:
+    - shortname: qmd
+      longname: Quarto document
+  # We only want to preview the acronyms' style, not the full document.
+  insert_loa: false
+  insert_links: false
 ---
 
 To replace acronyms in your document, **acronyms** offers several
@@ -21,6 +28,8 @@ For each of the style examples, we will use the following document
 
 ```yaml
 ---
+filters:
+  - acronyms
 acronyms:
   keys:
     - shortname: qmd
@@ -32,9 +41,9 @@ acronyms:
   insert_links: false
 ---
 
-First use: \acr{qmd}
+First use: {{{< acr qmd >}}}
 
-Next uses: \acr{qmd}
+Next uses: {{{< acr qmd >}}}
 ```
 
 
@@ -44,25 +53,25 @@ Next uses: \acr{qmd}
 
 ## long-short
 
-```{bash, long-short, echo=FALSE, results='asis'}
-../preview_style.sh "long-short"
-```
+First use: {{< acr qmd style="long-short" first_use=true >}}
+
+Next uses: {{< acr qmd style="long-short" first_use=false >}}
 
 ## short-long
 
-```{bash, short-long, echo=FALSE, results='asis'}
-../preview_style.sh "short-long"
-```
+First use: {{< acr qmd style="short-long" first_use=true >}}
+
+Next uses: {{< acr qmd style="short-long" first_use=false >}}
 
 ## long-long
 
-```{bash, long-long, echo=FALSE, results='asis'}
-../preview_style.sh "long-long"
-```
+First use: {{< acr qmd style="long-long" first_use=true >}}
+
+Next uses: {{< acr qmd style="long-long" first_use=false >}}
 
 ## short-footnote
 
-```{bash, short-footnote, echo=FALSE, results='asis'}
-../preview_style.sh "short-footnote"
-```
+First use: {{< acr qmd style="short-footnote" first_use=true >}}
+
+Next uses: {{< acr qmd style="short-footnote" first_use=false >}}
 
