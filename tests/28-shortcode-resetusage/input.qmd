@@ -1,0 +1,22 @@
+---
+acronyms:
+  insert_loa: false
+  insert_links: false
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+---
+
+# Abstract {#abstract}
+
+This paragraph mentions {{< acr RL >}} for the first time.
+
+And now, in this paragraph, {{< acr RL >}} is in short form.
+
+{{< reset-acronyms-usage >}}
+
+# Introduction {#intro}
+
+Here, it will be again in long form: {{< acr RL >}}.
+
+And here in short form: {{< acr RL >}}.
