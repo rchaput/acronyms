@@ -17,6 +17,7 @@ along with their default values.
 
 ```yaml
 ---
+lang: en
 acronyms:
   loa_title: "List of Acronyms"
   loa_header_classes: []
@@ -31,6 +32,15 @@ acronyms:
     - ./acronyms.yml
 ---
 ```
+
+## `lang`
+
+This is a [standard Quarto option](https://quarto.org/docs/authoring/language.html)
+that sets the document language. When specified, **acronyms** automatically
+recognizes it, and translates some elements, such as the List of Acronyms' title.
+By default, if the translation is not available for your language, it will
+resort to English. If you are not satisfied with this title, you can always
+override it manually by using the [`loa_title`](#loa_title) option.
 
 
 ## `loa_title`
