@@ -5,3 +5,7 @@
 # automatically via the `run_tests` script, so we do not need to track the
 # symlink itself, and we ignore it.
 /_extensions
+
+# Ignore the renders' results, which, by default, use the same basename with
+# the `.md` extension instead of `.qmd`.
+*/input.md
