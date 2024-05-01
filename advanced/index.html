@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -238,7 +238,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1707649358515" data-listing-reading-time-sort="2" data-listing-word-count-sort="342">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1714590876048" data-listing-reading-time-sort="2" data-listing-word-count-sort="342">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../advanced/external_file.html" class="no-external">Defining acronyms in external file(s)</a>
@@ -255,7 +255,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1707649358515" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1714590876048" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../advanced/multi_document.html" class="no-external">Using acronyms in a multi-document project</a>
@@ -272,7 +272,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1707649358515" data-listing-reading-time-sort="2" data-listing-word-count-sort="274">
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1714590876048" data-listing-reading-time-sort="2" data-listing-word-count-sort="274">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../advanced/customized_loa_header.html" class="no-external">Customizing the List of Acronyms title</a>
@@ -373,6 +373,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/rchaput\.github\.io\/acronyms\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -407,7 +425,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
