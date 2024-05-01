@@ -349,6 +349,7 @@ const testDirs = [
     '25-shortcode-firstuse',
     '26-shortcode-insertlinks',
     '27-shortcode-nonexisting',
+    '28-translation',
 ];
 
 
