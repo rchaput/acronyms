@@ -1,0 +1,13 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+lang: fr
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And now, in this paragraph, \acr{RL} is in short form.
