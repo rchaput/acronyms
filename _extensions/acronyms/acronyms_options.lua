@@ -10,6 +10,13 @@ This file defines the Options table.
 -- (parse them from configuration files, get them, ...).
 local Options = {
 
+    -- The language used in this document (Quarto standard option), following
+    -- the IETF BCP47 standard, i.e., a tag composed of subtags, separated by
+    -- hyphens (`-`). For example: `en-US`. The first subtag represent the
+    -- language itself (`en`, `fr`, `zh`, ...), other subtags represent
+    -- more precise information (region, script, ...).
+    lang = "",
+
     -- The prefix to prepend to all acronym's ID (to ensure their uniqueness).
     -- IDs are especially used to link an acronym to its definition in the List
     -- of Acronyms.
@@ -53,6 +60,11 @@ Parse the options from the Metadata (i.e., the YAML fields).
 --]]
 function Options:parseOptionsFromMetadata(m)
     quarto.log.debug("[acronyms] Parsing options from metadata...", m.acronyms)
+    -- Load the lang (can be `nil`); this is the only option outside `acronyms`.
+    if m.lang ~= nil then
+        self.lang = pandoc.utils.stringify(m.lang)
+    end
+
     -- The options that we are interested in are all grouped under `acronyms`.
     -- If it does not exist, use an empty table.
     options = m.acronyms or {}
