@@ -27,7 +27,7 @@ local Options = {
     sorting = "alphabetical",
 
     -- The title (header) that precedes the List of Acronyms (LoA).
-    loa_title = pandoc.MetaInlines(pandoc.Str("List Of Acronyms")),
+    loa_title = nil,
 
     -- Whether to include in the LoA acronyms that have not been used.
     include_unused = true,
