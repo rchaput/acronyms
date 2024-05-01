@@ -32,6 +32,9 @@ local replaceExistingAcronymWithStyle = require("acronyms_styles")
 -- The options for the List Of Acronyms, as defined in the document's metadata.
 local Options = require("acronyms_options")
 
+-- The translations for some hardcoded sentences (such as the LoA Title)
+local Translations = require("acronyms_translations")
+
 -- The functions that we define here, and which will generate Pandoc elements
 local AcronymsPandoc = {}
 
@@ -133,7 +136,17 @@ function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_class
     -- Use default options if not specified
     sorting = sorting or Options["sorting"]
     include_unused = include_unused or Options["include_unused"]
-    title = title or Options["loa_title"]
+    if title == nil then
+        -- No shortcode-specific value given
+        if Options["loa_title"] ~= nil then
+            -- A value given in the metadata (options)
+            title = Options["loa_title"]
+        else
+            -- If neither the metadata nor the shortcode option are specified,
+            -- by default we use the translation for the user's language
+            title = pandoc.MetaInlines(pandoc.Str(Translations:get_loa_title(Options["lang"])))
+        end
+    end
     header_classes = header_classes or Options["loa_header_classes"]
 
     -- We first get the list of sorted acronyms, according to the defined criteria.
