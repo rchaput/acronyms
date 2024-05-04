@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Learn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).">
+<meta name="description" content="Learn how to extend existing features, such as styles and translations.">
 
-<title>acronyms - Defining acronyms in external file(s)</title>
+<title>acronyms - Extending the acronyms features</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -191,23 +191,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#referring-to-an-external-definition-file-in-a-quarto-document" id="toc-referring-to-an-external-definition-file-in-a-quarto-document" class="nav-link active" data-scroll-target="#referring-to-an-external-definition-file-in-a-quarto-document">Referring to an external definition file in a Quarto document</a></li>
-  <li><a href="#content-of-the-definition-files" id="toc-content-of-the-definition-files" class="nav-link" data-scroll-target="#content-of-the-definition-files">Content of the definition file(s)</a></li>
-  <li><a href="#loading-order-for-acronyms" id="toc-loading-order-for-acronyms" class="nav-link" data-scroll-target="#loading-order-for-acronyms">Loading order for acronyms</a></li>
+  <li><a href="#adding-a-new-style" id="toc-adding-a-new-style" class="nav-link active" data-scroll-target="#adding-a-new-style">Adding a new style</a></li>
+  <li><a href="#adding-a-new-translation" id="toc-adding-a-new-translation" class="nav-link" data-scroll-target="#adding-a-new-translation">Adding a new translation</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/external_file.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/extending.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Defining acronyms in external file(s)</h1>
+<h1 class="title">Extending the acronyms features</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Learn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).</p>
+    <p>Learn how to extend existing features, such as styles and translations.</p>
   </div>
 </div>
 
@@ -224,54 +223,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Whereas defining acronyms directly in the YAML metadata is the most straightforward way, <strong>acronyms</strong> also support reading definitions from one (or several) pseudo-YAML file.</p>
-<section id="referring-to-an-external-definition-file-in-a-quarto-document" class="level2">
-<h2 class="anchored" data-anchor-id="referring-to-an-external-definition-file-in-a-quarto-document">Referring to an external definition file in a Quarto document</h2>
-<p>To do so, simply specify the file path in the <code>fromfile</code> attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the <code>.bib</code> files for LaTeX citations.</p>
-<p>This attribute may be either a single path, for example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fromfile</span><span class="kw">:</span><span class="at"> ./acronyms.yml</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or a list of paths, for example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fromfile</span><span class="kw">:</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> ./acronyms1.yml</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> ./acronyms2.yml</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.</p>
-<p>In our examples, we thus assume that the <code>acronyms.yml</code> (respectively, <code>acronyms1.yml</code> and <code>acronyms2.yml</code>) live in the same folder as the qmd document.</p>
+<p><strong>acronyms</strong> offers several features, but you may want to customize it in your very own way, for example to add a new acronym style, or a translation. This article explains how to do so; to help the <strong>acronyms</strong> community, you can contribute your new style and translation by creating a <a href="https://github.com/rchaput/acronyms/compare">pull request</a>.</p>
+<section id="adding-a-new-style" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-new-style">Adding a new style</h2>
+<p>When you use an acronym in your document, <strong>acronyms</strong> uses a <em>style</em> to actually render it, based on its <em>short name</em>, <em>long name</em>, and whether the acronym appears for the first time. A list of existing styles can be found <a href="../articles/styles.html">here</a>, but we cannot cover all possible styles.</p>
+<p>Fortunately, you can easily add a new style. It requires writing some <a href="https://www.lua.org/docs.html">Lua</a> code, yet it should be simple enough that it can be done without any knowledge of Lua, especially by taking inspiration from existing styles.</p>
+<p>For example, the <em>long-short</em> style returns <code>Long name (Short name)</code> in the case of a first use, and <code>Short name</code> the next uses. It is implemented as:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"long-short"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">text</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">is_first_use</span> <span class="cf">then</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">acronym</span><span class="op">.</span><span class="va">longname</span> <span class="op">..</span> <span class="st">" ("</span> <span class="op">..</span> <span class="va">acronym</span><span class="op">.</span><span class="va">shortname</span> <span class="op">..</span> <span class="st">")"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">acronym</span><span class="op">.</span><span class="va">shortname</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_element<span class="op">(</span><span class="va">text</span><span class="op">,</span> <span class="va">acronym</span><span class="op">.</span><span class="va">key</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that a style is created by writing:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"YOUR STYLE NAME HERE"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">text</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cn">SOME</span> <span class="cn">CODE</span> <span class="cn">HERE</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_element<span class="op">(</span><span class="va">text</span><span class="op">,</span> <span class="va">acronym</span><span class="op">.</span><span class="va">key</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where <code>YOUR STYLE NAME HERE</code> is the name of the style you desire (it should be all lowercase, with whitespaces replaced by hyphens), and <code>SOME CODE HERE</code> defines what will be the <em>text</em> of the acronym (by setting a value to the <code>text</code> variable).</p>
+<p>In most cases, you will want to distinguish between first use / next use, by using a <code>if first_use then (...) else (...) end</code> structure, as in the previous example. You may omit this structure if you want the same appearance each time the acronym appears.</p>
+<p>Simple styles will only rely on some combination of <code>acronym.shortname</code> and <code>acronym.longname</code>, optionally with some hardcoded elements such as parens (combined with <code>..</code>, as in <code>"(" .. acronym.shortname .. ")"</code>). For more complex styles, e.g., to put some text in bold font, you will need to use <a href="https://pandoc.org/lua-filters.html#lua-type-reference">Pandoc</a> elements.</p>
+<p>For example, here is the code to create a new style named <code>bold-short</code> that returns the long name in the first use, and the short name in bold in next uses:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"bold-short"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">text</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">is_first_use</span> <span class="cf">then</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">acronym</span><span class="op">.</span><span class="va">longname</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">pandoc</span><span class="op">.</span>Strong<span class="op">(</span><span class="va">acronym</span><span class="op">.</span><span class="va">shortname</span><span class="op">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_element<span class="op">(</span><span class="va">text</span><span class="op">,</span> <span class="va">acronym</span><span class="op">.</span><span class="va">key</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note the <code>pandoc.Strong</code> element that will be displayed in a bold font. This style, when added to the <code>_extensions/acronyms/acronyms_styles.lua</code> file, will be invoked by setting the <code>style: bold-short</code> option in the metadata of your document.</p>
 </section>
-<section id="content-of-the-definition-files" class="level2">
-<h2 class="anchored" data-anchor-id="content-of-the-definition-files">Content of the definition file(s)</h2>
-<p>The content of such files must be as following:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">keys</span><span class="kw">:</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">  # Define your keys here</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> qmd</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> Quarto document</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Please note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the <code>---</code> fences.</p>
-<p>However, only the metadata and more specifically the <code>acronyms.keys</code> field is used. No other option is taken into account. The eventual document body is ignored as well.</p>
-</section>
-<section id="loading-order-for-acronyms" class="level2">
-<h2 class="anchored" data-anchor-id="loading-order-for-acronyms">Loading order for acronyms</h2>
-<p>The acronyms are read in the following order:</p>
-<ol type="1">
-<li>Acronyms in the <code>acronyms.key</code> field of the source qmd document, in sequential order.</li>
-<li>Acronyms in each of the <code>acronyms.fromfile</code> files.
-<ol type="a">
-<li>Files are read in sequential order.</li>
-<li>Acronyms inside each file are also read in sequential order.</li>
-</ol></li>
-</ol>
-<p>This order is meaningful in 2 cases:</p>
-<ul>
-<li>When a duplicate key is found, the behaviour (<code>keep</code> or <code>replace</code>) depends on the order in which acronyms are read.</li>
-<li>When the <code>initial</code> sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined.</li>
-</ul>
+<section id="adding-a-new-translation" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-new-translation">Adding a new translation</h2>
+<p>For some elements, such as the List of Acronyms’ title, <strong>acronyms</strong> is able to automatically translate them to your desired language, assuming that the <code>lang</code> option is set in the metadata of your document. However, not many languages are currently available; to add your own language, you may modify the <code>_extension/acronyms/acronyms_translations.lua</code> file.</p>
+<p>Translations are added in the following way:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="va">loa_title</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="st">""</span><span class="op">]</span> <span class="op">=</span> <span class="st">"List Of Acronyms"</span><span class="op">,</span> <span class="co">-- Default value</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="st">"en"</span><span class="op">]</span> <span class="op">=</span> <span class="st">"List Of Acronyms"</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="st">"fr"</span><span class="op">]</span> <span class="op">=</span> <span class="st">"Liste des Acronymes"</span><span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that each line represents a translation, using the format <code>["TRANSLATION LANGUAGE HERE"] = "TRANSLATION HERE"</code>. To add a new translation, simply add a new line (or duplicate an existing one), and set the language tag, usually a two-letter code, such as <code>en</code>, <code>fr</code>, <code>es</code>, <code>zh</code>, … and the corresponding translation after the <code>=</code> symbol.</p>
+<p>Note that the language tag might be more complex if necessary, for exemple to specialize a translation for a given idiom or region. <code>en-GB</code> and <code>en-US</code> are two valid tags that refer (respectively) to the Great-Britain and United States regions of the English language.</p>
+<p><strong>acronyms</strong> identifies the best language, based on available translations and the user’s requested language. For example, if the user requests <code>en-GB</code>, but only <code>en</code> or <code>fr</code> are available, it will resort to <code>en</code>. If the user requests to <code>zh</code>, it will resort to <code>""</code> (which should be equal to the <code>en</code> one). However, if an user request <code>en</code> (or <code>en-US</code>) but only <code>en-GB</code> or <code>fr</code> are available, it will not match (<code>en-GB</code> is “too” specialized to match <code>en</code>). For this reason, it is recommended that you set the language to the most simple tag, such as <code>en</code>, <code>es</code>, etc.</p>
 
 
 </section>
@@ -691,4 +691,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/external_file.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/rchaput/acronyms/edit/master/docs/advanced/extending.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/rchaput/acronyms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
