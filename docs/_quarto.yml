@@ -29,6 +29,7 @@ website:
       - text: Advanced usage
         menu:
           - advanced/external_file.qmd
+          - advanced/extending.qmd
           - advanced/multi_document.qmd
           - advanced/customized_loa_header.qmd
     right:

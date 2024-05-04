@@ -1,0 +1,124 @@
+---
+title: "Extending the acronyms features"
+description: >
+    Learn how to extend existing features, such as styles and translations.
+---
+
+**acronyms** offers several features, but you may want to customize it in
+your very own way, for example to add a new acronym style, or a translation.
+This article explains how to do so; to help the **acronyms** community, you
+can contribute your new style and translation by creating a
+[pull request](https://github.com/rchaput/acronyms/compare).
+
+## Adding a new style
+
+When you use an acronym in your document, **acronyms** uses a *style* to
+actually render it, based on its *short name*, *long name*, and whether the
+acronym appears for the first time. A list of existing styles can be found
+[here](../articles/styles.qmd), but we cannot cover all possible styles.
+
+Fortunately, you can easily add a new style. It requires writing some
+[Lua](https://www.lua.org/docs.html) code, yet it should be simple enough that
+it can be done without any knowledge of Lua, especially by taking inspiration
+from existing styles.
+
+For example, the *long-short* style returns `Long name (Short name)` in the
+case of a first use, and `Short name` the next uses. It is implemented as:
+
+```lua
+styles["long-short"] = function(acronym, insert_links, is_first_use)
+    local text
+    if is_first_use then
+        text = acronym.longname .. " (" .. acronym.shortname .. ")"
+    else
+        text = acronym.shortname
+    end
+
+    return create_element(text, acronym.key, insert_links)
+end
+```
+
+Note that a style is created by writing:
+
+```lua
+styles["YOUR STYLE NAME HERE"] = function(acronym, insert_links, is_first_use)
+    local text
+    SOME CODE HERE
+    return create_element(text, acronym.key, insert_links)
+end
+```
+
+where `YOUR STYLE NAME HERE` is the name of the style you desire (it should
+be all lowercase, with whitespaces replaced by hyphens), and `SOME CODE HERE`
+defines what will be the *text* of the acronym (by setting a value to the
+`text` variable).
+
+In most cases, you will want to distinguish between first use / next use, by
+using a `if first_use then (...) else (...) end` structure, as in the previous
+example. You may omit this structure if you want the same appearance each time
+the acronym appears.
+
+Simple styles will only rely on some combination of `acronym.shortname` and
+`acronym.longname`, optionally with some hardcoded elements such as parens
+(combined with `..`, as in `"(" .. acronym.shortname .. ")"`). For more complex
+styles, e.g., to put some text in bold font, you will need to use
+[Pandoc](https://pandoc.org/lua-filters.html#lua-type-reference) elements.
+
+For example, here is the code to create a new style named `bold-short` that
+returns the long name in the first use, and the short name in bold in next uses:
+
+```lua
+styles["bold-short"] = function(acronym, insert_links, is_first_use)
+    local text
+    if is_first_use then
+        text = acronym.longname
+    else
+        text = pandoc.Strong(acronym.shortname)
+    end
+    return create_element(text, acronym.key, insert_links)
+end
+```
+
+Note the `pandoc.Strong` element that will be displayed in a bold font.
+This style, when added to the `_extensions/acronyms/acronyms_styles.lua` file,
+will be invoked by setting the `style: bold-short` option in the metadata of
+your document.
+
+
+## Adding a new translation
+
+For some elements, such as the List of Acronyms' title, **acronyms** is able to
+automatically translate them to your desired language, assuming that the
+`lang` option is set in the metadata of your document.
+However, not many languages are currently available; to add your own language,
+you may modify the `_extension/acronyms/acronyms_translations.lua` file.
+
+Translations are added in the following way:
+
+```lua
+    loa_title = {
+        [""] = "List Of Acronyms", -- Default value
+        ["en"] = "List Of Acronyms",
+        ["fr"] = "Liste des Acronymes",
+    }
+```
+
+Note that each line represents a translation, using the format
+`["TRANSLATION LANGUAGE HERE"] = "TRANSLATION HERE"`.
+To add a new translation, simply add a new line (or duplicate an existing one),
+and set the language tag, usually a two-letter code, such as `en`, `fr`, `es`,
+`zh`, ... and the corresponding translation after the `=` symbol.
+
+Note that the language tag might be more complex if necessary, for exemple to
+specialize a translation for a given idiom or region. `en-GB` and `en-US` are
+two valid tags that refer (respectively) to the Great-Britain and United States
+regions of the English language.
+
+**acronyms** identifies the best language, based on available translations and
+the user's requested language. For example, if the user requests `en-GB`, but
+only `en` or `fr` are available, it will resort to `en`. If the user requests
+to `zh`, it will resort to `""` (which should be equal to the `en` one).
+However, if an user request `en` (or `en-US`) but only `en-GB` or `fr` are
+available, it will not match (`en-GB` is "too" specialized to match `en`).
+For this reason, it is recommended that you set the language to the most simple
+tag, such as `en`, `es`, etc.
