@@ -256,7 +256,7 @@
     "href": "articles/options.html#overview",
     "title": "Available options",
     "section": "Overview",
-    "text": "Overview\nThe following example gives an overview of available options, along with their default values.\n---\nlang: en\nacronyms:\n  loa_title: \"List of Acronyms\"\n  loa_header_classes: []\n  include_unused: true\n  insert_loa: \"beginning\"\n  insert_links: true\n  id_prefix: \"acronyms_\"\n  sorting: \"alphabetical\"\n  non_existing: \"key\"\n  style: \"long-short\"\n  fromfile:\n    - ./acronyms.yml\n---"
+    "text": "Overview\nThe following example gives an overview of available options, along with their default values.\n---\nlang: en\nacronyms:\n  loa_title: \"List of Acronyms\"\n  loa_header_classes: []\n  loa_format: nil\n  include_unused: true\n  insert_loa: \"beginning\"\n  insert_links: true\n  id_prefix: \"acronyms_\"\n  sorting: \"alphabetical\"\n  non_existing: \"key\"\n  style: \"long-short\"\n  fromfile:\n    - ./acronyms.yml\n---"
   },
   {
     "objectID": "articles/options.html#lang",
@@ -278,6 +278,13 @@
     "title": "Available options",
     "section": "loa_header_classes",
     "text": "loa_header_classes\nThis options allows to add more classes to the List Of Acronyms (loa) header. By default, the header uses the loa class, which should not do anything by itself. It may be used to customize the LoA with CSS rules, but has no default behaviour.\nAny additional class can be put to the LoA by putting them in this option, in the form of a list. By default, this list is empty, which means that the LoA only has the loa class.\nExamples:\nTo put the LoA in an unnumbered section:\n---\nacronyms:\n  loa_header_classes:\n    - unnumbered\n---"
+  },
+  {
+    "objectID": "articles/options.html#loa_format",
+    "href": "articles/options.html#loa_format",
+    "title": "Available options",
+    "section": "loa_format",
+    "text": "loa_format\nThis option controls how to render the List of Acronyms (LoA). By default, it is rendered as a Definition List, which prints the acronym’s shortname on a first line, and the acronym’s definition on a second line, indented.\nWhen rendering a HTML document, the Definition List can be stylized using CSS; but it is not easy on other formats (PDF, DOCX, …). To override this behaviour, the loa_format allows you to specify a Markdown template to render each acronym in the LoA. The template may contain Markdown syntax, such as ** for bold font, * for italic, etc. The template should also contain the {shortname} and {longname} placeholders, which acronyms will replace by each acronym’s short name and long name.\nNote that, because this string can use Markdown syntax, it must be suffixed with the {=raw} qualifier to avoid Markdown being parsed too early.\nExamples:\nTo render acronyms to a bullet list, with the short name in bold font, followed by a colon, then the long name on the same line:\n---\nacronyms:\n  loa_format: '`- **{shortname}**: {longname}`{=raw}'\n---\nIn this example, - **{shortname}**: {longname} is the template itself. The {=raw} part is unfortunately needed to avoid bugs with Pandoc."
   },
   {
     "objectID": "articles/options.html#include_unused",
