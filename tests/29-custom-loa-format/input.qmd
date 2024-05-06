@@ -1,0 +1,15 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+    - shortname: Qmd
+      longname: Quarto document
+  loa_format: '`- **{shortname}**: {longname}`{=raw}'
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And here, \acr{Qmd} is mentioned.
