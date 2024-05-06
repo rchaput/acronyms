@@ -52,6 +52,10 @@ local Options = {
     -- Additional classes to add to the List of Acronyms header.
     loa_header_classes = {},
 
+    -- Custom format for the List of Acronyms, as a Markdown template in which
+    -- the `{shortname}` and `{longname}` placeholders will be replaced.
+    loa_format = nil,
+
 }
 
 
@@ -126,6 +130,14 @@ function Options:parseOptionsFromMetadata(m)
     if options["loa_header_classes"] ~= nil then
         for _, v in ipairs(options["loa_header_classes"]) do
             table.insert(self.loa_header_classes, pandoc.utils.stringify(v))
+        end
+    end
+
+    if options["loa_format"] ~= nil then
+        if pandoc.utils.type(options["loa_format"]) == "Inlines" then
+            self.loa_format = options["loa_format"][1].text
+        else
+            self.loa_format = pandoc.utils.stringify(options["loa_format"])
         end
     end
 end
