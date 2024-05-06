@@ -21,6 +21,7 @@ lang: en
 acronyms:
   loa_title: "List of Acronyms"
   loa_header_classes: []
+  loa_format: nil
   include_unused: true
   insert_loa: "beginning"
   insert_links: true
@@ -98,6 +99,39 @@ acronyms:
     - unnumbered
 ---
 ```
+
+
+## `loa_format`
+
+This option controls how to render the List of Acronyms (LoA). By default,
+it is rendered as a Definition List, which prints the acronym's shortname on
+a first line, and the acronym's definition on a second line, indented.
+
+When rendering a HTML document, the Definition List can be stylized using CSS;
+but it is not easy on other formats (PDF, DOCX, ...). To override this behaviour,
+the `loa_format` allows you to specify a Markdown template to render each
+acronym in the LoA. The template may contain Markdown syntax, such as `**`
+for bold font, `*` for italic, etc. The template should also contain the
+`{shortname}` and `{longname}` placeholders, which **acronyms** will replace
+by each acronym's short name and long name.
+
+Note that, because this string can use Markdown syntax, it must be suffixed
+with the `{=raw}` qualifier to avoid Markdown being parsed too early.
+
+Examples:
+
+To render acronyms to a bullet list, with the short name in bold font, followed
+by a colon, then the long name on the same line:
+
+```yaml
+---
+acronyms:
+  loa_format: '`- **{shortname}**: {longname}`{=raw}'
+---
+```
+
+In this example, `- **{shortname}**: {longname}` is the template itself.
+The `{=raw}` part is unfortunately needed to avoid bugs with Pandoc.
 
 
 ## `include_unused`
