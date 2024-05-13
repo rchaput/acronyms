@@ -150,6 +150,9 @@ function AcronymsPandoc.generateCustomFormat(sorted_acronyms, loa_format)
     -- all acronyms in a temporary Markdown document before rendering it.
     local document_markup = ""
     for _, acronym in ipairs(sorted_acronyms) do
+        quarto.log.debug(
+            "[acronyms] Generating definition for acronym", acronym.key
+        )
         local id = Helpers.key_to_id(acronym.key)
         -- The acronym's name. We want it to be rendered with an ID attribute.
         local name = "[" .. acronym.shortname .. "]{#" .. id .. "}"
@@ -157,10 +160,21 @@ function AcronymsPandoc.generateCustomFormat(sorted_acronyms, loa_format)
         -- and `{longname}` as placeholder values that we must replace.
         local acronym_markup = loa_format:gsub("{shortname}", name)
         acronym_markup = acronym_markup:gsub("{longname}", acronym.longname)
+        quarto.log.debug(
+            "[acronyms] Template markup processed as", acronym_markup
+        )
         document_markup = document_markup .. acronym_markup .. "\n\n"
     end
+    quarto.log.debug("[acronyms] Rendering Markdown markup:\n", document_markup)
     local document = pandoc.read(document_markup)
-    return document.blocks[1]
+    -- We want to return all rendered blocks (potentially multiline content,
+    -- such as bullet lists, divs, paragraphs, ...); but we cannot use `blocks`
+    -- directly. Quarto expects a single Block, not Blocks.
+    -- The `pandoc.util.blocks_to_inlines` function should be useful, but
+    -- adds incorrect trailing `\` to some templates...
+    -- Wrapping the blocks in a Div seems the safest option, although it
+    -- adds an unnecessary (but still working) `<div> ... </div>` markup.
+    return pandoc.Div(document.blocks)
 end
 
 
