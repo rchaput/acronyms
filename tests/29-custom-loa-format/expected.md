@@ -1,8 +1,12 @@
 # List Of Acronyms {#acronyms_HEADER_LOA .loa}
 
+<div>
+
 -   **[Qmd]{#acronyms_Qmd}**: Quarto document
 
 -   **[RL]{#acronyms_RL}**: Reinforcement Learning
+
+</div>
 
 # Introduction {#intro}
 
