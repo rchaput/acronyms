@@ -1,0 +1,20 @@
+---
+acronyms:
+  keys:
+    - shortname: CL/F
+      longname: Test with a /
+    - shortname: Cav,ss
+      longname: Test with a ,
+    - shortname: Thé
+      longname: Test with accents
+    - shortname: 漢字
+      longname: Test with kanjis
+---
+
+# Introduction {#intro}
+
+Shortnames with special characters are OK: \acr{CL/F} ; \acr{Cav,ss}
+
+Also those with accents (but please avoid using only accents): \acr{Thé}
+
+Same for Kanjis: \acr{漢字}
