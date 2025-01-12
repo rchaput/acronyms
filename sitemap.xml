@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rchaput.github.io/acronyms/index.html</loc>
-    <lastmod>2024-05-13T21:20:33.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rchaput.github.io/acronyms/articles/styles.html</loc>
-    <lastmod>2024-05-13T21:20:33.405Z</lastmod>
-  </url>
-  <url>
     <loc>https://rchaput.github.io/acronyms/getting_started.html</loc>
-    <lastmod>2024-05-13T21:20:33.405Z</lastmod>
+    <lastmod>2025-01-12T14:41:20.361Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/advanced/customized_loa_header.html</loc>
-    <lastmod>2024-05-13T21:20:33.401Z</lastmod>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/advanced/multi_document.html</loc>
-    <lastmod>2024-05-13T21:20:33.401Z</lastmod>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
   </url>
   <url>
-    <loc>https://rchaput.github.io/acronyms/advanced/external_file.html</loc>
-    <lastmod>2024-05-13T21:20:33.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rchaput.github.io/acronyms/advanced/index.html</loc>
-    <lastmod>2024-05-13T21:20:33.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rchaput.github.io/acronyms/advanced/extending.html</loc>
-    <lastmod>2024-05-13T21:20:33.401Z</lastmod>
+    <loc>https://rchaput.github.io/acronyms/index.html</loc>
+    <lastmod>2025-01-12T14:41:20.361Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/articles/shortcodes.html</loc>
-    <lastmod>2024-05-13T21:20:33.405Z</lastmod>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
   </url>
   <url>
     <loc>https://rchaput.github.io/acronyms/articles/options.html</loc>
-    <lastmod>2024-05-13T21:20:33.401Z</lastmod>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/articles/styles.html</loc>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/advanced/extending.html</loc>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/advanced/index.html</loc>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rchaput.github.io/acronyms/advanced/external_file.html</loc>
+    <lastmod>2025-01-12T14:41:20.357Z</lastmod>
   </url>
 </urlset>
