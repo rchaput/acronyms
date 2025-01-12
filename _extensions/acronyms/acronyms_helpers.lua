@@ -52,7 +52,9 @@ end
 -- Helper function to generate the ID (identifier) from an acronym key.
 -- The ID can be used for, e.g., links.
 function Helpers.key_to_id(key)
-    return Options["id_prefix"] .. key
+    -- Sanitize the key, i.e., replace non-ASCII characters with `-`
+    local sanitized_key = string.gsub(key, "[^0-9A-Za-z]", "_")
+    return Options["id_prefix"] .. sanitized_key
 end
 
 
