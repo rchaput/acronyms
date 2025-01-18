@@ -1,0 +1,14 @@
+---
+acronyms:
+  fromfile:
+    # The first file uses the "original" (verbose!) format.
+    - ./acronyms_original.yml
+    # The second file uses a simplified format, faster and easier to write.
+    - ./acronyms_simplified.yml
+---
+
+# Introduction {#intro}
+
+This paragraph mentions \acr{RL} for the first time.
+
+And this paragraph mentions \acr{YAML}.
