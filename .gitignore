@@ -8,3 +8,6 @@
 
 # Other files
 notes
+
+# Configuration files (IDEs)
+/.luarc.json
