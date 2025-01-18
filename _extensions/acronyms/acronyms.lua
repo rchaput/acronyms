@@ -42,7 +42,10 @@ local function raiseAcronymCreationError(object)
             table.insert(unexpected_keys, k)
         end
     end
-    msg = msg .. "i Found unexpected keys: " .. table.concat(unexpected_keys, ",") .. ".\n"
+    if #unexpected_keys > 0 then
+    -- Concatenate the message only if there is at least 1 unexpected key
+        msg = msg .. "i Found unexpected keys: " .. table.concat(unexpected_keys, ",") .. ".\n"
+    end
     -- This str here represents the original metadata, not the formatted
     -- Acronym (which could be obtained with `tostring(object)`).
     local acronym_str = Helpers.metadata_to_str(object.original_metadata)
