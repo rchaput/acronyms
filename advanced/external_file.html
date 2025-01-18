@@ -245,7 +245,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="content-of-the-definition-files" class="level2">
 <h2 class="anchored" data-anchor-id="content-of-the-definition-files">Content of the definition file(s)</h2>
-<p>The content of such files must be as following:</p>
+<p>These files support 2 different formats.</p>
+<ol type="1">
+<li>The “original”, metadata-like format:</li>
+</ol>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acronyms</span><span class="kw">:</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">keys</span><span class="kw">:</span></span>
@@ -253,8 +256,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">shortname</span><span class="kw">:</span><span class="at"> qmd</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">longname</span><span class="kw">:</span><span class="at"> Quarto document</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Please note that this format is not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the <code>---</code> fences.</p>
-<p>However, only the metadata and more specifically the <code>acronyms.keys</code> field is used. No other option is taken into account. The eventual document body is ignored as well.</p>
+<p>This format is exactly as you would write in the “main” Quarto document, except that only the <code>acronyms.keys</code> field is used. Any other field or content will be ignored.</p>
+<ol start="2" type="1">
+<li>The “simplified” format, key-value like:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define your acronyms directly here as shortname: longname</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qmd</span><span class="kw">:</span><span class="at"> Quarto document</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This format is much shorter and easier to read; however, you cannot define the acronyms’ keys, and cannot use spaces in the shortname (but you should avoid doing so anyway).</p>
+<p>Please note that these formats are not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the <code>---</code> fences.</p>
+<p>However, only the acronyms’ definitions are used in <code>fromfile</code> external documents. No other option is taken into account. The eventual document body is ignored as well.</p>
 </section>
 <section id="loading-order-for-acronyms" class="level2">
 <h2 class="anchored" data-anchor-id="loading-order-for-acronyms">Loading order for acronyms</h2>
