@@ -12,7 +12,7 @@ tests_folder_path = Path(__file__).parent
 
 all_tests = list(sorted(map(
     lambda p: p.parent.name,  # Get only the folder name, e.g., `01-simple`
-    tests_folder_path.glob('*/input.md')
+    tests_folder_path.glob('*/input.qmd')
 )))
 """The list of the tests folders (sub-directories that contain an `input.md`)."""
 
@@ -334,6 +334,12 @@ def main(tests_to_perform) -> int:
         print(reporter_oneline(result))
 
     # Print short summary
+    if nb_fails == 0:
+        # Not a single fail, put `nb_successes`` in bold and green to highlight
+        nb_successes = green(bold(nb_successes))
+    else:
+        # Some fails, put `nb_fails` in bold and red to highlight
+        nb_fails = red(bold(nb_fails))
     print(f'\nTotal: {nb_successes} PASS / {nb_fails} FAIL')
 
     # If we are in a GitHub CI, we also want to write a "Job Summary",
