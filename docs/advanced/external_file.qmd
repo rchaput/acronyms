@@ -50,7 +50,9 @@ document.
 
 ## Content of the definition file(s)
 
-The content of such files must be as following:
+These files support 2 different formats.
+
+1. The "original", metadata-like format:
 
 ```yaml
 ---
@@ -62,12 +64,29 @@ acronyms:
 ---
 ```
 
-Please note that this format is not really YAML; instead, the files are
+This format is exactly as you would write in the "main" Quarto document,
+except that only the `acronyms.keys` field is used. Any other field or content
+will be ignored.
+
+2. The "simplified" format, key-value like:
+
+```yaml
+---
+# Define your acronyms directly here as shortname: longname
+qmd: Quarto document
+---
+```
+
+This format is much shorter and easier to read; however, you cannot define
+the acronyms' keys, and cannot use spaces in the shortname (but you should
+avoid doing so anyway).
+
+Please note that these formats are not really YAML; instead, the files are
 read as Quarto documents themselves, hence the presence of the `---`
 fences.
 
-However, only the metadata and more specifically the `acronyms.keys` field
-is used. No other option is taken into account. The eventual document
+However, only the acronyms' definitions are used in `fromfile` external
+documents. No other option is taken into account. The eventual document
 body is ignored as well.
 
 ## Loading order for acronyms
