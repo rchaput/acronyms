@@ -2,10 +2,10 @@
   {
     "listing": "/advanced/index.html",
     "items": [
+      "/advanced/external_file.html",
       "/advanced/extending.html",
       "/advanced/multi_document.html",
-      "/advanced/customized_loa_header.html",
-      "/advanced/external_file.html"
+      "/advanced/customized_loa_header.html"
     ]
   }
 ]
