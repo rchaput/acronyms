@@ -229,8 +229,39 @@ function Acronyms:parseFromYamlFile(filepath, on_duplicate)
     -- is YAML anyway).
     local metadata = pandoc.read(content, "markdown").meta
 
-    -- Finally, read the metadata as usual.
-    self:parseFromMetadata(metadata, on_duplicate)
+    -- Finally, read the metadata; we have 2 formats and need to find the correct one.
+    if (metadata and metadata.acronyms and metadata.acronyms.keys) then
+        -- The "original" format, a list of `{ key, shortname, longname }`.
+        self:parseFromMetadata(metadata, on_duplicate)
+    else
+        -- The "simplified" format, a map of `shortname: longname`.
+        self:parseSimplifiedFormat(metadata, on_duplicate)
+    end
 end
+
+
+-- Parse acronyms in a simplified format consisting of `key: value` like lines.
+-- Example:
+-- ```
+-- ---
+-- shortname1: Long name for acronym 1
+-- shortname2: Long name for acronym 2
+-- ---
+-- ```
+function Acronyms:parseSimplifiedFormat(metadata, on_duplicate)
+    for shortname, longname in pairs(metadata) do
+        local original_metadata = { shortname = shortname, longname = longname }
+        shortname = pandoc.utils.stringify(shortname)
+        longname = pandoc.utils.stringify(longname)
+        local acronym = Acronym:new{
+            key = nil,
+            shortname = shortname,
+            longname = longname,
+            original_metadata = original_metadata,
+        }
+        Acronyms:add(acronym, on_duplicate)
+    end
+end
+
 
 return Acronyms
