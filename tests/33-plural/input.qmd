@@ -1,0 +1,35 @@
+---
+acronyms:
+  insert_loa: false
+  insert_links: false
+  keys:
+    # An acronym with no custom value
+    - shortname: CGI
+      longname: CpG island
+    # An acronym with both custom values
+    - shortname: ST
+      longname: stimulus
+      plural:
+        shortname: ST
+        longname: stimuli
+    # An acronym with only the longname as custom value
+    - shortname: F
+      longname: fish
+      plural:
+        longname: fish
+    # An acronym with only the shortname as custom value
+    - shortname: Fo
+      longname: food
+      plural:
+        shortname: Fo
+---
+
+# Introduction {#intro}
+
+CGI plural: \acrs{CGI}
+
+Stimulus plural: \acrs{ST}
+
+Fish plural: \acrs{F}
+
+Food plural: \acrs{Fo}
