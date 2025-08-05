@@ -99,6 +99,16 @@ function Acronym:isFirstUse()
 end
 
 
+-- Duplicate an acronym, especially when we want to change its case or use the plural form.
+function Acronym:clone()
+    local fields_copy = {}
+    for k, v in pairs(self) do
+        fields_copy[k] = v
+    end
+    return Acronym:new(fields_copy)
+end
+
+
 -- The Acronyms database.
 Acronyms = {
     -- The table that contains all acronyms, indexed by their key.
