@@ -114,7 +114,7 @@ end
 
 -- The "public" API of this module, the function which is returned by
 -- require.
-return function(acronym, style_name, insert_links, is_first_use)
+return function(acronym, style_name, insert_links, is_first_use, plural)
     -- Check that the requested strategy exists
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
@@ -129,6 +129,15 @@ return function(acronym, style_name, insert_links, is_first_use)
     if is_first_use == nil then
         is_first_use = acronym:isFirstUse()
     end
+
+    -- Transform this acronym prior to rendering
+    -- e.g., for plural form; and later, for sentence or upper case
+    if plural then
+        acronym = acronym:clone()
+        acronym.shortname = acronym.plural.shortname
+        acronym.longname = acronym.plural.longname
+    end
+
     -- Call the style on this acronym
     return styles[style_name](acronym, insert_links, is_first_use)
 end

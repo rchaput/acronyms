@@ -94,8 +94,11 @@ end
         it directly by setting to `true` or `false`.
     - insert_links: whether to insert a link to this acronym's definition in
         the List of Acronyms.
+    - plural: whether to display the plural form of this acronym.
 --]]
-function AcronymsPandoc.replaceExistingAcronym(acr_key, style, first_use, insert_links)
+function AcronymsPandoc.replaceExistingAcronym(
+    acr_key, style, first_use, insert_links, plural
+)
     quarto.log.debug("[acronyms] Replacing acronym", acr_key)
     local acronym = Acronyms:get(acr_key)
     acronym:incrementOccurrences()
@@ -113,7 +116,8 @@ function AcronymsPandoc.replaceExistingAcronym(acr_key, style, first_use, insert
         acronym,
         style,
         insert_links,
-        first_use
+        first_use,
+        plural
     )
 end
 

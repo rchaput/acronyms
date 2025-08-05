@@ -123,12 +123,15 @@ end
 Replace each `\acr{KEY}` with the correct text and link to the list of acronyms.
 --]]
 function replaceAcronym(el)
-    local acr_key = string.match(el.text, "\\acr{(.+)}")
+    local command, acr_key = string.match(el.text, "\\(acrs?){(.+)}")
     if acr_key then
         -- This is an acronym, we need to parse it.
         if Acronyms:contains(acr_key) then
             -- The acronym exists (and is recognized)
-            return AcronymsPandoc.replaceExistingAcronym(acr_key)
+            local plural = string.sub(command, -1) == 's'
+            return AcronymsPandoc.replaceExistingAcronym(
+                acr_key, nil, nil, nil, plural
+            )
         else
             -- The acronym does not exists
             return AcronymsPandoc.replaceNonExistingAcronym(acr_key)
