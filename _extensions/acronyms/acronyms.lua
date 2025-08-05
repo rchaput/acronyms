@@ -69,6 +69,17 @@ function Acronym:new(object)
     -- (Most of the time, the key is the shortname in lower case anyway...)
     object.key = object.key or object.shortname
 
+    -- If the plural forms are not set, we construct sane defaults instead.
+    if not object.plural then
+        object.plural = {}
+    end
+    if not object.plural.shortname then
+        object.plural.shortname = object.shortname .. 's'
+    end
+    if not object.plural.longname then
+        object.plural.longname = object.longname .. 's'
+    end
+
     return object
 end
 
@@ -209,10 +220,18 @@ function Acronyms:parseFromMetadata(metadata, on_duplicate)
         local key = v.key and pandoc.utils.stringify(v.key)
         local shortname = v.shortname and pandoc.utils.stringify(v.shortname)
         local longname = v.longname and pandoc.utils.stringify(v.longname)
+        local shortname_plural = v.plural and v.plural.shortname and 
+            pandoc.utils.stringify(v.plural.shortname)
+        local longname_plural = v.plural and v.plural.longname and
+            pandoc.utils.stringify(v.plural.longname)
         local acronym = Acronym:new{
             key = key,
             shortname = shortname,
             longname = longname,
+            plural = {
+                shortname = shortname_plural,
+                longname = longname_plural,
+            },
             original_metadata = v,
         }
         Acronyms:add(acronym, on_duplicate)
