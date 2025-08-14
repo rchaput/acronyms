@@ -57,6 +57,7 @@ provided the same features, but for [RMarkdown][rmarkdown] documents.
     or ignore an non-existing key, how to sort, ...
   + Sane defaults are included, such that this package can be used
     out-of-the-box.
+- 🎉 NEW 🎉 Support for [plural form](https://rchaput.github.io/acronyms/articles/plural.html)
 
 
 ## Installation
