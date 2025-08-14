@@ -39,8 +39,8 @@ provided the same features, but for [RMarkdown][rmarkdown] documents.
     [specified](https://rchaput.github.io/acronyms/articles/options.html#insert_loa)
     (by default, at the beginning of the document).
 - Automatic sorting of this list.
-+ You can choose between the *alphabetical*, *usage* or *initial*
-  [order](https://rchaput.github.io/acronyms/articles/options.html#sorting).
+  + You can choose between the *alphabetical*, *usage* or *initial*
+    [order](https://rchaput.github.io/acronyms/articles/options.html#sorting).
 - Easily manage acronyms
   + Choose between multiple [styles](https://rchaput.github.io/acronyms/articles/styles.html)
     to replace acronyms.

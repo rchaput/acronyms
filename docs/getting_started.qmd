@@ -5,7 +5,8 @@ description: >
 ---
 
 The goal of **acronyms** is to provide support for acronyms to Quarto
-documents, in a similar way to what [glossaries] achieve for LaTeX.
+documents, in a similar way to what
+[glossaries](https://www.ctan.org/pkg/glossaries) achieve for LaTeX.
 
 Basically, it allows you to define a list of acronyms, and to automatically
 replace acronyms inside the document.
@@ -78,16 +79,16 @@ Finally, to insert an acronym into the document, simply use `\acr{<KEY>}`,
 where `<KEY>` is an acronym's key, as defined in the YAML metadata.
 
 This command will be automatically replaced by **acronyms**. The result
-depends on the chosen style (see [styles] for more details). Most
-styles will also make a difference between the first use, and the next
-occurrences.
+depends on the chosen style (see [styles](articles/styles.qmd) for more 
+details). Most styles will also make a difference between the first use, and 
+the next occurrences.
 
-By default, **acronymsdown** will replace as follows:
+By default, **acronyms** will replace as follows:
 
 - first use: `<long name> (<short name>)`
 - next uses: `<short name>`
 
-The next lines show an example of how **acronymsdown** replaces acronyms
+The next lines show an example of how **acronyms** replaces acronyms
 in a document, assuming the acronyms `qmd` and `yaml` have been defined, as
 per the previous example.
 
@@ -100,13 +101,13 @@ for the metadata.
 > YAML Ain't Markup Language (YAML) for the metadata.
 
 Notice how by using `\acrs` we can pluralize the acronym; you can read more
-about that in [Plural form][plural].
+about that in [Plural form](articles/plural.qmd).
 
 
 ## Complete example
 
 A complete example showing the previous instructions as a single file can
-be found [here][example].
+be found [here](https://github.com/rchaput/acronyms/blob/master/example.qmd).
 
 
 ## Next steps
@@ -116,17 +117,11 @@ The current vignette gives you the tools for a simple document, using the
 However, most of the mechanisms are highly configurable and offer various
 options.
 
-Available options are described in [Options][options], and several tutorials
-for advanced usages are listed in [Advanced usage][advanced_usage].
+Available options are described in [Options](articles/options.qmd), and several
+tutorials for advanced usages are listed in [Advanced usage](advanced/index.qmd).
 
-[Styles][styles] lists the different styles that can be used, along
-with a small example to visualize each of them.
+You can also read more about the new [shortcode](articles/shortcodes.qmd)
+syntax.
 
-
-[glossaries]: https://www.ctan.org/pkg/glossaries
-[Lua Filter]: https://pandoc.org/lua-filters.html
-[styles]: articles/styles.qmd
-[example]: https://github.com/rchaput/acronyms/blob/master/example.qmd
-[advanced_usage]: advanced/index.qmd
-[options]: articles/options.qmd
-[plural]: articles/plural.qmd
+[Styles](articles/styles.qmd) lists the different styles that can be used,
+along with a small example to visualize each of them.
