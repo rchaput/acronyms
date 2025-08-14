@@ -1,0 +1,62 @@
+---
+title: "Plural form"
+description: >
+  Learn how to render acronyms in plural form, and customize the plural form of
+  your acronyms.
+---
+
+
+
+**acronyms** also supports rendering acronyms as plural. By default, it simply
+appends a final 's' to the short and long form of your acronyms. This means
+that, for most words, you can start using the plural form without any
+configuration!
+
+### Basic usage
+
+- Using the legacy syntax:
+
+Simply use `\acrs{KEY}` instead of `\acr{KEY}` to use the plural form.
+
+- Using the newer shortcode syntax:
+
+Add the `plural=true` argument when calling a shortcode, such as:
+`{{{< acr KEY plural=true >}}}`.
+
+### Customizing the plural form
+
+For some acronyms of course, the final 's' is not appropriate. In such cases,
+you can specify the desired form, for short and/or long form, when defining
+the acronym, by adding new fields in a `plural` block:
+
+```yaml
+acronyms:
+  keys:
+    - shortname: ST
+      longname: stimulus
+      plural:
+        shortname: STs
+        longname: stimuli
+```
+
+Note that **acronyms** defaults to adding the final 's' if either `plural.shortname`
+or `plural.longname` are not defined. You can thus specify only what you need
+to customize!
+
+Because the previous example trivially uses `STs` as the plural shortname, we
+could have omitted it:
+
+```yaml
+acronyms:
+  keys:
+    - shortname: ST
+      longname: stimulus
+      plural:
+        longname: stimuli
+```
+
+Similarly, you can only specify only the `plural.shortname` and not the
+`plural.longname`.
+
+For more examples, you can refer to 
+[test case #33](https://github.com/rchaput/acronyms/tree/master/tests/33-plural)

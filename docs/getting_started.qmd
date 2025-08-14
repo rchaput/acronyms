@@ -64,7 +64,7 @@ The following example defines 2 acronyms:
 acronyms:
   keys:
     - shortname: qmd
-      longname: Quarto documents
+      longname: Quarto document
     - key: yaml
       shortname: YAML
       longname: YAML Ain't Markup Language
@@ -88,16 +88,19 @@ By default, **acronymsdown** will replace as follows:
 - next uses: `<short name>`
 
 The next lines show an example of how **acronymsdown** replaces acronyms
-in a document, assuming the acronyms `Rmd` and `yaml` have been defined, as
+in a document, assuming the acronyms `qmd` and `yaml` have been defined, as
 per the previous example.
 
 ```md
-\acr{qmd} allow to easily write technical content. \acr{qmd} use \acr{yaml}
+\acrs{qmd} allow to easily write technical content. A \acr{qmd} uses \acr{yaml}
 for the metadata.
 ```
 
-> Quarto documents (qmd) allow to easily write technical content. qmd use
+> Quarto documents (qmds) allow to easily write technical content. A qmd uses
 > YAML Ain't Markup Language (YAML) for the metadata.
+
+Notice how by using `\acrs` we can pluralize the acronym; you can read more
+about that in [Plural form][plural].
 
 
 ## Complete example
@@ -126,3 +129,4 @@ with a small example to visualize each of them.
 [example]: https://github.com/rchaput/acronyms/blob/master/example.qmd
 [advanced_usage]: advanced/index.qmd
 [options]: articles/options.qmd
+[plural]: articles/plural.qmd

@@ -23,6 +23,7 @@ website:
         text: Getting started
       - text: Articles
         menu:
+          - articles/plural.qmd
           - articles/options.qmd
           - articles/shortcodes.qmd
           - articles/styles.qmd
