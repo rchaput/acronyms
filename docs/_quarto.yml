@@ -5,7 +5,7 @@ project:
   # Automatically copy resources from parent folder (not detected by Quarto)
   pre-render:
     - cp ../preview.png preview.png
-    - ln -fs ../_extensions _extensions
+    - ln -fns ../_extensions _extensions
 
 website:
   title: "acronyms"
