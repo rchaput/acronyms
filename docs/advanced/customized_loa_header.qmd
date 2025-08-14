@@ -38,7 +38,8 @@ Using an acronym: \acr{qmd}
 This will generate a PDF with sections `List of Acronyms` (unnumbered), and
 `1. Introduction` (numbered). Note that the List of Acronyms is, by default,
 generated at the beginning of the document, but you may customize it to put
-at the end, or even at your desired location, by using the [options].
+at the end, or even at your desired location, by using the
+[options](../articles/options.qmd).
 
 
 ## Manually customizing the title
@@ -47,9 +48,10 @@ You may also want to fully customize the header of the List of Acronyms; this
 can be done by disabling the automatic generation, and then writing your
 own header, for which you can leverage all Pandoc and Quarto features.
 
-To do so, simply set the [insert_loa] option to `false` to disable the
-automatic generation of the List of Acronyms, and set [loa_title] to `''` (the
-empty string) to disable the generation of the header.
+To do so, simply set the [insert_loa](../articles/options.qmd#insert_loa) 
+option to `false` to disable the automatic generation of the List of Acronyms, 
+and set [loa_title](../articles/options.qmd#loa_title) to `''` (the empty 
+string) to disable the generation of the header.
 You may then write exactly what you want as a header, and use `\printacronyms`
 to generate the List of Acronyms after your header.
 
@@ -77,7 +79,3 @@ Using an acronym: \acr{qmd}
 
 At the end of the document
 ```
-
-[options]: ../articles/options.qmd
-[loa_title]: ../articles/options.qmd#loa_title
-[insert_loa]: ../articles/options.qmd#insert_loa
