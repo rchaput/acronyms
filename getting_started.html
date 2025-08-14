@@ -276,12 +276,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="using-acronyms">Using acronyms</h2>
 <p>Finally, to insert an acronym into the document, simply use <code>\acr{&lt;KEY&gt;}</code>, where <code>&lt;KEY&gt;</code> is an acronym’s key, as defined in the YAML metadata.</p>
 <p>This command will be automatically replaced by <strong>acronyms</strong>. The result depends on the chosen style (see <a href="./articles/styles.html">styles</a> for more details). Most styles will also make a difference between the first use, and the next occurrences.</p>
-<p>By default, <strong>acronymsdown</strong> will replace as follows:</p>
+<p>By default, <strong>acronyms</strong> will replace as follows:</p>
 <ul>
 <li>first use: <code>&lt;long name&gt; (&lt;short name&gt;)</code></li>
 <li>next uses: <code>&lt;short name&gt;</code></li>
 </ul>
-<p>The next lines show an example of how <strong>acronymsdown</strong> replaces acronyms in a document, assuming the acronyms <code>qmd</code> and <code>yaml</code> have been defined, as per the previous example.</p>
+<p>The next lines show an example of how <strong>acronyms</strong> replaces acronyms in a document, assuming the acronyms <code>qmd</code> and <code>yaml</code> have been defined, as per the previous example.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>\acrs{qmd} allow to easily write technical content. A \acr{qmd} uses \acr{yaml}</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>for the metadata.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
@@ -297,6 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
 <p>The current vignette gives you the tools for a simple document, using the (sane) defaults provided by <strong>acronyms</strong>. However, most of the mechanisms are highly configurable and offer various options.</p>
 <p>Available options are described in <a href="./articles/options.html">Options</a>, and several tutorials for advanced usages are listed in <a href="./advanced/index.html">Advanced usage</a>.</p>
+<p>You can also read more about the new <a href="./articles/shortcodes.html">shortcode</a> syntax.</p>
 <p><a href="./articles/styles.html">Styles</a> lists the different styles that can be used, along with a small example to visualize each of them.</p>
 
 
