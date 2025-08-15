@@ -16,10 +16,18 @@ jobs:
       matrix:
         quarto_version: [release]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        # Additionally, we want to run the `pre-release` version for Ubuntu
+        # Additionally, we want to run the `pre-release` version for Ubuntu;
+        # and older versions to check that they still work.
+        # Quarto requires the complete version number, e.g., 1.4 would not work.
         include:
           - os: ubuntu-latest
             quarto_version: pre-release
+          - os: ubuntu-latest
+            quarto_version: 1.4.557
+          - os: ubuntu-latest
+            quarto_version: 1.5.57
+          - os: ubuntu-latest
+            quarto_version: 1.6.43
     runs-on: ${{ matrix.os }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
