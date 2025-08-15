@@ -108,9 +108,15 @@ acronyms:
 
 `\acr{qmd} can be used to write technical content. \acr{qmd} use \acr{YAML}.`
 
-or the newer shortcode syntax `{{{< acr KEY >}}}`:
+or the newer shortcode syntax :
 
-`{{{< acr qmd >}}} can be used to write technical content. {{{< acr qmd >}}} use {{{< acr YAML >}}}.`
+```{shortcodes=false}
+{{< acr KEY >}}
+```
+
+```{shortcodes=false}
+{{< acr qmd >}} can be used to write technical content. {{< acr qmd >}} use {{< acr YAML >}}.
+```
 
 Both syntaxes render as (using default options):
 
