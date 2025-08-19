@@ -1,0 +1,14 @@
+---
+acronyms:
+  keys:
+    - shortname: AI
+      longname: artificial intelligence
+    - shortname: RL
+      longname: reinforcement learning
+---
+
+# Introduction {#intro}
+
+\acr[cap]{RL} can be capitalized when the long name is in the beginning of a sentence.
+
+On the other hand, \acr{AI} is not capitalized in the middle of a sentence.
