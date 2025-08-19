@@ -120,17 +120,21 @@ end
 
 
 --[[
-Replace each `\acr{KEY}` with the correct text and link to the list of acronyms.
+Replace each `\acr{KEY}` (or `\acr[cap]{KEY}`) with the correct text and link to the list of acronyms.
 --]]
 function replaceAcronym(el)
-    local command, acr_key = string.match(el.text, "\\(acrs?){(.+)}")
+    -- Match \acr{key}, \acrs{key}, or with an option: \acr[cap]{key}, \acrs[cap]{key}
+    local command, opt, acr_key = string.match(el.text, "\\(acrs?)%[?(%a*)%]?{(.+)}")
+
     if acr_key then
         -- This is an acronym, we need to parse it.
         if Acronyms:contains(acr_key) then
             -- The acronym exists (and is recognized)
             local plural = string.sub(command, -1) == 's'
+            local cap = (opt == "cap")
+
             return AcronymsPandoc.replaceExistingAcronym(
-                acr_key, nil, nil, nil, plural
+                acr_key, nil, nil, nil, plural, cap
             )
         else
             -- The acronym does not exists
