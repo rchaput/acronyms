@@ -85,12 +85,14 @@ function replaceAcronym (args, kwargs, meta)
         local first_use = getBooleanOrNil(kwargs["first_use"])
         local insert_links = getBooleanOrNil(kwargs["insert_links"])
         local plural = getBooleanOrNil(kwargs["plural"])
+        local cap = getBooleanOrNil(kwargs["cap"])
         return AcronymsPandoc.replaceExistingAcronym(
             acronym_key,
             style,
             first_use,
             insert_links,
-            plural
+            plural,
+            cap
         )
     else
         -- The acronym does not exists
