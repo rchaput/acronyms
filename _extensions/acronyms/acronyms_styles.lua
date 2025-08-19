@@ -35,6 +35,10 @@
 local Helpers = require("acronyms_helpers")
 
 
+local function capitalize_first(s)
+  return (s:gsub("^%l", string.upper))
+end
+
 -- The table containing all styles, indexed by the style's name.
 local styles = {}
 
@@ -52,10 +56,13 @@ end
 
 -- First use: long name (short name)
 -- Next use: short name
-styles["long-short"] = function(acronym, insert_links, is_first_use)
+styles["long-short"] = function(acronym, insert_links, is_first_use, cap)
     local text
     if is_first_use then
         text = acronym.longname .. " (" .. acronym.shortname .. ")"
+        if cap then
+            text = capitalize_first(text)
+        end
     else
         text = acronym.shortname
     end
@@ -66,9 +73,13 @@ end
 
 -- First use: short name (long name)
 -- Next use: short name
-styles["short-long"] = function(acronym, insert_links, is_first_use)
+styles["short-long"] = function(acronym, insert_links, is_first_use, cap)
     local text
     if is_first_use then
+        local long_text = acronym.longname
+        if cap then
+          long_text = capitalize_first(long_text)
+        end
         text = acronym.shortname .. " (" .. acronym.longname .. ")"
     else
         text = acronym.shortname
@@ -79,9 +90,13 @@ end
 
 -- First use: long name
 -- Next use: long name
-styles["long-long"] = function(acronym, insert_links)
+styles["long-long"] = function(acronym, insert_links, cap)
     local text
     text = acronym.longname
+
+    if cap then
+      text = capitalize_first(text)
+    end
 
     return create_element(text, acronym.key, insert_links)
 end
@@ -114,7 +129,7 @@ end
 
 -- The "public" API of this module, the function which is returned by
 -- require.
-return function(acronym, style_name, insert_links, is_first_use, plural)
+return function(acronym, style_name, insert_links, is_first_use, plural, cap)
     -- Check that the requested strategy exists
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
@@ -139,5 +154,5 @@ return function(acronym, style_name, insert_links, is_first_use, plural)
     end
 
     -- Call the style on this acronym
-    return styles[style_name](acronym, insert_links, is_first_use)
+    return styles[style_name](acronym, insert_links, is_first_use, cap)
 end
