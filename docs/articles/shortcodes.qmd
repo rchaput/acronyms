@@ -140,6 +140,25 @@ The same behaviour can be triggered using the legacy format:
 ```
 
 
+### `capitalize`
+
+The `capitalize` argument can be used to control the capitalization of the
+the acronym's long name when it is used at the beginning of a sentence. This
+is useful for acronyms that are not capitalized by default, such as:
+
+```markdown {shortcodes=false}
+---
+acronyms:
+  keys:
+    - shortname: CI
+      longname: confidence interval
+---
+
+{{< acr CI capitalize=true >}} is capitalised.
+
+\acr[capitalize=true, first_use=true]{CI} when using the legacy format.
+```
+
 ## The `print-acronyms` shortcode
 
 The `{{< print-acronyms >}}` shortcode can be used to generate the List Of
