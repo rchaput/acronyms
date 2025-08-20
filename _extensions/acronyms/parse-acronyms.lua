@@ -174,7 +174,9 @@ function replaceAcronym(el)
             )
         else
             -- The acronym does not exists
-            return AcronymsPandoc.replaceNonExistingAcronym(acr_key)
+            local opts = parse_opts(opts_str)
+            local non_existing = opts.non_existing or nil
+            return AcronymsPandoc.replaceNonExistingAcronym(acr_key, non_existing)
         end
     else
         -- This is not an acronym, return nil to leave it unchanged.
