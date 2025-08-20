@@ -56,11 +56,11 @@ end
 
 -- First use: long name (short name)
 -- Next use: short name
-styles["long-short"] = function(acronym, insert_links, is_first_use, cap)
+styles["long-short"] = function(acronym, insert_links, is_first_use, capitalize)
     local text
     if is_first_use then
         text = acronym.longname .. " (" .. acronym.shortname .. ")"
-        if cap then
+        if capitalize then
             text = capitalize_first(text)
         end
     else
@@ -73,11 +73,11 @@ end
 
 -- First use: short name (long name)
 -- Next use: short name
-styles["short-long"] = function(acronym, insert_links, is_first_use, cap)
+styles["short-long"] = function(acronym, insert_links, is_first_use, capitalize)
     local text
     if is_first_use then
         local long_text = acronym.longname
-        if cap then
+        if capitalize then
           long_text = capitalize_first(long_text)
         end
         text = acronym.shortname .. " (" .. acronym.longname .. ")"
@@ -90,11 +90,11 @@ end
 
 -- First use: long name
 -- Next use: long name
-styles["long-long"] = function(acronym, insert_links, cap)
+styles["long-long"] = function(acronym, insert_links, capitalize)
     local text
     text = acronym.longname
 
-    if cap then
+    if capitalize then
       text = capitalize_first(text)
     end
 
@@ -129,7 +129,7 @@ end
 
 -- The "public" API of this module, the function which is returned by
 -- require.
-return function(acronym, style_name, insert_links, is_first_use, plural, cap)
+return function(acronym, style_name, insert_links, is_first_use, plural, capitalize)
     -- Check that the requested strategy exists
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
@@ -154,5 +154,5 @@ return function(acronym, style_name, insert_links, is_first_use, plural, cap)
     end
 
     -- Call the style on this acronym
-    return styles[style_name](acronym, insert_links, is_first_use, cap)
+    return styles[style_name](acronym, insert_links, is_first_use, capitalize)
 end

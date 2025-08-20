@@ -140,10 +140,10 @@ end
 
 
 --[[
-Replace each `\acr{KEY}` (or `\acr[cap]{KEY}`) with the correct text and link to the list of acronyms.
+Replace each `\acr{KEY}` (or `\acr[opt]{KEY}`) with the correct text and link to the list of acronyms.
 --]]
 function replaceAcronym(el)
-    -- Match \acr{key}, \acrs{key}, or with an option: \acr[cap]{key}, \acrs[cap]{key}
+    -- Match \acr{key}, \acrs{key}, or with an option: \acr[opt]{key}, \acrs[opt]{key}
     local command, opts_str, acr_key = string.match(el.text, "\\(acrs?)%[?(.-)%]?{(.+)}")
 
     if acr_key then
@@ -167,10 +167,10 @@ function replaceAcronym(el)
             local plural = (command:sub(-1) == "s")
                     or (opts.plural == "true" or opts.plural == true)
 
-            local cap = (opts.cap == "true" or opts.cap == true)
+            local capitalize = (opts.capitalize == "true" or opts.capitalize == true)
 
             return AcronymsPandoc.replaceExistingAcronym(
-                acr_key, style, is_first_use, insert_links, plural, cap
+                acr_key, style, is_first_use, insert_links, plural, capitalize
             )
         else
             -- The acronym does not exists
