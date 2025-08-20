@@ -167,7 +167,10 @@ function replaceAcronym(el)
             local plural = (command:sub(-1) == "s")
                     or (opts.plural == "true" or opts.plural == true)
 
-            local capitalize = (opts.capitalize == "true" or opts.capitalize == true)
+            local capitalize = (opts.capitalize == "true" or
+              opts.capitalize == true or
+              opts.capitalise == "true" or
+              opts.capitalise == true)
 
             return AcronymsPandoc.replaceExistingAcronym(
                 acr_key, style, is_first_use, insert_links, plural, capitalize

@@ -13,3 +13,7 @@
 On the other hand, [artificial intelligence (AI)](#acronyms_AI) is not capitalized in the middle of a sentence.
 
 [Artificial intelligence (AI)](#acronyms_AI) can also be capitalized when using shortcodes.
+
+[Reinforcement learning (RL)](#acronyms_RL) works when the British spelling of "capitalise" is used.
+
+[Reinforcement learning (RL)](#acronyms_RL) shows that the British spelling also works with shortcodes.
