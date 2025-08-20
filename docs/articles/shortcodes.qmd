@@ -15,6 +15,9 @@ specific acronym may use a different style than the others.
 This article describes this new syntax, how to use the shortcodes, the
 arguments that can be used, and gives a few example.
 
+The legacy filter syntax now also supports the shortcode keyworded-arguments
+using the following format: `\acr[KEYWORD=VALUE]{KEY}`. If the `VALUE` is
+omitted, then the keyworded-argument is set to `true`.
 
 ## The `acronym` shortcode
 
@@ -56,6 +59,9 @@ First use (using default options): {{< acr Qmd >}}
 Now we force the long-long style {{< acr Qmd style=long-long >}}
 
 And now we reuse the default style: {{< acr Qmd >}}
+
+Using the legacy format, we can also use the style argument:
+\acr[style=long-long]{Qmd}
 ```
 
 
@@ -78,6 +84,9 @@ acronyms:
 ---
 
 Forced next use: {{< acr Qmd first_use=false >}}
+
+When using the legacy format, we can also force the first use:
+\acr[first_use=true]{Qmd}
 ```
 
 
@@ -100,6 +109,8 @@ acronyms:
 ---
 
 {{< acr Qmd insert_links=false >}}
+
+Or, using the legacy format: \acr[insert_links=false]{Qmd}
 ```
 
 
@@ -123,6 +134,9 @@ acronyms:
 ---
 
 Note that the following acronym is mis-typed: {{< acr qmd non_existing=error >}}
+
+The same behaviour can be triggered using the legacy format:
+\acr[non_existing=error]{qmd}
 ```
 
 
