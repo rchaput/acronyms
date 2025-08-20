@@ -26,6 +26,26 @@ local AcronymsPandoc = require("acronyms_pandoc")
 -- The options for the List Of Acronyms, as defined in the document's metadata.
 local Options = require("acronyms_options")
 
+-- Parse options within old style
+local function parse_opts(opts_str)
+  local opts = {}
+  if not opts_str or opts_str == "" then return opts end
+  for entry in opts_str:gmatch("([^,]+)") do
+    entry = entry:match("^%s*(.-)%s*$")  -- trim
+    if entry ~= "" then
+      local k, v = entry:match("^([%w_%-]+)%s*=%s*(.-)$")
+      if k then
+        v = v:match("^%s*(.-)%s*$")      -- trim
+        -- strip optional quotes
+        v = v:gsub('^"(.*)"$', "%1"):gsub("^'(.*)'$", "%1")
+        opts[k] = v
+      else
+        opts[entry] = true   -- bare flag
+      end
+    end
+  end
+  return opts
+end
 
 --[[
     Parse the document's metadata, including options, and acronyms' definitions.
@@ -124,17 +144,33 @@ Replace each `\acr{KEY}` (or `\acr[cap]{KEY}`) with the correct text and link to
 --]]
 function replaceAcronym(el)
     -- Match \acr{key}, \acrs{key}, or with an option: \acr[cap]{key}, \acrs[cap]{key}
-    local command, opt, acr_key = string.match(el.text, "\\(acrs?)%[?(%a*)%]?{(.+)}")
+    local command, opts_str, acr_key = string.match(el.text, "\\(acrs?)%[?(.-)%]?{(.+)}")
 
     if acr_key then
         -- This is an acronym, we need to parse it.
         if Acronyms:contains(acr_key) then
             -- The acronym exists (and is recognized)
-            local plural = string.sub(command, -1) == 's'
-            local cap = (opt == "cap")
+            local opts = parse_opts(opts_str)
+
+            local style = opts.style or nil
+
+            local insert_links = nil
+            if opts.insert_links ~= nil then
+              insert_links = Helpers.str_to_boolean(opts.insert_links)
+            end
+
+            local is_first_use = nil
+            if opts.first_use ~= nil then
+              is_first_use = Helpers.str_to_boolean(opts.first_use)
+            end
+
+            local plural = (command:sub(-1) == "s")
+                    or (opts.plural == "true" or opts.plural == true)
+
+            local cap = (opts.cap == "true" or opts.cap == true)
 
             return AcronymsPandoc.replaceExistingAcronym(
-                acr_key, nil, nil, nil, plural, cap
+                acr_key, style, is_first_use, insert_links, plural, cap
             )
         else
             -- The acronym does not exists
