@@ -1,0 +1,12 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+---
+
+# Introduction {#intro}
+
+This paragraph has a link: \acr[insert_links=true]{RL}.
+
+But this one will not: \acr[insert_links=false]{RL}.
