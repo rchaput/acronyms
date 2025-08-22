@@ -5,8 +5,8 @@ acronyms:
       longname: artificial intelligence
     - shortname: RL
       longname: reinforcement learning
-    - shortname: etc
-      longname: et cetera
+    - shortname: mRNA
+      longname: messenger ribonucleic acid
 ---
 
 # Introduction {#intro}
@@ -21,6 +21,6 @@ On the other hand, \acr{AI} is not capitalized in the middle of a sentence.
 
 {{< acr RL first_use=true capitalise=true >}} shows that the British spelling also works with shortcodes.
 
-\acr[capitalise=true]{etc} is capitalized when the long name is at the beginning of a sentence.
+\acr[capitalise=true]{mRNA} is capitalized when the long name is at the beginning of a sentence.
 
-\acr[capitalize=true]{etc} is not capitalized when the short name is used.
+\acr[capitalize=true]{mRNA} is not capitalized when the short name is used.
