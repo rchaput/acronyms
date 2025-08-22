@@ -6,8 +6,8 @@
 [RL]{#acronyms_RL}
 :   reinforcement learning
 
-[etc]{#acronyms_etc}
-:   et cetera
+[mRNA]{#acronyms_mRNA}
+:   messenger ribonucleic acid
 
 # Introduction {#intro}
 
@@ -21,6 +21,6 @@ On the other hand, [artificial intelligence (AI)](#acronyms_AI) is not capitaliz
 
 [Reinforcement learning (RL)](#acronyms_RL) shows that the British spelling also works with shortcodes.
 
-[Et cetera (etc)](#acronyms_etc) is capitalized when the long name is at the beginning of a sentence.
+[Messenger ribonucleic acid (mRNA)](#acronyms_mRNA) is capitalized when the long name is at the beginning of a sentence.
 
-[etc](#acronyms_etc) is not capitalized when the short name is used.
+[mRNA](#acronyms_mRNA) is not capitalized when the short name is used.
