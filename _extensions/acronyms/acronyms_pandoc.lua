@@ -97,7 +97,7 @@ end
     - plural: whether to display the plural form of this acronym.
 --]]
 function AcronymsPandoc.replaceExistingAcronym(
-    acr_key, style, first_use, insert_links, plural, capitalize
+    acr_key, style, first_use, insert_links, plural, capitalize, case
 )
     quarto.log.debug("[acronyms] Replacing acronym", acr_key)
     local acronym = Acronyms:get(acr_key)
@@ -110,6 +110,7 @@ function AcronymsPandoc.replaceExistingAcronym(
     -- Use default values from Options if not specified
     style = style or Options["style"]
     if insert_links == nil then insert_links = Options["insert_links"] end
+    capitalize = capitalize or "long"
 
     -- Replace the acronym with the desired style
     return replaceExistingAcronymWithStyle(
@@ -118,7 +119,8 @@ function AcronymsPandoc.replaceExistingAcronym(
         insert_links,
         first_use,
         plural,
-        capitalize
+        capitalize,
+        case
     )
 end
 

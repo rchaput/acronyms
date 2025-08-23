@@ -118,7 +118,8 @@ end
 
 -- The "public" API of this module, the function which is returned by
 -- require.
-return function(acronym, style_name, insert_links, is_first_use, plural, capitalize)
+return function(acronym, style_name, insert_links, is_first_use, plural, 
+    capitalize, case)
     -- Check that the requested strategy exists
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
@@ -136,15 +137,33 @@ return function(acronym, style_name, insert_links, is_first_use, plural, capital
 
     -- Transform this acronym prior to rendering
     -- e.g., for plural form; and for sentence case
+    acronym = acronym:clone()
     if plural then
-        acronym = acronym:clone()
         acronym.shortname = acronym.plural.shortname
         acronym.longname = acronym.plural.longname
     end
 
-    if capitalize then
-        acronym = acronym:clone()
-        acronym.longname = capitalize_first(acronym.longname)
+    if case == "upper" then
+        if capitalize == "short" or capitalize == "both" then
+            acronym.shortname = string.upper(acronym.shortname)
+        end
+        if capitalize == "long" or capitalize == "both" then
+            acronym.longname = string.upper(acronym.longname)
+        end
+    elseif case == "lower" then
+        if capitalize == "short" or capitalize == "both" then
+            acronym.shortname = string.lower(acronym.shortname)
+        end
+        if capitalize == "long" or capitalize == "both" then
+            acronym.longname = string.lower(acronym.longname)
+        end
+    elseif case == "sentence" then
+        if capitalize == "short" or capitalize == "both" then
+            acronym.shortname = capitalize_first(acronym.shortname)
+        end
+        if capitalize == "long" or capitalize == "both" then
+            acronym.longname = capitalize_first(acronym.longname)
+        end
     end
 
     -- Call the style on this acronym
