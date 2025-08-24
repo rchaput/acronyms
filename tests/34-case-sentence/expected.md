@@ -17,10 +17,6 @@ On the other hand, [artificial intelligence (AI)](#acronyms_AI) is not capitaliz
 
 [Artificial intelligence (AI)](#acronyms_AI) can also be capitalized when using shortcodes.
 
-[Reinforcement learning (RL)](#acronyms_RL) works when the British spelling of "capitalise" is used.
-
-[Reinforcement learning (RL)](#acronyms_RL) shows that the British spelling also works with shortcodes.
-
 [Messenger ribonucleic acid (mRNA)](#acronyms_mRNA) is capitalized when the long name is at the beginning of a sentence.
 
 [mRNA](#acronyms_mRNA) is not capitalized when the short name is used.
