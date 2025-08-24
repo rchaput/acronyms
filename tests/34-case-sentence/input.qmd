@@ -1,0 +1,22 @@
+---
+acronyms:
+  keys:
+    - shortname: AI
+      longname: artificial intelligence
+    - shortname: RL
+      longname: reinforcement learning
+    - shortname: mRNA
+      longname: messenger ribonucleic acid
+---
+
+# Introduction {#intro}
+
+\acr[case=sentence]{RL} can be capitalized when the long name is in the beginning of a sentence.
+
+On the other hand, \acr{AI} is not capitalized in the middle of a sentence.
+
+{{< acr AI first_use=true case=sentence >}} can also be capitalized when using shortcodes. 
+
+\acr[case=sentence]{mRNA} is capitalized when the long name is at the beginning of a sentence.
+
+\acr[case=sentence]{mRNA} is not capitalized when the short name is used.
