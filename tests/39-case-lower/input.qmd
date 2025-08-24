@@ -1,0 +1,12 @@
+---
+acronyms:
+  keys:
+    - shortname: RL
+      longname: Reinforcement Learning
+---
+
+# Introduction {#intro}
+
+Acronyms such as \acr[case=lower]{RL} can be set to lower case.
+
+By default, only the long name is changed: \acr[case=lower]{RL}.

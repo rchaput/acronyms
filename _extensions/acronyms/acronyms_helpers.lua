@@ -80,6 +80,10 @@ end
 -- Helper to convert a (case-insensitive) string to a boolean
 -- Recognized values: `true`, `false`, `yes`, `no`, `y`, `n`
 function Helpers.str_to_boolean(value)
+    if type(value) == "boolean" then
+        return value
+    end
+
     local converts = {
         ["true"] = true,
         ["false"] = false,

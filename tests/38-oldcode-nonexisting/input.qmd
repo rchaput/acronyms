@@ -1,0 +1,9 @@
+---
+acronyms: {}
+---
+
+# Introduction {#intro}
+
+The non-existing acronym will be replaced by "??": \acr[non_existing=??]{RL}.
+
+Here, with its key: \acr[non_existing=key]{RL}.
