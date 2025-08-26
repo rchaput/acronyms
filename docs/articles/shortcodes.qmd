@@ -139,24 +139,60 @@ The same behaviour can be triggered using the legacy format:
 \acr[non_existing=error]{qmd}
 ```
 
+### `case`
 
-### `capitalize`
+This argument can be used to change the case of an acronym. It can take the
+following values:
 
-The `capitalize` argument can be used to control the capitalization of the
-the acronym's long name when it is used at the beginning of a sentence. This
-is useful for acronyms that are not capitalized by default, such as:
+- `sentence`: renders the acronym in sentence case by capitalizing the first
+letter (e.g., `Reinforcement learning`), which is useful when an acronym is
+usually written in lower case, but needs to be capitalized when it is used in
+the beginning of a sentence.
+- `lower`: renders the acronym in lower case (e.g., `reinforcement learning`)
+- `upper`: renders the acronym in upper case (e.g., `REINFORCEMENT LEARNING`)
+
+By default, only the long name is changed (although this can be changed
+using the [`capitalize`](#capitalize) argument).
+
+For example:
 
 ```markdown {shortcodes=false}
 ---
 acronyms:
   keys:
-    - shortname: CI
-      longname: confidence interval
+    - shortname: RL
+      longname: reinforcement learning
 ---
 
-{{< acr CI capitalize=true >}} is capitalised.
+{{< acr RL case=sentence >}} is capitalised in the beginning of a sentence.
 
-\acr[capitalize=true, first_use=true]{CI} when using the legacy format.
+\acr[case=sentence, first_use]{RL} when using the legacy format.
+
+The acronym can be shown in upper case: {{< acr RL case=upper first_use>}}
+```
+
+### `capitalize`
+
+This argument can be used to control which part of the acronym is capitalized
+when using the `case` argument. It can take the following values:
+
+- `long`: only the long name is capitalized (this is the default behaviour)
+- `short`: only the short name is capitalized
+- `both`: both the long and short names are capitalized
+
+For example:
+
+```markdown {shortcodes=false}
+---
+acronyms:
+  keys:
+    - shortname: rl
+      longname: reinforcement learning
+---
+
+{{< acr rl case=sentence capitalize=both >}} capitalizes both names.
+
+\acr[case=sentence, capitalize=both, first_use]{rl} when using the legacy format.
 ```
 
 ## The `print-acronyms` shortcode
