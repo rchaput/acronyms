@@ -167,12 +167,12 @@ function replaceAcronym(el)
             local plural = (command:sub(-1) == "s")
                     or (opts.plural == "true" or opts.plural == true)
 
-            local capitalize = opts.capitalize or opts.capitalise
+            local case_target = opts.case_target
 
             local case = opts.case
 
             return AcronymsPandoc.replaceExistingAcronym(
-                acr_key, style, is_first_use, insert_links, plural, capitalize, case
+                acr_key, style, is_first_use, insert_links, plural, case_target, case
             )
         else
             -- The acronym does not exists

@@ -119,7 +119,7 @@ end
 -- The "public" API of this module, the function which is returned by
 -- require.
 return function(acronym, style_name, insert_links, is_first_use, plural, 
-    capitalize, case)
+    case_target, case)
     -- Check that the requested strategy exists
     assert(style_name ~= nil,
         "[acronyms] The parameter style_name must not be nil!")
@@ -144,28 +144,28 @@ return function(acronym, style_name, insert_links, is_first_use, plural,
     end
 
     if case == "upper" then
-        if capitalize == "short" or capitalize == "both" then
+        if case_target == "short" or case_target == "both" then
             acronym.shortname = string.upper(acronym.shortname)
         end
-        if capitalize == "long" or capitalize == "both" then
+        if case_target == "long" or case_target == "both" then
             acronym.longname = string.upper(acronym.longname)
         end
     elseif case == "lower" then
-        if capitalize == "short" or capitalize == "both" then
+        if case_target == "short" or case_target == "both" then
             acronym.shortname = string.lower(acronym.shortname)
         end
-        if capitalize == "long" or capitalize == "both" then
+        if case_target == "long" or case_target == "both" then
             acronym.longname = string.lower(acronym.longname)
         end
     elseif case == "sentence" then
-        if capitalize == "short" or capitalize == "both" then
+        if case_target == "short" or case_target == "both" then
             acronym.shortname = capitalize_first(acronym.shortname)
         end
-        if capitalize == "long" or capitalize == "both" then
+        if case_target == "long" or case_target == "both" then
             acronym.longname = capitalize_first(acronym.longname)
         end
     end
 
     -- Call the style on this acronym
-    return styles[style_name](acronym, insert_links, is_first_use, capitalize)
+    return styles[style_name](acronym, insert_links, is_first_use, case_target)
 end
