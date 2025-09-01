@@ -11,20 +11,20 @@ acronyms:
 
 # Introduction {#intro}
 
-Acronyms can be set to upper case for both short name and long name: \acr[case=upper,capitalize=both]{ai}.
+Acronyms can be set to upper case for both short name and long name: \acr[case=upper,case_target=both]{ai}.
 
-In upper case for only the short name: \acr[case=upper,capitalize=short,first_use]{ai}.
+In upper case for only the short name: \acr[case=upper,case_target=short,first_use]{ai}.
 
-In upper case for only the long name: \acr[case=upper,capitalize=long,first_use]{ai}.
+In upper case for only the long name: \acr[case=upper,case_target=long,first_use]{ai}.
 
-They can be set to lower case for both short name and long name: \acr[case=lower,capitalize=both]{RL}.
+They can be set to lower case for both short name and long name: \acr[case=lower,case_target=both]{RL}.
 
-In lower case for only the short name: \acr[case=lower,capitalize=short,first_use]{RL}.
+In lower case for only the short name: \acr[case=lower,case_target=short,first_use]{RL}.
 
-In lower case for only the long name: \acr[case=lower,capitalize=long,first_use]{RL}.
+In lower case for only the long name: \acr[case=lower,case_target=long,first_use]{RL}.
 
-Or they can be set to sentence case for both short name and long name: \acr[case=sentence,capitalize=both]{mRNA}.
+Or they can be set to sentence case for both short name and long name: \acr[case=sentence,case_target=both]{mRNA}.
 
-In sentence case for only the short name: \acr[case=sentence,capitalize=short,first_use]{mRNA}.
+In sentence case for only the short name: \acr[case=sentence,case_target=short,first_use]{mRNA}.
 
-In sentence case for only the long name: \acr[case=sentence,capitalize=long,first_use]{mRNA}.
+In sentence case for only the long name: \acr[case=sentence,case_target=long,first_use]{mRNA}.

@@ -152,7 +152,7 @@ the beginning of a sentence.
 - `upper`: renders the acronym in upper case (e.g., `REINFORCEMENT LEARNING`)
 
 By default, only the long name is changed (although this can be changed
-using the [`capitalize`](#capitalize) argument).
+using the [`case_target`](#case_target) argument).
 
 For example:
 
@@ -171,7 +171,7 @@ acronyms:
 The acronym can be shown in upper case: {{< acr RL case=upper first_use>}}
 ```
 
-### `capitalize`
+### `case_target`
 
 This argument can be used to control which part of the acronym is capitalized
 when using the `case` argument. It can take the following values:
@@ -190,9 +190,9 @@ acronyms:
       longname: reinforcement learning
 ---
 
-{{< acr rl case=sentence capitalize=both >}} capitalizes both names.
+{{< acr rl case=sentence case_target=both >}} capitalizes both names.
 
-\acr[case=sentence, capitalize=both, first_use]{rl} when using the legacy format.
+\acr[case=sentence, case_target=both, first_use]{rl} when using the legacy format.
 ```
 
 ## The `print-acronyms` shortcode
