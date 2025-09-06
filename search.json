@@ -1,47 +1,5 @@
 [
   {
-    "objectID": "getting_started.html",
-    "href": "getting_started.html",
-    "title": "Introduction to acronyms",
-    "section": "",
-    "text": "The goal of acronyms is to provide support for acronyms to Quarto documents, in a similar way to what glossaries achieve for LaTeX.\nBasically, it allows you to define a list of acronyms, and to automatically replace acronyms inside the document. A list of all defined acronyms along with their definitions is also generated and inserted.\nUsing acronyms can be done in 3 simple steps:"
-  },
-  {
-    "objectID": "getting_started.html#installing-the-extension",
-    "href": "getting_started.html#installing-the-extension",
-    "title": "Introduction to acronyms",
-    "section": "Installing the extension",
-    "text": "Installing the extension\nThis extension can be installed through the standard Quarto add command:\nquarto add rchaput/acronyms\nThis command will download the latest version and install it locally to your _extensions folder. Please see the official Quarto documentation for details.\nMake sure that your Quarto document(s) contain the following lines in the YAML metadata, to load the acronyms extension:\n---\nfilters:\n  - acronyms\n---"
-  },
-  {
-    "objectID": "getting_started.html#defining-acronyms",
-    "href": "getting_started.html#defining-acronyms",
-    "title": "Introduction to acronyms",
-    "section": "Defining acronyms",
-    "text": "Defining acronyms\nPrior to using acronyms in the Quarto document, they must be defined in the YAML metadata.\nAn acronym is defined as:\n\na key, which is used to refer to the acronym throughout the document;\na short name, which is usually the acronym itself;\na long name, which is usually what the acronym stands for.\n\nTo make the list less verbose, if the key is not provided, acronyms uses the short name as a default key for the acronym.\nThe following example defines 2 acronyms:\n---\nacronyms:\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n    - key: yaml\n      shortname: YAML\n      longname: YAML Ain't Markup Language\n---"
-  },
-  {
-    "objectID": "getting_started.html#using-acronyms",
-    "href": "getting_started.html#using-acronyms",
-    "title": "Introduction to acronyms",
-    "section": "Using acronyms",
-    "text": "Using acronyms\nFinally, to insert an acronym into the document, simply use \\acr{&lt;KEY&gt;}, where &lt;KEY&gt; is an acronym’s key, as defined in the YAML metadata.\nThis command will be automatically replaced by acronyms. The result depends on the chosen style (see styles for more details). Most styles will also make a difference between the first use, and the next occurrences.\nBy default, acronyms will replace as follows:\n\nfirst use: &lt;long name&gt; (&lt;short name&gt;)\nnext uses: &lt;short name&gt;\n\nThe next lines show an example of how acronyms replaces acronyms in a document, assuming the acronyms qmd and yaml have been defined, as per the previous example.\n\\acrs{qmd} allow to easily write technical content. A \\acr{qmd} uses \\acr{yaml}\nfor the metadata.\n\nQuarto documents (qmds) allow to easily write technical content. A qmd uses YAML Ain’t Markup Language (YAML) for the metadata.\n\nNotice how by using \\acrs we can pluralize the acronym; you can read more about that in Plural form."
-  },
-  {
-    "objectID": "getting_started.html#complete-example",
-    "href": "getting_started.html#complete-example",
-    "title": "Introduction to acronyms",
-    "section": "Complete example",
-    "text": "Complete example\nA complete example showing the previous instructions as a single file can be found here."
-  },
-  {
-    "objectID": "getting_started.html#next-steps",
-    "href": "getting_started.html#next-steps",
-    "title": "Introduction to acronyms",
-    "section": "Next steps",
-    "text": "Next steps\nThe current vignette gives you the tools for a simple document, using the (sane) defaults provided by acronyms. However, most of the mechanisms are highly configurable and offer various options.\nAvailable options are described in Options, and several tutorials for advanced usages are listed in Advanced usage.\nYou can also read more about the new shortcode syntax.\nStyles lists the different styles that can be used, along with a small example to visualize each of them."
-  },
-  {
     "objectID": "articles/options.html",
     "href": "articles/options.html",
     "title": "Available options",
@@ -147,67 +105,67 @@
     "text": "style\nacronyms supports several styles to replace acronyms, similarly to how the LaTeX package glossaries work for abbreviations.\nStyles define how to render an acronym in the document body: which fields to use, in which order, with emphasis or not, with a different style whether this is the acronym’s first use or not, etc.\nThe list of available styles, along with a visualization of each of them, is displayed in styles."
   },
   {
-    "objectID": "articles/plural.html",
-    "href": "articles/plural.html",
-    "title": "Plural form",
+    "objectID": "articles/styles.html",
+    "href": "articles/styles.html",
+    "title": "Styles",
     "section": "",
-    "text": "acronyms also supports rendering acronyms as plural. By default, it simply appends a final ‘s’ to the short and long form of your acronyms. This means that, for most words, you can start using the plural form without any configuration!\n\nBasic usage\n\nUsing the legacy syntax:\n\nSimply use \\acrs{KEY} instead of \\acr{KEY} to use the plural form.\n\nUsing the newer shortcode syntax:\n\nAdd the plural=true argument when calling a shortcode, such as: {{&lt; acr KEY plural=true &gt;}}.\n\n\nCustomizing the plural form\nFor some acronyms of course, the final ‘s’ is not appropriate. In such cases, you can specify the desired form, for short and/or long form, when defining the acronym, by adding new fields in a plural block:\nacronyms:\n  keys:\n    - shortname: ST\n      longname: stimulus\n      plural:\n        shortname: STs\n        longname: stimuli\nNote that acronyms defaults to adding the final ‘s’ if either plural.shortname or plural.longname are not defined. You can thus specify only what you need to customize!\nBecause the previous example trivially uses STs as the plural shortname, we could have omitted it:\nacronyms:\n  keys:\n    - shortname: ST\n      longname: stimulus\n      plural:\n        longname: stimuli\nSimilarly, you can only specify only the plural.shortname and not the plural.longname.\nFor more examples, you can refer to test case #33"
+    "text": "To replace acronyms in your document, acronyms offers several styles, which are quite similar to the abbreviations styles in the LaTeX package glossaries.\nThis vignette lists the available styles, and shows how they render.\nStyles might make a difference between the first use and next uses of an acronym. In the following list, the two variations are shown for each style.\nFor each of the style examples, we will use the following document (metadata and body):"
   },
   {
-    "objectID": "advanced/external_file.html",
-    "href": "advanced/external_file.html",
-    "title": "Defining acronyms in external file(s)",
+    "objectID": "articles/styles.html#long-short",
+    "href": "articles/styles.html#long-short",
+    "title": "Styles",
+    "section": "long-short",
+    "text": "long-short\nFirst use: Quarto document (qmd)\nNext uses: qmd"
+  },
+  {
+    "objectID": "articles/styles.html#short-long",
+    "href": "articles/styles.html#short-long",
+    "title": "Styles",
+    "section": "short-long",
+    "text": "short-long\nFirst use: qmd (Quarto document)\nNext uses: qmd"
+  },
+  {
+    "objectID": "articles/styles.html#long-long",
+    "href": "articles/styles.html#long-long",
+    "title": "Styles",
+    "section": "long-long",
+    "text": "long-long\nFirst use: Quarto document\nNext uses: Quarto document"
+  },
+  {
+    "objectID": "articles/styles.html#short-footnote",
+    "href": "articles/styles.html#short-footnote",
+    "title": "Styles",
+    "section": "short-footnote",
+    "text": "short-footnote\nFirst use: qmd1\nNext uses: qmd"
+  },
+  {
+    "objectID": "articles/styles.html#footnotes",
+    "href": "articles/styles.html#footnotes",
+    "title": "Styles",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nqmd: Quarto document↩︎"
+  },
+  {
+    "objectID": "advanced/customized_loa_header.html",
+    "href": "advanced/customized_loa_header.html",
+    "title": "Customizing the List of Acronyms title",
     "section": "",
-    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file."
+    "text": "By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.\nTo obtain an unnumbered section, you may add the extra class unnumbered (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the loa_header_classes metadata option.\nFor example:\n---\nformat:\n  pdf:\n    number-sections: true\nacronyms:\n  loa_header_classes:\n    - unnumbered\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\nThis will generate a PDF with sections List of Acronyms (unnumbered), and 1. Introduction (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the options."
   },
   {
-    "objectID": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
-    "href": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
-    "title": "Defining acronyms in external file(s)",
-    "section": "Referring to an external definition file in a Quarto document",
-    "text": "Referring to an external definition file in a Quarto document\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document."
-  },
-  {
-    "objectID": "advanced/external_file.html#content-of-the-definition-files",
-    "href": "advanced/external_file.html#content-of-the-definition-files",
-    "title": "Defining acronyms in external file(s)",
-    "section": "Content of the definition file(s)",
-    "text": "Content of the definition file(s)\nThese files support 2 different formats.\n\nThe “original”, metadata-like format:\n\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nThis format is exactly as you would write in the “main” Quarto document, except that only the acronyms.keys field is used. Any other field or content will be ignored.\n\nThe “simplified” format, key-value like:\n\n---\n# Define your acronyms directly here as shortname: longname\nqmd: Quarto document\n---\nThis format is much shorter and easier to read; however, you cannot define the acronyms’ keys, and cannot use spaces in the shortname (but you should avoid doing so anyway).\nPlease note that these formats are not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the acronyms’ definitions are used in fromfile external documents. No other option is taken into account. The eventual document body is ignored as well."
-  },
-  {
-    "objectID": "advanced/external_file.html#loading-order-for-acronyms",
-    "href": "advanced/external_file.html#loading-order-for-acronyms",
-    "title": "Defining acronyms in external file(s)",
-    "section": "Loading order for acronyms",
-    "text": "Loading order for acronyms\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
-  },
-  {
-    "objectID": "advanced/index.html",
-    "href": "advanced/index.html",
-    "title": "Advanced usage tutorials",
+    "objectID": "advanced/customized_loa_header.html#using-an-unnumbered-section",
+    "href": "advanced/customized_loa_header.html#using-an-unnumbered-section",
+    "title": "Customizing the List of Acronyms title",
     "section": "",
-    "text": "Extending the acronyms features\n\n\nLearn how to extend existing features, such as styles and translations.\n\n\n\n\n\n\n\n\n\n\nUsing acronyms in a multi-document project\n\n\nLearn how to use acronyms in several documents, for example a website or book; how to control where the List of Acronyms appear, which acronyms appear on which pages, etc.\n\n\n\n\n\n\n\n\n\n\nCustomizing the List of Acronyms title\n\n\nRead how to customize the List of Acronyms title (header), including putting it in an unnumbered section.\n\n\n\n\n\n\n\n\n\n\nDefining acronyms in external file(s)\n\n\nLearn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.\nTo obtain an unnumbered section, you may add the extra class unnumbered (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the loa_header_classes metadata option.\nFor example:\n---\nformat:\n  pdf:\n    number-sections: true\nacronyms:\n  loa_header_classes:\n    - unnumbered\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\nThis will generate a PDF with sections List of Acronyms (unnumbered), and 1. Introduction (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the options."
   },
   {
-    "objectID": "advanced/extending.html",
-    "href": "advanced/extending.html",
-    "title": "Extending the acronyms features",
-    "section": "",
-    "text": "acronyms offers several features, but you may want to customize it in your very own way, for example to add a new acronym style, or a translation. This article explains how to do so; to help the acronyms community, you can contribute your new style and translation by creating a pull request."
-  },
-  {
-    "objectID": "advanced/extending.html#adding-a-new-style",
-    "href": "advanced/extending.html#adding-a-new-style",
-    "title": "Extending the acronyms features",
-    "section": "Adding a new style",
-    "text": "Adding a new style\nWhen you use an acronym in your document, acronyms uses a style to actually render it, based on its short name, long name, and whether the acronym appears for the first time. A list of existing styles can be found here, but we cannot cover all possible styles.\nFortunately, you can easily add a new style. It requires writing some Lua code, yet it should be simple enough that it can be done without any knowledge of Lua, especially by taking inspiration from existing styles.\nFor example, the long-short style returns Long name (Short name) in the case of a first use, and Short name the next uses. It is implemented as:\nstyles[\"long-short\"] = function(acronym, insert_links, is_first_use)\n    local text\n    if is_first_use then\n        text = acronym.longname .. \" (\" .. acronym.shortname .. \")\"\n    else\n        text = acronym.shortname\n    end\n\n    return create_element(text, acronym.key, insert_links)\nend\nNote that a style is created by writing:\nstyles[\"YOUR STYLE NAME HERE\"] = function(acronym, insert_links, is_first_use)\n    local text\n    SOME CODE HERE\n    return create_element(text, acronym.key, insert_links)\nend\nwhere YOUR STYLE NAME HERE is the name of the style you desire (it should be all lowercase, with whitespaces replaced by hyphens), and SOME CODE HERE defines what will be the text of the acronym (by setting a value to the text variable).\nIn most cases, you will want to distinguish between first use / next use, by using a if first_use then (...) else (...) end structure, as in the previous example. You may omit this structure if you want the same appearance each time the acronym appears.\nSimple styles will only rely on some combination of acronym.shortname and acronym.longname, optionally with some hardcoded elements such as parens (combined with .., as in \"(\" .. acronym.shortname .. \")\"). For more complex styles, e.g., to put some text in bold font, you will need to use Pandoc elements.\nFor example, here is the code to create a new style named bold-short that returns the long name in the first use, and the short name in bold in next uses:\nstyles[\"bold-short\"] = function(acronym, insert_links, is_first_use)\n    local text\n    if is_first_use then\n        text = acronym.longname\n    else\n        text = pandoc.Strong(acronym.shortname)\n    end\n    return create_element(text, acronym.key, insert_links)\nend\nNote the pandoc.Strong element that will be displayed in a bold font. This style, when added to the _extensions/acronyms/acronyms_styles.lua file, will be invoked by setting the style: bold-short option in the metadata of your document."
-  },
-  {
-    "objectID": "advanced/extending.html#adding-a-new-translation",
-    "href": "advanced/extending.html#adding-a-new-translation",
-    "title": "Extending the acronyms features",
-    "section": "Adding a new translation",
-    "text": "Adding a new translation\nFor some elements, such as the List of Acronyms’ title, acronyms is able to automatically translate them to your desired language, assuming that the lang option is set in the metadata of your document. However, not many languages are currently available; to add your own language, you may modify the _extension/acronyms/acronyms_translations.lua file.\nTranslations are added in the following way:\n    loa_title = {\n        [\"\"] = \"List Of Acronyms\", -- Default value\n        [\"en\"] = \"List Of Acronyms\",\n        [\"fr\"] = \"Liste des Acronymes\",\n    }\nNote that each line represents a translation, using the format [\"TRANSLATION LANGUAGE HERE\"] = \"TRANSLATION HERE\". To add a new translation, simply add a new line (or duplicate an existing one), and set the language tag, usually a two-letter code, such as en, fr, es, zh, … and the corresponding translation after the = symbol.\nNote that the language tag might be more complex if necessary, for exemple to specialize a translation for a given idiom or region. en-GB and en-US are two valid tags that refer (respectively) to the Great-Britain and United States regions of the English language.\nacronyms identifies the best language, based on available translations and the user’s requested language. For example, if the user requests en-GB, but only en or fr are available, it will resort to en. If the user requests to zh, it will resort to \"\" (which should be equal to the en one). However, if an user request en (or en-US) but only en-GB or fr are available, it will not match (en-GB is “too” specialized to match en). For this reason, it is recommended that you set the language to the most simple tag, such as en, es, etc."
+    "objectID": "advanced/customized_loa_header.html#manually-customizing-the-title",
+    "href": "advanced/customized_loa_header.html#manually-customizing-the-title",
+    "title": "Customizing the List of Acronyms title",
+    "section": "Manually customizing the title",
+    "text": "Manually customizing the title\nYou may also want to fully customize the header of the List of Acronyms; this can be done by disabling the automatic generation, and then writing your own header, for which you can leverage all Pandoc and Quarto features.\nTo do so, simply set the insert_loa option to false to disable the automatic generation of the List of Acronyms, and set loa_title to '' (the empty string) to disable the generation of the header. You may then write exactly what you want as a header, and use \\printacronyms to generate the List of Acronyms after your header.\nFor example, to use a level-2 header (subsection):\n---\nacronyms:\n  insert_loa: false\n  loa_title: ''\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\n\n## List of Acronyms in a subsection\n\n\\printacronyms\n\n# Another section\n\nAt the end of the document"
   },
   {
     "objectID": "advanced/multi_document.html",
@@ -231,25 +189,67 @@
     "text": "Using separate List of Acronyms in each page\nWhen creating a separate List of Acronyms (LoA) in each page, it should be configured to be printed at an appropriate location, and with an appropriate header.\nBy default, the LoA would appear as the first element, which would make it the chapter title in a website. Instead, we want the chapter title to be the first element; ideally, the LoA should also be a 2nd level heading (a section rather than a chapter). In this example, we will also make it an unnumbered header.\n\n_quarto.yml: just like the previous example, we simply load configure the book, and load the acronyms filter.\n\nproject:\n  type: book\nbook:\n  title: \"Test book\"\n  chapters:\n    - index.qmd\n    - chap1.qmd\n    - chap2.qmd\nfilters:\n  - acronyms\nacronyms:\n  fromfile: acronyms.yml\n\nacronyms.yml: defining the various acronyms in an external file, to simplify re-usability.\n\n---\nacronyms:\n  keys:\n    - shortname: acr1\n      longname: first acronym\n    - shortname: acr2\n      longname: second acronym\n---\n\nindex.qmd: if no acronyms are used on this page, we must disable the LoA creation.\n\n---\nacronyms:\n  insert_loa: false\n---\n\nHome page; place here any title, or introduction...\n\nchap1.qmd: the first chapter; you may name this file as you want. In this file, we put the LoA at the beginning of the document, just below the chapter title. The LoA title must be set to \"\" so that we can configure it manually.\n\n---\nacronyms:\n  insert_loa: false\n  loa_title: \"\"\n---\n\n# 1st chapter\n\n## List of Acronyms {.unnumbered}\n\n\\printacronyms\n\nThis paragraph mentions \\acr{acr1} for the first time.\n\nAnd now, in this paragraph, \\acr{acr1} is in short form.\n\nchap2.qmd: the second chapter, just like the previous file. Again, the name can be different. In this file, we put the LoA at the end.\n\n---\nacronyms:\n  insert_loa: false\n  loa_title: \"\"\n---\n\n# 2nd chapter\n\nThis paragraph mentions \\acr{acr2} for the first time.\n\nAnd now, in this paragraph, \\acr{acr2} is in short form.\n\nHowever, \\acr{acr1} should be again in long form.\n\n## List of Acronyms {.unnumbered}\n\n\\printacronyms"
   },
   {
-    "objectID": "advanced/customized_loa_header.html",
-    "href": "advanced/customized_loa_header.html",
-    "title": "Customizing the List of Acronyms title",
+    "objectID": "advanced/extending.html",
+    "href": "advanced/extending.html",
+    "title": "Extending the acronyms features",
     "section": "",
-    "text": "By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.\nTo obtain an unnumbered section, you may add the extra class unnumbered (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the loa_header_classes metadata option.\nFor example:\n---\nformat:\n  pdf:\n    number-sections: true\nacronyms:\n  loa_header_classes:\n    - unnumbered\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\nThis will generate a PDF with sections List of Acronyms (unnumbered), and 1. Introduction (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the options."
+    "text": "acronyms offers several features, but you may want to customize it in your very own way, for example to add a new acronym style, or a translation. This article explains how to do so; to help the acronyms community, you can contribute your new style and translation by creating a pull request."
   },
   {
-    "objectID": "advanced/customized_loa_header.html#using-an-unnumbered-section",
-    "href": "advanced/customized_loa_header.html#using-an-unnumbered-section",
-    "title": "Customizing the List of Acronyms title",
-    "section": "",
-    "text": "By default, the List Of Acronyms (loa) is generated with its own header; depending on your document configuration, this header may be numbered.\nTo obtain an unnumbered section, you may add the extra class unnumbered (as per the standard Pandoc and Quarto way to create an unnumbered section) by using the loa_header_classes metadata option.\nFor example:\n---\nformat:\n  pdf:\n    number-sections: true\nacronyms:\n  loa_header_classes:\n    - unnumbered\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\nThis will generate a PDF with sections List of Acronyms (unnumbered), and 1. Introduction (numbered). Note that the List of Acronyms is, by default, generated at the beginning of the document, but you may customize it to put at the end, or even at your desired location, by using the options."
+    "objectID": "advanced/extending.html#adding-a-new-style",
+    "href": "advanced/extending.html#adding-a-new-style",
+    "title": "Extending the acronyms features",
+    "section": "Adding a new style",
+    "text": "Adding a new style\nWhen you use an acronym in your document, acronyms uses a style to actually render it, based on its short name, long name, and whether the acronym appears for the first time. A list of existing styles can be found here, but we cannot cover all possible styles.\nFortunately, you can easily add a new style. It requires writing some Lua code, yet it should be simple enough that it can be done without any knowledge of Lua, especially by taking inspiration from existing styles.\nFor example, the long-short style returns Long name (Short name) in the case of a first use, and Short name the next uses. It is implemented as:\nstyles[\"long-short\"] = function(acronym, insert_links, is_first_use)\n    local text\n    if is_first_use then\n        text = acronym.longname .. \" (\" .. acronym.shortname .. \")\"\n    else\n        text = acronym.shortname\n    end\n\n    return create_element(text, acronym.key, insert_links)\nend\nNote that a style is created by writing:\nstyles[\"YOUR STYLE NAME HERE\"] = function(acronym, insert_links, is_first_use)\n    local text\n    SOME CODE HERE\n    return create_element(text, acronym.key, insert_links)\nend\nwhere YOUR STYLE NAME HERE is the name of the style you desire (it should be all lowercase, with whitespaces replaced by hyphens), and SOME CODE HERE defines what will be the text of the acronym (by setting a value to the text variable).\nIn most cases, you will want to distinguish between first use / next use, by using a if first_use then (...) else (...) end structure, as in the previous example. You may omit this structure if you want the same appearance each time the acronym appears.\nSimple styles will only rely on some combination of acronym.shortname and acronym.longname, optionally with some hardcoded elements such as parens (combined with .., as in \"(\" .. acronym.shortname .. \")\"). For more complex styles, e.g., to put some text in bold font, you will need to use Pandoc elements.\nFor example, here is the code to create a new style named bold-short that returns the long name in the first use, and the short name in bold in next uses:\nstyles[\"bold-short\"] = function(acronym, insert_links, is_first_use)\n    local text\n    if is_first_use then\n        text = acronym.longname\n    else\n        text = pandoc.Strong(acronym.shortname)\n    end\n    return create_element(text, acronym.key, insert_links)\nend\nNote the pandoc.Strong element that will be displayed in a bold font. This style, when added to the _extensions/acronyms/acronyms_styles.lua file, will be invoked by setting the style: bold-short option in the metadata of your document."
   },
   {
-    "objectID": "advanced/customized_loa_header.html#manually-customizing-the-title",
-    "href": "advanced/customized_loa_header.html#manually-customizing-the-title",
-    "title": "Customizing the List of Acronyms title",
-    "section": "Manually customizing the title",
-    "text": "Manually customizing the title\nYou may also want to fully customize the header of the List of Acronyms; this can be done by disabling the automatic generation, and then writing your own header, for which you can leverage all Pandoc and Quarto features.\nTo do so, simply set the insert_loa option to false to disable the automatic generation of the List of Acronyms, and set loa_title to '' (the empty string) to disable the generation of the header. You may then write exactly what you want as a header, and use \\printacronyms to generate the List of Acronyms after your header.\nFor example, to use a level-2 header (subsection):\n---\nacronyms:\n  insert_loa: false\n  loa_title: ''\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n---\n\n# Introduction\n\nUsing an acronym: \\acr{qmd}\n\n## List of Acronyms in a subsection\n\n\\printacronyms\n\n# Another section\n\nAt the end of the document"
+    "objectID": "advanced/extending.html#adding-a-new-translation",
+    "href": "advanced/extending.html#adding-a-new-translation",
+    "title": "Extending the acronyms features",
+    "section": "Adding a new translation",
+    "text": "Adding a new translation\nFor some elements, such as the List of Acronyms’ title, acronyms is able to automatically translate them to your desired language, assuming that the lang option is set in the metadata of your document. However, not many languages are currently available; to add your own language, you may modify the _extension/acronyms/acronyms_translations.lua file.\nTranslations are added in the following way:\n    loa_title = {\n        [\"\"] = \"List Of Acronyms\", -- Default value\n        [\"en\"] = \"List Of Acronyms\",\n        [\"fr\"] = \"Liste des Acronymes\",\n    }\nNote that each line represents a translation, using the format [\"TRANSLATION LANGUAGE HERE\"] = \"TRANSLATION HERE\". To add a new translation, simply add a new line (or duplicate an existing one), and set the language tag, usually a two-letter code, such as en, fr, es, zh, … and the corresponding translation after the = symbol.\nNote that the language tag might be more complex if necessary, for exemple to specialize a translation for a given idiom or region. en-GB and en-US are two valid tags that refer (respectively) to the Great-Britain and United States regions of the English language.\nacronyms identifies the best language, based on available translations and the user’s requested language. For example, if the user requests en-GB, but only en or fr are available, it will resort to en. If the user requests to zh, it will resort to \"\" (which should be equal to the en one). However, if an user request en (or en-US) but only en-GB or fr are available, it will not match (en-GB is “too” specialized to match en). For this reason, it is recommended that you set the language to the most simple tag, such as en, es, etc."
+  },
+  {
+    "objectID": "getting_started.html",
+    "href": "getting_started.html",
+    "title": "Introduction to acronyms",
+    "section": "",
+    "text": "The goal of acronyms is to provide support for acronyms to Quarto documents, in a similar way to what glossaries achieve for LaTeX.\nBasically, it allows you to define a list of acronyms, and to automatically replace acronyms inside the document. A list of all defined acronyms along with their definitions is also generated and inserted.\nUsing acronyms can be done in 3 simple steps:"
+  },
+  {
+    "objectID": "getting_started.html#installing-the-extension",
+    "href": "getting_started.html#installing-the-extension",
+    "title": "Introduction to acronyms",
+    "section": "Installing the extension",
+    "text": "Installing the extension\nThis extension can be installed through the standard Quarto add command:\nquarto add rchaput/acronyms\nThis command will download the latest version and install it locally to your _extensions folder. Please see the official Quarto documentation for details.\nMake sure that your Quarto document(s) contain the following lines in the YAML metadata, to load the acronyms extension:\n---\nfilters:\n  - acronyms\n---"
+  },
+  {
+    "objectID": "getting_started.html#defining-acronyms",
+    "href": "getting_started.html#defining-acronyms",
+    "title": "Introduction to acronyms",
+    "section": "Defining acronyms",
+    "text": "Defining acronyms\nPrior to using acronyms in the Quarto document, they must be defined in the YAML metadata.\nAn acronym is defined as:\n\na key, which is used to refer to the acronym throughout the document;\na short name, which is usually the acronym itself;\na long name, which is usually what the acronym stands for.\n\nTo make the list less verbose, if the key is not provided, acronyms uses the short name as a default key for the acronym.\nThe following example defines 2 acronyms:\n---\nacronyms:\n  keys:\n    - shortname: qmd\n      longname: Quarto document\n    - key: yaml\n      shortname: YAML\n      longname: YAML Ain't Markup Language\n---"
+  },
+  {
+    "objectID": "getting_started.html#using-acronyms",
+    "href": "getting_started.html#using-acronyms",
+    "title": "Introduction to acronyms",
+    "section": "Using acronyms",
+    "text": "Using acronyms\nFinally, to insert an acronym into the document, simply use \\acr{&lt;KEY&gt;}, where &lt;KEY&gt; is an acronym’s key, as defined in the YAML metadata.\nThis command will be automatically replaced by acronyms. The result depends on the chosen style (see styles for more details). Most styles will also make a difference between the first use, and the next occurrences.\nBy default, acronyms will replace as follows:\n\nfirst use: &lt;long name&gt; (&lt;short name&gt;)\nnext uses: &lt;short name&gt;\n\nThe next lines show an example of how acronyms replaces acronyms in a document, assuming the acronyms qmd and yaml have been defined, as per the previous example.\n\\acrs{qmd} allow to easily write technical content. A \\acr{qmd} uses \\acr{yaml}\nfor the metadata.\n\nQuarto documents (qmds) allow to easily write technical content. A qmd uses YAML Ain’t Markup Language (YAML) for the metadata.\n\nNotice how by using \\acrs we can pluralize the acronym; you can read more about that in Plural form."
+  },
+  {
+    "objectID": "getting_started.html#complete-example",
+    "href": "getting_started.html#complete-example",
+    "title": "Introduction to acronyms",
+    "section": "Complete example",
+    "text": "Complete example\nA complete example showing the previous instructions as a single file can be found here."
+  },
+  {
+    "objectID": "getting_started.html#next-steps",
+    "href": "getting_started.html#next-steps",
+    "title": "Introduction to acronyms",
+    "section": "Next steps",
+    "text": "Next steps\nThe current vignette gives you the tools for a simple document, using the (sane) defaults provided by acronyms. However, most of the mechanisms are highly configurable and offer various options.\nAvailable options are described in Options, and several tutorials for advanced usages are listed in Advanced usage.\nYou can also read more about the new shortcode syntax.\nStyles lists the different styles that can be used, along with a small example to visualize each of them."
   },
   {
     "objectID": "index.html",
@@ -294,60 +294,60 @@
     "text": "This package was inspired from:\n\nan issue on bookdown ;\na lua filter to sort a definition list ;\nthe pagedown’s insertion of a List of Figures/Tables ;\nthe pandoc-abbreviations filter ;\nthe LaTeX glossaries package."
   },
   {
-    "objectID": "articles/styles.html",
-    "href": "articles/styles.html",
-    "title": "Styles",
+    "objectID": "advanced/external_file.html",
+    "href": "advanced/external_file.html",
+    "title": "Defining acronyms in external file(s)",
     "section": "",
-    "text": "To replace acronyms in your document, acronyms offers several styles, which are quite similar to the abbreviations styles in the LaTeX package glossaries.\nThis vignette lists the available styles, and shows how they render.\nStyles might make a difference between the first use and next uses of an acronym. In the following list, the two variations are shown for each style.\nFor each of the style examples, we will use the following document (metadata and body):"
+    "text": "Whereas defining acronyms directly in the YAML metadata is the most straightforward way, acronyms also support reading definitions from one (or several) pseudo-YAML file."
   },
   {
-    "objectID": "articles/styles.html#long-short",
-    "href": "articles/styles.html#long-short",
-    "title": "Styles",
-    "section": "long-short",
-    "text": "long-short\nFirst use: Quarto document (qmd)\nNext uses: qmd"
+    "objectID": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
+    "href": "advanced/external_file.html#referring-to-an-external-definition-file-in-a-quarto-document",
+    "title": "Defining acronyms in external file(s)",
+    "section": "Referring to an external definition file in a Quarto document",
+    "text": "Referring to an external definition file in a Quarto document\nTo do so, simply specify the file path in the fromfile attribute of the YAML metadata. This behaviour is particularly useful if you want to define acronyms in the same file for multiple projects, or generate it automatically, in a similar way to the .bib files for LaTeX citations.\nThis attribute may be either a single path, for example:\n---\nacronyms:\n  fromfile: ./acronyms.yml\n---\nor a list of paths, for example:\n---\nacronyms:\n  fromfile:\n    - ./acronyms1.yml\n    - ./acronyms2.yml\n---\nNote that the path may be either absolute or relative. If the path is relative, it is resolved with respect to the current working directory of Pandoc. By default, when using Quarto, this working directory is set to the directory containing the source qmd file.\nIn our examples, we thus assume that the acronyms.yml (respectively, acronyms1.yml and acronyms2.yml) live in the same folder as the qmd document."
   },
   {
-    "objectID": "articles/styles.html#short-long",
-    "href": "articles/styles.html#short-long",
-    "title": "Styles",
-    "section": "short-long",
-    "text": "short-long\nFirst use: qmd (Quarto document)\nNext uses: qmd"
+    "objectID": "advanced/external_file.html#content-of-the-definition-files",
+    "href": "advanced/external_file.html#content-of-the-definition-files",
+    "title": "Defining acronyms in external file(s)",
+    "section": "Content of the definition file(s)",
+    "text": "Content of the definition file(s)\nThese files support 2 different formats.\n\nThe “original”, metadata-like format:\n\n---\nacronyms:\n  keys:\n  # Define your keys here\n    - shortname: qmd\n      longname: Quarto document\n---\nThis format is exactly as you would write in the “main” Quarto document, except that only the acronyms.keys field is used. Any other field or content will be ignored.\n\nThe “simplified” format, key-value like:\n\n---\n# Define your acronyms directly here as shortname: longname\nqmd: Quarto document\n---\nThis format is much shorter and easier to read; however, you cannot define the acronyms’ keys, and cannot use spaces in the shortname (but you should avoid doing so anyway).\nPlease note that these formats are not really YAML; instead, the files are read as Quarto documents themselves, hence the presence of the --- fences.\nHowever, only the acronyms’ definitions are used in fromfile external documents. No other option is taken into account. The eventual document body is ignored as well."
   },
   {
-    "objectID": "articles/styles.html#long-long",
-    "href": "articles/styles.html#long-long",
-    "title": "Styles",
-    "section": "long-long",
-    "text": "long-long\nFirst use: Quarto document\nNext uses: Quarto document"
+    "objectID": "advanced/external_file.html#loading-order-for-acronyms",
+    "href": "advanced/external_file.html#loading-order-for-acronyms",
+    "title": "Defining acronyms in external file(s)",
+    "section": "Loading order for acronyms",
+    "text": "Loading order for acronyms\nThe acronyms are read in the following order:\n\nAcronyms in the acronyms.key field of the source qmd document, in sequential order.\nAcronyms in each of the acronyms.fromfile files.\n\nFiles are read in sequential order.\nAcronyms inside each file are also read in sequential order.\n\n\nThis order is meaningful in 2 cases:\n\nWhen a duplicate key is found, the behaviour (keep or replace) depends on the order in which acronyms are read.\nWhen the initial sorting is used, the List Of Acronyms displays acronyms in the same order as they were defined."
   },
   {
-    "objectID": "articles/styles.html#short-footnote",
-    "href": "articles/styles.html#short-footnote",
-    "title": "Styles",
-    "section": "short-footnote",
-    "text": "short-footnote\nFirst use: qmd1\nNext uses: qmd"
+    "objectID": "advanced/index.html",
+    "href": "advanced/index.html",
+    "title": "Advanced usage tutorials",
+    "section": "",
+    "text": "Extending the acronyms features\n\n\nLearn how to extend existing features, such as styles and translations.\n\n\n\n\n\n\n\n\n\n\nDefining acronyms in external file(s)\n\n\nLearn how to define acronyms in one or several external files, which can be reused throughout documents or projects (rather than directly in the YAML metadata).\n\n\n\n\n\n\n\n\n\n\nUsing acronyms in a multi-document project\n\n\nLearn how to use acronyms in several documents, for example a website or book; how to control where the List of Acronyms appear, which acronyms appear on which pages, etc.\n\n\n\n\n\n\n\n\n\n\nCustomizing the List of Acronyms title\n\n\nRead how to customize the List of Acronyms title (header), including putting it in an unnumbered section.\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "articles/styles.html#footnotes",
-    "href": "articles/styles.html#footnotes",
-    "title": "Styles",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nqmd: Quarto document↩︎"
+    "objectID": "articles/plural.html",
+    "href": "articles/plural.html",
+    "title": "Plural form",
+    "section": "",
+    "text": "acronyms also supports rendering acronyms as plural. By default, it simply appends a final ‘s’ to the short and long form of your acronyms. This means that, for most words, you can start using the plural form without any configuration!\n\nBasic usage\n\nUsing the legacy syntax:\n\nSimply use \\acrs{KEY} instead of \\acr{KEY} to use the plural form.\n\nUsing the newer shortcode syntax:\n\nAdd the plural=true argument when calling a shortcode, such as: {{&lt; acr KEY plural=true &gt;}}.\n\n\nCustomizing the plural form\nFor some acronyms of course, the final ‘s’ is not appropriate. In such cases, you can specify the desired form, for short and/or long form, when defining the acronym, by adding new fields in a plural block:\nacronyms:\n  keys:\n    - shortname: ST\n      longname: stimulus\n      plural:\n        shortname: STs\n        longname: stimuli\nNote that acronyms defaults to adding the final ‘s’ if either plural.shortname or plural.longname are not defined. You can thus specify only what you need to customize!\nBecause the previous example trivially uses STs as the plural shortname, we could have omitted it:\nacronyms:\n  keys:\n    - shortname: ST\n      longname: stimulus\n      plural:\n        longname: stimuli\nSimilarly, you can only specify only the plural.shortname and not the plural.longname.\nFor more examples, you can refer to test case #33"
   },
   {
     "objectID": "articles/shortcodes.html",
     "href": "articles/shortcodes.html",
     "title": "Shortcodes",
     "section": "",
-    "text": "From version 2.0.0, acronyms now uses the Quarto shortcode syntax (in addition to its legacy filter syntax).\nShortcodes are clearer to use, and may have additional keyworded-arguments that can be used to override the behaviour described in the Options (which are the same for all acronyms in a given document). For example, a specific acronym may use a different style than the others.\nThis article describes this new syntax, how to use the shortcodes, the arguments that can be used, and gives a few example."
+    "text": "From version 2.0.0, acronyms now uses the Quarto shortcode syntax (in addition to its legacy filter syntax).\nShortcodes are clearer to use, and may have additional keyworded-arguments that can be used to override the behaviour described in the Options (which are the same for all acronyms in a given document). For example, a specific acronym may use a different style than the others.\nThis article describes this new syntax, how to use the shortcodes, the arguments that can be used, and gives a few example.\nThe legacy filter syntax now also supports the shortcode keyworded-arguments using the following format: \\acr[KEYWORD=VALUE]{KEY}. If the VALUE is omitted, then the keyworded-argument is set to true."
   },
   {
     "objectID": "articles/shortcodes.html#the-acronym-shortcode",
     "href": "articles/shortcodes.html#the-acronym-shortcode",
     "title": "Shortcodes",
     "section": "The acronym shortcode",
-    "text": "The acronym shortcode\nThe {{&lt; acronym KEY &gt;}} shortcode replaces an acronym in the document, where KEY identifies the acronym we want to replace (exactly as \\acr{KEY} does in the legacy syntax).\nFor convenience, the shorter {{&lt; acr KEY &gt;}} can be used instead; both will invoke the same function, and thus have the same arguments and behaviour.\nThe key is mandatory, and acronyms will raise an error if not provided. In addition, the following arguments can be provided:\n\nstyle\nThis argument controls the acronym’s style, that is, how it will be replaced. It must be used similarly to the style options. Only the current acronym will use this specific style, so it is not recommended to provide this argument to set the same style for each acronym; prefer using the metadata option in this case to simplify your workload.\nThe list of possible values can be found in the Styles article.\nFor example:\n---\nacronyms:\n  # Acronyms will use the long-short style by default.\n  style: long-short\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\nFirst use (using default options): {{&lt; acr Qmd &gt;}}\n\nNow we force the long-long style {{&lt; acr Qmd style=long-long &gt;}}\n\nAnd now we reuse the default style: {{&lt; acr Qmd &gt;}}\n\n\nfirst_use\nIn acronyms, most style will replace the acronym differently, based on whether they appear for the first time. For example, a first use may show the acronym longname, but only the shortname on subsequent uses. The first_use argument can be used to force the “first use” or “subsequent use” appearance.\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\nForced next use: {{&lt; acr Qmd first_use=false &gt;}}\n\n\ninsert_links\nThis argument controls whether the acronym will be rendered with a link to its definition in the List Of Acronyms. This is similar to the insert_links option. As for the style argument, this only changes the current acronym behaviour; to change all acronyms, prefer using the option directly.\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\n{{&lt; acr Qmd insert_links=false &gt;}}\n\n\nnon_existing\nThis argument controls the behaviour when an acronym is not found. acronyms may print a warning and render it as a special token, such as ?? (like the BibTeX default behaviour), or raise an error, depending on the configuration. Like previous arguments, this one is similar to the non_existing option, but changes only the current acronym. Note that it has no impact when the acronym is found.\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\nNote that the following acronym is mis-typed: {{&lt; acr qmd non_existing=error &gt;}}"
+    "text": "The acronym shortcode\nThe {{&lt; acronym KEY &gt;}} shortcode replaces an acronym in the document, where KEY identifies the acronym we want to replace (exactly as \\acr{KEY} does in the legacy syntax).\nFor convenience, the shorter {{&lt; acr KEY &gt;}} can be used instead; both will invoke the same function, and thus have the same arguments and behaviour.\nThe key is mandatory, and acronyms will raise an error if not provided. In addition, the following arguments can be provided:\n\nstyle\nThis argument controls the acronym’s style, that is, how it will be replaced. It must be used similarly to the style options. Only the current acronym will use this specific style, so it is not recommended to provide this argument to set the same style for each acronym; prefer using the metadata option in this case to simplify your workload.\nThe list of possible values can be found in the Styles article.\nFor example:\n---\nacronyms:\n  # Acronyms will use the long-short style by default.\n  style: long-short\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\nFirst use (using default options): {{&lt; acr Qmd &gt;}}\n\nNow we force the long-long style {{&lt; acr Qmd style=long-long &gt;}}\n\nAnd now we reuse the default style: {{&lt; acr Qmd &gt;}}\n\nUsing the legacy format, we can also use the style argument:\n\\acr[style=long-long]{Qmd}\n\n\nfirst_use\nIn acronyms, most style will replace the acronym differently, based on whether they appear for the first time. For example, a first use may show the acronym longname, but only the shortname on subsequent uses. The first_use argument can be used to force the “first use” or “subsequent use” appearance.\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\nForced next use: {{&lt; acr Qmd first_use=false &gt;}}\n\nWhen using the legacy format, we can also force the first use:\n\\acr[first_use=true]{Qmd}\n\n\ninsert_links\nThis argument controls whether the acronym will be rendered with a link to its definition in the List Of Acronyms. This is similar to the insert_links option. As for the style argument, this only changes the current acronym behaviour; to change all acronyms, prefer using the option directly.\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\n{{&lt; acr Qmd insert_links=false &gt;}}\n\nOr, using the legacy format: \\acr[insert_links=false]{Qmd}\n\n\nnon_existing\nThis argument controls the behaviour when an acronym is not found. acronyms may print a warning and render it as a special token, such as ?? (like the BibTeX default behaviour), or raise an error, depending on the configuration. Like previous arguments, this one is similar to the non_existing option, but changes only the current acronym. Note that it has no impact when the acronym is found.\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: Qmd\n      longname: Quarto documents\n---\n\nNote that the following acronym is mis-typed: {{&lt; acr qmd non_existing=error &gt;}}\n\nThe same behaviour can be triggered using the legacy format:\n\\acr[non_existing=error]{qmd}\n\n\ncase\nThis argument can be used to change the case of an acronym. It can take the following values:\n\nsentence: renders the acronym in sentence case by capitalizing the first letter (e.g., Reinforcement learning), which is useful when an acronym is usually written in lower case, but needs to be capitalized when it is used in the beginning of a sentence.\nlower: renders the acronym in lower case (e.g., reinforcement learning)\nupper: renders the acronym in upper case (e.g., REINFORCEMENT LEARNING)\n\nBy default, only the long name is changed (although this can be changed using the case_target argument).\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: RL\n      longname: reinforcement learning\n---\n\n{{&lt; acr RL case=sentence &gt;}} is capitalised in the beginning of a sentence.\n\n\\acr[case=sentence, first_use]{RL} when using the legacy format.\n\nThe acronym can be shown in upper case: {{&lt; acr RL case=upper first_use&gt;}}\n\n\ncase_target\nThis argument can be used to control which part of the acronym is capitalized when using the case argument. It can take the following values:\n\nlong: only the long name is capitalized (this is the default behaviour)\nshort: only the short name is capitalized\nboth: both the long and short names are capitalized\n\nFor example:\n---\nacronyms:\n  keys:\n    - shortname: rl\n      longname: reinforcement learning\n---\n\n{{&lt; acr rl case=sentence case_target=both &gt;}} capitalizes both names.\n\n\\acr[case=sentence, case_target=both, first_use]{rl} when using the legacy format."
   },
   {
     "objectID": "articles/shortcodes.html#the-print-acronyms-shortcode",
