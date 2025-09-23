@@ -106,6 +106,14 @@ function replaceAcronym (args, kwargs, meta)
     end
 end
 
+--[[
+    Wrapper for sentence case acronyms
+]]--
+function replaceAcronymSentenceCase (args, kwargs, meta)
+    kwargs['case'] = 'sentence'
+    kwargs['case_target'] = 'long'
+    return replaceAcronym(args, kwargs, meta)
+end
 
 --[[
     Generate the List of Acronyms in the document.
@@ -146,5 +154,9 @@ return {
     ["acronym"] = replaceAcronym,
     -- Same function but with a shorter name.
     ["acr"] = replaceAcronym,
+    -- Capitalized shortcodes for sentence case
+    ["Acronym"] = replaceAcronymSentenceCase,
+    ["Acr"] = replaceAcronymSentenceCase,
     ["print-acronyms"] = generateListOfAcronyms,
 }
+ 

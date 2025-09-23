@@ -11,6 +11,8 @@ acronyms:
   # Each acronym must have a `shortname` and a `longname`.
   - shortname: RL
     longname: Reinforcement Learning
+  - shortname: pb
+    longname: personal budget
   # `loa_title` is used to change the name of the List of Acronyms generated.
   loa_title: "Glossary"
   # `insert_loa` determines where the List of Acronyms is placed.
@@ -28,3 +30,5 @@ This paragraph mentions \acr{RL} for the first time.
 And now, in this paragraph, \acr{RL} is in short form.
 
 Using a shortcode: {{< acr RL >}}.
+
+The long form {{< Acr pb >}} is capitalized, while the short form {{< Acr pb >}} is not.

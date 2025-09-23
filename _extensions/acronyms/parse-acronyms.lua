@@ -144,7 +144,7 @@ Replace each `\acr{KEY}` (or `\acr[opt]{KEY}`) with the correct text and link to
 --]]
 function replaceAcronym(el)
     -- Match \acr{key}, \acrs{key}, or with an option: \acr[opt]{key}, \acrs[opt]{key}
-    local command, opts_str, acr_key = string.match(el.text, "\\(acrs?)%[?(.-)%]?{(.+)}")
+    local command, opts_str, acr_key = string.match(el.text, "\\([Aa]crs?)%[?(.-)%]?{(.+)}")
 
     if acr_key then
         -- This is an acronym, we need to parse it.
@@ -167,9 +167,15 @@ function replaceAcronym(el)
             local plural = (command:sub(-1) == "s")
                     or (opts.plural == "true" or opts.plural == true)
 
-            local case_target = opts.case_target
-
-            local case = opts.case
+            local case_target
+            local case
+            if command:sub(1, 1) == 'A' then
+                case = "sentence"
+                case_target = "long"
+            else 
+                case = opts.case
+                case = opts.case_target
+            end
 
             return AcronymsPandoc.replaceExistingAcronym(
                 acr_key, style, is_first_use, insert_links, plural, case_target, case
