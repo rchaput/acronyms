@@ -106,6 +106,13 @@ function replaceAcronym (args, kwargs, meta)
     end
 end
 
+--[[
+    Wrapper for plural acronyms
+]]--
+function replaceAcronymPlural (args, kwargs, meta)
+    kwargs['plural'] = 'true'
+    return replaceAcronym(args, kwargs, meta)
+end
 
 --[[
     Generate the List of Acronyms in the document.
@@ -146,5 +153,7 @@ return {
     ["acronym"] = replaceAcronym,
     -- Same function but with a shorter name.
     ["acr"] = replaceAcronym,
+    -- Shortcode for plural acronyms
+    ["acrs"] = replaceAcronymPlural,
     ["print-acronyms"] = generateListOfAcronyms,
 }
