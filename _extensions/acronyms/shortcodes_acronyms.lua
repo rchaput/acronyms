@@ -171,7 +171,27 @@ return {
     ["acr"] = replaceAcronym,
     -- A few shortcuts (variations of the shortcode name that enable
     -- default options, such as case and plural).
+    ["acronyms"] = replaceAcronymWithDefaultValues({ ["plural"] = true }),
+    ["acrs"] = replaceAcronymWithDefaultValues({ ["plural"] = true }),
     ["Acronym"] = replaceAcronymWithDefaultValues({ ["case"] = "sentence" }),
     ["Acr"] = replaceAcronymWithDefaultValues({ ["case"] = "sentence" }),
+    ["Acronyms"] = replaceAcronymWithDefaultValues({
+        ["case"] = "sentence",
+        ["plural"] = true,
+    }),
+    ["Acrs"] = replaceAcronymWithDefaultValues({ 
+        ["case"] = "sentence",
+        ["plural"] = true,
+    }),
+    ["ACRONYM"] = replaceAcronymWithDefaultValues({ ["case"] = "upper" }),
+    ["ACR"] = replaceAcronymWithDefaultValues({ ["case"] = "upper" }),
+    ["ACRONYMS"] = replaceAcronymWithDefaultValues({
+        ["case"] = "upper",
+        ["plural"] = true,
+    }),
+    ["ACRS"] = replaceAcronymWithDefaultValues({
+        ["case"] = "upper",
+        ["plural"] = true,
+    }),
     ["print-acronyms"] = generateListOfAcronyms,
 }
