@@ -109,11 +109,26 @@ end
 --[[
     Wrapper for sentence case acronyms
 ]]--
-function replaceAcronymSentenceCase (args, kwargs, meta)
-    kwargs['case'] = 'sentence'
-    kwargs['case_target'] = 'long'
-    return replaceAcronym(args, kwargs, meta)
+-- function replaceAcronymSentenceCase (args, kwargs, meta)
+--     kwargs['case'] = 'sentence'
+--     kwargs['case_target'] = 'long'
+--     return replaceAcronym(args, kwargs, meta)
+-- end
+
+function replaceAcronymWithDefaultValues (default_values)
+    local function shortcode (args, kwargs, meta)
+        for option_key, option_value in pairs(default_values) do
+            -- If the option was not already defined in the kwargs,
+            -- set the default value.
+            if getOrNil(kwargs[option_key]) == nil then
+                kwargs[option_key] = option_value
+            end
+        end
+        return replaceAcronym(args, kwargs, meta)
+    end
+    return shortcode
 end
+
 
 --[[
     Generate the List of Acronyms in the document.
@@ -154,9 +169,9 @@ return {
     ["acronym"] = replaceAcronym,
     -- Same function but with a shorter name.
     ["acr"] = replaceAcronym,
-    -- Capitalized shortcodes for sentence case
-    ["Acronym"] = replaceAcronymSentenceCase,
-    ["Acr"] = replaceAcronymSentenceCase,
+    -- A few shortcuts (variations of the shortcode name that enable
+    -- default options, such as case and plural).
+    ["Acronym"] = replaceAcronymWithDefaultValues({ ["case"] = "sentence" }),
+    ["Acr"] = replaceAcronymWithDefaultValues({ ["case"] = "sentence" }),
     ["print-acronyms"] = generateListOfAcronyms,
 }
- 
