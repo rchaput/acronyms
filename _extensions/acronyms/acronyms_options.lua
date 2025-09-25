@@ -56,6 +56,9 @@ local Options = {
     -- the `{shortname}` and `{longname}` placeholders will be replaced.
     loa_format = nil,
 
+    -- The header level to use for the List of Acronyms header.
+    loa_header_level = 1,
+
 }
 
 
@@ -139,6 +142,10 @@ function Options:parseOptionsFromMetadata(m)
         else
             self.loa_format = pandoc.utils.stringify(options["loa_format"])
         end
+    end
+
+    if options['loa_header_level'] ~= nil then
+        self.loa_header_level = math.floor(tonumber(pandoc.utils.stringify(options['loa_header_level'])) or error("Could not cast '" .. tostring(options['loa_header_level']) .. "' to number."))
     end
 end
 
