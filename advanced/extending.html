@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,14 +68,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -114,6 +115,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">acronyms</span>
     </a>
@@ -235,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When you use an acronym in your document, <strong>acronyms</strong> uses a <em>style</em> to actually render it, based on its <em>short name</em>, <em>long name</em>, and whether the acronym appears for the first time. A list of existing styles can be found <a href="../articles/styles.html">here</a>, but we cannot cover all possible styles.</p>
 <p>Fortunately, you can easily add a new style. It requires writing some <a href="https://www.lua.org/docs.html">Lua</a> code, yet it should be simple enough that it can be done without any knowledge of Lua, especially by taking inspiration from existing styles.</p>
 <p>For example, the <em>long-short</em> style returns <code>Long name (Short name)</code> in the case of a first use, and <code>Short name</code> the next uses. It is implemented as:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"long-short"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"long-short"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">text</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">is_first_use</span> <span class="cf">then</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">acronym</span><span class="op">.</span><span class="va">longname</span> <span class="op">..</span> <span class="st">" ("</span> <span class="op">..</span> <span class="va">acronym</span><span class="op">.</span><span class="va">shortname</span> <span class="op">..</span> <span class="st">")"</span></span>
@@ -244,18 +247,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_element<span class="op">(</span><span class="va">text</span><span class="op">,</span> <span class="va">acronym</span><span class="op">.</span><span class="va">key</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note that a style is created by writing:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"YOUR STYLE NAME HERE"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"YOUR STYLE NAME HERE"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">text</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cn">SOME</span> <span class="cn">CODE</span> <span class="cn">HERE</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_element<span class="op">(</span><span class="va">text</span><span class="op">,</span> <span class="va">acronym</span><span class="op">.</span><span class="va">key</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>where <code>YOUR STYLE NAME HERE</code> is the name of the style you desire (it should be all lowercase, with whitespaces replaced by hyphens), and <code>SOME CODE HERE</code> defines what will be the <em>text</em> of the acronym (by setting a value to the <code>text</code> variable).</p>
 <p>In most cases, you will want to distinguish between first use / next use, by using a <code>if first_use then (...) else (...) end</code> structure, as in the previous example. You may omit this structure if you want the same appearance each time the acronym appears.</p>
 <p>Simple styles will only rely on some combination of <code>acronym.shortname</code> and <code>acronym.longname</code>, optionally with some hardcoded elements such as parens (combined with <code>..</code>, as in <code>"(" .. acronym.shortname .. ")"</code>). For more complex styles, e.g., to put some text in bold font, you will need to use <a href="https://pandoc.org/lua-filters.html#lua-type-reference">Pandoc</a> elements.</p>
 <p>For example, here is the code to create a new style named <code>bold-short</code> that returns the long name in the first use, and the short name in bold in next uses:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"bold-short"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">styles</span><span class="op">[</span><span class="st">"bold-short"</span><span class="op">]</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">acronym</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">,</span> <span class="va">is_first_use</span><span class="op">)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">text</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">is_first_use</span> <span class="cf">then</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">acronym</span><span class="op">.</span><span class="va">longname</span></span>
@@ -263,18 +266,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">text</span> <span class="op">=</span> <span class="va">pandoc</span><span class="op">.</span>Strong<span class="op">(</span><span class="va">acronym</span><span class="op">.</span><span class="va">shortname</span><span class="op">)</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_element<span class="op">(</span><span class="va">text</span><span class="op">,</span> <span class="va">acronym</span><span class="op">.</span><span class="va">key</span><span class="op">,</span> <span class="va">insert_links</span><span class="op">)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note the <code>pandoc.Strong</code> element that will be displayed in a bold font. This style, when added to the <code>_extensions/acronyms/acronyms_styles.lua</code> file, will be invoked by setting the <code>style: bold-short</code> option in the metadata of your document.</p>
 </section>
 <section id="adding-a-new-translation" class="level2">
 <h2 class="anchored" data-anchor-id="adding-a-new-translation">Adding a new translation</h2>
 <p>For some elements, such as the List of Acronyms’ title, <strong>acronyms</strong> is able to automatically translate them to your desired language, assuming that the <code>lang</code> option is set in the metadata of your document. However, not many languages are currently available; to add your own language, you may modify the <code>_extension/acronyms/acronyms_translations.lua</code> file.</p>
 <p>Translations are added in the following way:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="va">loa_title</span> <span class="op">=</span> <span class="op">{</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode lua code-with-copy"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="va">loa_title</span> <span class="op">=</span> <span class="op">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="st">""</span><span class="op">]</span> <span class="op">=</span> <span class="st">"List Of Acronyms"</span><span class="op">,</span> <span class="co">-- Default value</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="st">"en"</span><span class="op">]</span> <span class="op">=</span> <span class="st">"List Of Acronyms"</span><span class="op">,</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="st">"fr"</span><span class="op">]</span> <span class="op">=</span> <span class="st">"Liste des Acronymes"</span><span class="op">,</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note that each line represents a translation, using the format <code>["TRANSLATION LANGUAGE HERE"] = "TRANSLATION HERE"</code>. To add a new translation, simply add a new line (or duplicate an existing one), and set the language tag, usually a two-letter code, such as <code>en</code>, <code>fr</code>, <code>es</code>, <code>zh</code>, … and the corresponding translation after the <code>=</code> symbol.</p>
 <p>Note that the language tag might be more complex if necessary, for exemple to specialize a translation for a given idiom or region. <code>en-GB</code> and <code>en-US</code> are two valid tags that refer (respectively) to the Great-Britain and United States regions of the English language.</p>
 <p><strong>acronyms</strong> identifies the best language, based on available translations and the user’s requested language. For example, if the user requests <code>en-GB</code>, but only <code>en</code> or <code>fr</code> are available, it will resort to <code>en</code>. If the user requests to <code>zh</code>, it will resort to <code>""</code> (which should be equal to the <code>en</code> one). However, if an user request <code>en</code> (or <code>en-US</code>) but only <code>en-GB</code> or <code>fr</code> are available, it will not match (<code>en-GB</code> is “too” specialized to match <code>en</code>). For this reason, it is recommended that you set the language to the most simple tag, such as <code>en</code>, <code>es</code>, etc.</p>
@@ -334,13 +337,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
