@@ -145,7 +145,18 @@ function Options:parseOptionsFromMetadata(m)
     end
 
     if options['loa_header_level'] ~= nil then
-        self.loa_header_level = math.floor(tonumber(pandoc.utils.stringify(options['loa_header_level'])) or error("Could not cast '" .. tostring(options['loa_header_level']) .. "' to number."))
+        local str_value = pandoc.utils.stringify(options["loa_header_level"])
+        local float_value = tonumber(str_value)
+        if float_value ~= nil then
+            -- Just in case the user set a float value
+            self.loa_header_level = math.floor(float_value)
+        else
+            quarto.log.error(
+                "[acronyms] Could not cast", str_value, "to an integer.",
+                "Please set option `loa_header_level` to a valid integer value."
+            )
+            assert(false)
+        end
     end
 end
 
