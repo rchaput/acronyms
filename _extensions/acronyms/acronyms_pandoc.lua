@@ -198,6 +198,7 @@ end
     - title: the header title ; use `''` (the empty string) to avoid generating
         a header (the user wants to create the header manually).
     - header_classes: the table of extra classes to put to the header.
+    - header_level: the (integer) level for the List of Acronyms heading.
 --]]
 function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_classes, header_level)
     -- Original idea from https://gist.github.com/RLesur/e81358c11031d06e40b8fef9fdfb2682
@@ -237,7 +238,14 @@ function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_class
     end
     
     header_level = header_level or Options['loa_header_level']
-    header_level = math.floor(tonumber(header_level) or error("Could not cast '" .. tostring(header_level) .. "' to number."))
+    if tonumber(header_level) == nil then
+        quarto.log.error(
+            "[acronyms] Could not cast", header_level, "to number.",
+            "Please set the `header_level` to a valid integer value."
+        )
+        assert(false)
+    end
+    header_level = math.floor(tonumber(header_level))
     quarto.log.debug("[acronyms] Using header level", tostring(header_level))
 
     -- Create the Header (only if the title is not empty)
