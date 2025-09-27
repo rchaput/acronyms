@@ -42,6 +42,31 @@ at the end, or even at your desired location, by using the
 [options](../articles/options.qmd).
 
 
+## Changing the header level
+
+By default, **acronyms** use level-1 headers (in Markdown, this corresponds
+to a single `#`) for its List of Acronyms. There are situations in which you 
+would prefer to use other levels, typically level-2, for example in a Jupyter
+notebook. This can be changed very easily by using the `loa_header_level`
+option in the document metadata.
+
+For example:
+
+```md
+---
+acronyms:
+  keys:
+    - shortname: qmd
+      longname: Quarto documents
+  loa_header_level: 2
+---
+
+## Introduction {#intro}
+
+\acr{qmd} are great!
+```
+
+
 ## Manually customizing the title
 
 You may also want to fully customize the header of the List of Acronyms; this
