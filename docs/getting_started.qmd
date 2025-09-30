@@ -107,7 +107,7 @@ about that in [Plural form](articles/plural.qmd).
 ## Complete example
 
 A complete example showing the previous instructions as a single file can
-be found [here](https://github.com/rchaput/acronyms/blob/master/example.qmd).
+be found [here](https://github.com/rchaput/acronyms/blob/main/example.qmd).
 
 
 ## Next steps
