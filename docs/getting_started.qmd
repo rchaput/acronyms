@@ -25,7 +25,7 @@ Using **acronyms** can be done in 3 simple steps:
 This extension can be installed through the standard Quarto `add` command:
 
 ```sh
-quarto add rchaput/acronyms
+quarto add rchaput/acronyms@master
 ```
 
 This command will download the latest version and install it locally to your
