@@ -33,6 +33,16 @@ This command will download the latest version and install it locally to your
 [Quarto documentation](https://quarto.org/docs/extensions/managing.html)
 for details.
 
+You can also install a specific version by specifying the version tag at the
+end of the command, for example:
+
+```sh
+quarto add rchaput/acronyms@v2.0.1
+```
+
+where `v2.0.1` is the desired version. The list of available tags can be
+seen in the list of [releases](https://github.com/rchaput/acronyms/releases).
+
 Make sure that your Quarto document(s) contain the following lines in the
 YAML metadata, to load the *acronyms* extension:
 
