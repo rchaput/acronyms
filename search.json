@@ -11,7 +11,7 @@
     "href": "getting_started.html#installing-the-extension",
     "title": "Introduction to acronyms",
     "section": "Installing the extension",
-    "text": "Installing the extension\nThis extension can be installed through the standard Quarto add command:\nquarto add rchaput/acronyms\nThis command will download the latest version and install it locally to your _extensions folder. Please see the official Quarto documentation for details.\nMake sure that your Quarto document(s) contain the following lines in the YAML metadata, to load the acronyms extension:\n---\nfilters:\n  - acronyms\n---"
+    "text": "Installing the extension\nThis extension can be installed through the standard Quarto add command:\nquarto add rchaput/acronyms\nThis command will download the latest version and install it locally to your _extensions folder. Please see the official Quarto documentation for details.\nYou can also install a specific version by specifying the version tag at the end of the command, for example:\nquarto add rchaput/acronyms@v2.0.1\nwhere v2.0.1 is the desired version. The list of available tags can be seen in the list of releases.\nMake sure that your Quarto document(s) contain the following lines in the YAML metadata, to load the acronyms extension:\n---\nfilters:\n  - acronyms\n---"
   },
   {
     "objectID": "getting_started.html#defining-acronyms",
