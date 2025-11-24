@@ -123,12 +123,14 @@ function generateListOfAcronyms (args, kwargs, meta)
     local include_unused = getBooleanOrNil(kwargs["include_unused"])
     local title = getOrNil(kwargs["title"])
     local header_classes = getOrNil(kwargs["header_classes"])
+    local header_level = getOrNil(kwargs["header_level"])
 
     local header, definition_list = AcronymsPandoc.generateLoA(
         sorting,
         include_unused,
         title,
-        header_classes
+        header_classes,
+        header_level
     )
 
     if header ~= nil then

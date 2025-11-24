@@ -59,4 +59,4 @@ Similarly, you can only specify only the `plural.shortname` and not the
 `plural.longname`.
 
 For more examples, you can refer to 
-[test case #33](https://github.com/rchaput/acronyms/tree/master/tests/33-plural)
+[test case #33](https://github.com/rchaput/acronyms/tree/main/tests/33-plural)

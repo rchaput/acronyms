@@ -14,7 +14,7 @@ website:
   repo-url: https://github.com/rchaput/acronyms
   repo-actions: [edit, issue]
   repo-subdir: docs
-  repo-branch: master
+  repo-branch: main
   # Top navigation bar
   navbar:
     search: true

@@ -1,0 +1,14 @@
+---
+acronyms:
+  keys:
+    - shortname: qmd
+      longname: Quarto documents
+  loa_header_level: 2
+---
+
+## Introduction {#intro}
+
+The List of Acronyms header level can be changed if you do not use level-1
+headers.
+
+\acr{qmd} are great!

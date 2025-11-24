@@ -226,8 +226,9 @@ end
     - title: the header title ; use `''` (the empty string) to avoid generating
         a header (the user wants to create the header manually).
     - header_classes: the table of extra classes to put to the header.
+    - header_level: the (integer) level for the List of Acronyms heading.
 --]]
-function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_classes)
+function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_classes, header_level)
     -- Original idea from https://gist.github.com/RLesur/e81358c11031d06e40b8fef9fdfb2682
 
     -- Use default options if not specified
@@ -263,6 +264,17 @@ function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_class
         -- Custom format, render acronyms based on the requested format.
         list_acronyms = AcronymsPandoc.generateCustomFormat(sorted, loa_format)
     end
+    
+    header_level = header_level or Options['loa_header_level']
+    if tonumber(header_level) == nil then
+        quarto.log.error(
+            "[acronyms] Could not cast", header_level, "to number.",
+            "Please set the `header_level` to a valid integer value."
+        )
+        assert(false)
+    end
+    header_level = math.floor(tonumber(header_level))
+    quarto.log.debug("[acronyms] Using header level", tostring(header_level))
 
     -- Create the Header (only if the title is not empty)
     local header = nil
@@ -272,7 +284,7 @@ function AcronymsPandoc.generateLoA(sorting, include_unused, title, header_class
         -- (from the Options) to this table. The table will also contain `"loa"`.
         local loa_classes = table.move(extra_classes, 1, #extra_classes, 2, {"loa"})
         header = pandoc.Header(
-            1,
+            header_level,
             { table.unpack(title) },
             pandoc.Attr(Helpers.key_to_id("HEADER_LOA"), loa_classes, {})
         )

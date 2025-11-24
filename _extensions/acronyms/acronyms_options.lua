@@ -56,6 +56,9 @@ local Options = {
     -- the `{shortname}` and `{longname}` placeholders will be replaced.
     loa_format = nil,
 
+    -- The header level to use for the List of Acronyms header.
+    loa_header_level = 1,
+
 }
 
 
@@ -138,6 +141,21 @@ function Options:parseOptionsFromMetadata(m)
             self.loa_format = options["loa_format"][1].text
         else
             self.loa_format = pandoc.utils.stringify(options["loa_format"])
+        end
+    end
+
+    if options['loa_header_level'] ~= nil then
+        local str_value = pandoc.utils.stringify(options["loa_header_level"])
+        local float_value = tonumber(str_value)
+        if float_value ~= nil then
+            -- Just in case the user set a float value
+            self.loa_header_level = math.floor(float_value)
+        else
+            quarto.log.error(
+                "[acronyms] Could not cast", str_value, "to an integer.",
+                "Please set option `loa_header_level` to a valid integer value."
+            )
+            assert(false)
         end
     end
 end
