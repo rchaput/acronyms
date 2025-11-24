@@ -1,0 +1,14 @@
+---
+acronyms:
+  style: short-long
+  keys:
+    - key: energy
+      shortname: "$E$"
+      longname: "$E = mc^2$"
+---
+
+# Introduction {#intro}
+
+First mention: \acr{energy}.
+
+Second mention: \acr{energy}.

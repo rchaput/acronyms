@@ -1,0 +1,14 @@
+---
+acronyms:
+  style: short-long
+  keys:
+    - key: eq
+      shortname: $e^{x}$
+      longname: Exponential function
+---
+
+# Introduction {#intro}
+
+First mention: \acr{eq}.
+
+Second mention: \acr{eq}.
