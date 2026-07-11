@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -95,6 +96,32 @@ def filter_stdout(stdout):
     return stdout
 
 
+def normalize_wrapper_markup(lines):
+    """
+    Normalize Markdown wrapper syntax for cross-version comparisons.
+    Earlier versions of Quarto wrap content in <div>,
+    while later versions have started to use ::: syntax.
+    This function normalizes both so that cross-version testing can be done.
+    """
+    normalized = []
+    skip_blank_after_opening = False
+    for line in lines:
+        if line in ('::: {}', '<div>'):
+            skip_blank_after_opening = True
+            continue
+        if skip_blank_after_opening and line == '':
+            skip_blank_after_opening = False
+            continue
+        skip_blank_after_opening = False
+        if line in (':::', '</div>'):
+            if normalized and normalized[-1] == '':
+                normalized.pop()
+            continue
+        line = re.sub(r'^-\s+', '- ', line)
+        normalized.append(line)
+    return normalized
+
+
 def filter_stderr(stderr):
     # We want to check for warnings in the **acronyms** extension.
     # However, Quarto outputs some debug information on stderr...
@@ -158,6 +185,9 @@ def test_single_dir(dir_name: str):
     expected_output = read_file(test_path / 'expected.md', default=[''])
     # The expected errors / warnings log
     expected_error = read_file(test_path / 'expected.stderr', default=[''])
+
+    filtered_stdout = normalize_wrapper_markup(filtered_stdout)
+    expected_output = normalize_wrapper_markup(expected_output)
 
     success = (code == 0) and\
               (filtered_stdout == expected_output) and\
