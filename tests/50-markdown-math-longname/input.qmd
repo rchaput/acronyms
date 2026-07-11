@@ -5,10 +5,14 @@ acronyms:
     - key: energy
       shortname: "$E$"
       longname: "$E = mc^2$"
+    - key: CV
+      shortname: "CV"
+      longname: "$\\frac{\\sigma}{\\mu}$"
 ---
 
 # Introduction {#intro}
 
-First mention: \acr{energy}.
+First mention: \acr{energy} and {{< acr CV >}}.
 
-Second mention: \acr{energy}.
+Second mention: \acr{energy} and {{< acr CV >}}.
+
