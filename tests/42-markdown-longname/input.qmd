@@ -1,0 +1,15 @@
+---
+acronyms:
+  keys:
+    - shortname: CDI
+      longname: "*Clostridium difficile* infection"
+    - shortname: A
+      longname: "\\*Alpha\\* **process**"
+  style: short-long
+---
+
+# Introduction {#intro}
+
+First mention: \acr{CDI}. Also check \acr{A} (should render without markdown). Markdown-like charcters can be escaped if necessary.
+
+Second mention: \acr{CDI}. Second \acr{A}.

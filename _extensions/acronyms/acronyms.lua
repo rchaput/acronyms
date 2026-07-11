@@ -6,6 +6,7 @@
 
 
 local Helpers = require("acronyms_helpers")
+local Options = require("acronyms_options")
 
 
 -- Define an Acronym with some default values
@@ -65,20 +66,38 @@ function Acronym:new(object)
         raiseAcronymCreationError(object)
     end
 
-    -- If the key is not set, we want to use the shortname instead.
-    -- (Most of the time, the key is the shortname in lower case anyway...)
-    object.key = object.key or object.shortname
+    -- Enforce explicit key when markdown parsing for shortname is enabled.
+    if Helpers.contains_markdown(object.shortname) then
+        if object.key == nil then
+            quarto.log.error("[acronyms] Each acronym must provide an explicit `key` when using markdown in shortname: '" ..
+                Helpers.inlines_to_string(object.shortname) .. "'.")
+            assert(false)
+        end
+    else
+        -- Legacy fallback.
+        object.key = object.key or Helpers.inlines_to_string(object.shortname)
+    end
 
-    -- If the plural forms are not set, we construct sane defaults instead.
+    -- Track whether the user explicitly provided plural forms before we add defaults.
+    local explicit_plural_short = object.plural and object.plural.shortname ~= nil
+    local explicit_plural_long  = object.plural and object.plural.longname ~= nil
+
+    -- If the plural table itself is missing, create it so downstream code works.
     if not object.plural then
         object.plural = {}
     end
+    -- Provide fallback defaults (still created so that rendering singular works),
+    -- but we will forbid their use when a plural invocation is requested.
     if not object.plural.shortname then
-        object.plural.shortname = object.shortname .. 's'
+        object.plural.shortname = Helpers.inlines_to_string(object.shortname) .. 's'
     end
     if not object.plural.longname then
-        object.plural.longname = object.longname .. 's'
+        object.plural.longname = Helpers.inlines_to_string(object.longname) .. 's'
     end
+
+    -- Persist explicitness flags for later validation when plural usage is requested.
+    object._explicit_plural_shortname = explicit_plural_short
+    object._explicit_plural_longname  = explicit_plural_long
 
     return object
 end
@@ -88,8 +107,8 @@ end
 function Acronym.__tostring(acronym)
     local str = "Acronym{"
     str = str .. "key=" .. acronym.key .. ";"
-    str = str .. "short=" .. acronym.shortname .. ";"
-    str = str .. "long=" .. acronym.longname .. ";"
+    str = str .. "short=" .. Helpers.inlines_to_string(acronym.shortname) .. ";"
+    str = str .. "long=" .. Helpers.inlines_to_string(acronym.longname) .. ";"
     str = str .. "occurrences=" .. acronym.occurrences .. ";"
     str = str .. "definition_order=" .. tostring(acronym.definition_order) .. ";"
     str = str .. "usage_order=" .. tostring(acronym.usage_order)
@@ -116,7 +135,14 @@ function Acronym:clone()
     for k, v in pairs(self) do
         fields_copy[k] = v
     end
-    return Acronym:new(fields_copy)
+    -- Preserve explicit plural flags; Acronym:new recomputes them and would
+    -- incorrectly mark generated defaults as explicit. Store originals.
+    local explicit_short = self._explicit_plural_shortname
+    local explicit_long  = self._explicit_plural_longname
+    local cloned = Acronym:new(fields_copy)
+    cloned._explicit_plural_shortname = explicit_short
+    cloned._explicit_plural_longname  = explicit_long
+    return cloned
 end
 
 
@@ -213,17 +239,19 @@ function Acronyms:parseFromMetadata(metadata, on_duplicate)
     end
 
     -- Iterate over the defined acronyms. We use `ipairs` since we want to
-    -- keep their original order (useful for the `definition_order`!).
+    -- keep their original order (useful for the `definition_order`).
     for _, v in ipairs(metadata.acronyms.keys) do
-        -- Remember that each of these values can be nil!
-        -- By using `and`, we make sure that `stringify` is applied on non-nil.
         local key = v.key and pandoc.utils.stringify(v.key)
-        local shortname = v.shortname and pandoc.utils.stringify(v.shortname)
-        local longname = v.longname and pandoc.utils.stringify(v.longname)
-        local shortname_plural = v.plural and v.plural.shortname and 
-            pandoc.utils.stringify(v.plural.shortname)
-        local longname_plural = v.plural and v.plural.longname and
-            pandoc.utils.stringify(v.plural.longname)
+        -- Always parse markdown for names
+        local shortname = Helpers.extract_meta_field(v.shortname, true)
+        local longname  = Helpers.extract_meta_field(v.longname,  true)
+
+        local shortname_plural
+        local longname_plural
+        if v.plural then
+            shortname_plural = Helpers.extract_meta_field(v.plural.shortname, true)
+            longname_plural  = Helpers.extract_meta_field(v.plural.longname,  true)
+        end
         local acronym = Acronym:new{
             key = key,
             shortname = shortname,

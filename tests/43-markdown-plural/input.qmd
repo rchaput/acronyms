@@ -1,0 +1,22 @@
+---
+acronyms:
+  markdown: longname
+  keys:
+    - key: CDI
+      shortname: CDI
+      longname: "*Clostridium difficile* infection"
+      plural:
+        shortname: CDIs
+        longname: "*Clostridium difficile* infections"
+    - key: SAB
+      shortname: SAB
+      longname: "*Staphylococcus aureus* bacteraemia"
+  style: short-long
+---
+
+# Introduction {#intro}
+
+Plural explicit first: \acrs{CDI}.
+Plural explicit later: \acrs{CDI}.
+
+Currently, implicit plural is **NOT** supported. An error is raised if the user tries to use an implicit pleural with the markdown setting.

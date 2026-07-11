@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   push:
-    branches: [master, docs]
+    branches: [main, docs]
 
 name: Publish docs to GitHub Pages
 

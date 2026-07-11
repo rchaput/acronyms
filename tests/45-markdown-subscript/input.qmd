@@ -1,0 +1,13 @@
+---
+acronyms:
+  style: short-long
+  keys:
+    - shortname: bla
+      longname: "*bla*~NDM~ (New Delhi metallo-beta-lactamase)"
+---
+
+# Introduction {#intro}
+
+First mention: \acr{bla}.
+
+Second mention: \acr{bla}.

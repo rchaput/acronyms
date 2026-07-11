@@ -1,0 +1,18 @@
+---
+acronyms:
+  style: long-short
+  keys:
+    - key: cdi
+      shortname: "*CDI*"
+      longname: Clostridium difficile infection
+      markdown: shortname
+    - key: atest
+      shortname: "*A*"
+      longname: Alpha token
+---
+
+# Introduction {#intro}
+
+First: \acr{cdi}. Also \acr{atest} (its shortname *A* should stay literal because global markdown=longname only).
+
+Second: \acr{cdi}. Second \acr{atest}.

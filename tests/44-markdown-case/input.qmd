@@ -1,0 +1,13 @@
+---
+acronyms:
+  style: short-long
+  keys:
+    - shortname: CDI
+      longname: "*clostridium difficile* infection"
+---
+
+# Introduction {#intro}
+
+Markdown works with advanced options like sentence case: \acr[case=sentence]{CDI}.
+
+And upper case: \acr[case=upper, first_use=true]{CDI}.

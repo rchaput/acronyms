@@ -1,0 +1,17 @@
+---
+acronyms:
+  style: short-long
+  keys:
+    - key: eq
+      shortname: $e^{x}$
+      longname: Exponential function
+    - key: PL
+      shortname: "$P_\\text{L}$"
+      longname: "transpulmonary pressure"
+---
+
+# Introduction {#intro}
+
+First mention: \acr{eq} and {{< acr PL >}}.
+
+Second mention: \acr{eq} and {{< acr PL >}}.

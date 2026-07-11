@@ -112,6 +112,31 @@ function AcronymsPandoc.replaceExistingAcronym(
     if insert_links == nil then insert_links = Options["insert_links"] end
     case_target = case_target or "long"
 
+    -- If plural is requested, enforce strictness when markdown is present
+    -- in any part of the acronym unless an explicit plural was provided
+    if plural then
+        local need_long_strict = Helpers.contains_markdown(acronym.longname)
+            and not acronym._explicit_plural_longname
+        local need_short_strict = Helpers.contains_markdown(acronym.shortname)
+            and not acronym._explicit_plural_shortname
+        if need_long_strict then
+            quarto.log.error(
+                "[acronyms] Plural form requested for '" .. tostring(acr_key) ..
+                "' but 'plural.longname' was not explicitly provided while markdown parsing is enabled for its longname. " ..
+                "Define it under plural: { longname: ... } to use \\acrs{" .. tostring(acr_key) .. "} ."
+            )
+            assert(false)
+        end
+        if need_short_strict then
+            quarto.log.error(
+                "[acronyms] Plural form requested for '" .. tostring(acr_key) ..
+                "' but 'plural.shortname' was not explicitly provided while markdown parsing is enabled for its shortname. " ..
+                "Define it under plural: { shortname: ... } to use \\acrs{" .. tostring(acr_key) .. "} ."
+            )
+            assert(false)
+        end
+    end
+
     -- Replace the acronym with the desired style
     return replaceExistingAcronymWithStyle(
         acronym,
@@ -139,8 +164,8 @@ function AcronymsPandoc.generateDefinitionList(sorted_acronyms)
             pandoc.Attr(Helpers.key_to_id(acronym.key), {}, {})
         )
         -- The definition's value.
-        local definition = pandoc.Plain(acronym.longname)
-        table.insert(definition_list, { name, definition })
+        local definition_value = pandoc.Plain(Helpers.ensure_inlines(acronym.longname))
+        table.insert(definition_list, { name, definition_value })
     end
     return pandoc.DefinitionList(definition_list)
 end
@@ -161,12 +186,15 @@ function AcronymsPandoc.generateCustomFormat(sorted_acronyms, loa_format)
             "[acronyms] Generating definition for acronym", acronym.key
         )
         local id = Helpers.key_to_id(acronym.key)
+        acronym_markup = loa_format
         -- The acronym's name. We want it to be rendered with an ID attribute.
-        local name = "[" .. acronym.shortname .. "]{#" .. id .. "}"
-        -- The `loa_format` should be a Markdown template, with `{shortname}`
-        -- and `{longname}` as placeholder values that we must replace.
-        local acronym_markup = loa_format:gsub("{shortname}", name)
-        acronym_markup = acronym_markup:gsub("{longname}", acronym.longname)
+        local serialized_short = Helpers.serialize_inlines(acronym.shortname)
+        local short_str_with_id = '[' .. serialized_short .. ']{#' .. id .. '}'
+        acronym_markup = acronym_markup:gsub("{shortname}", short_str_with_id)
+
+        local serialized_long = Helpers.serialize_inlines(acronym.longname)
+        acronym_markup = acronym_markup:gsub("{longname}", serialized_long)
+        
         quarto.log.debug(
             "[acronyms] Template markup processed as", acronym_markup
         )

@@ -104,5 +104,177 @@ function Helpers.str_to_boolean(value)
     return result
 end
 
+-- Parse limited markdown snippet (currently for italics etc.) using pandoc.read for robustness
+-- Returns list of Inlines
+function Helpers.parse_markdown_snippet(text)
+    local doc = pandoc.read(tostring(text) .. "\n", "markdown")
+    local blocks = doc.blocks
+    local inlines = {}
+    for _, b in ipairs(blocks) do
+        if b.t == "Para" or b.t == "Plain" then
+            for _, il in ipairs(b.c) do table.insert(inlines, il) end
+        end
+    end
+    return inlines
+end
+
+-- Determine whether a value (string, MetaInlines, Inlines or inline-array) contains
+-- user-supplied Markdown formatting (emphasis, strong, code, links, raw inline, etc.).
+function Helpers.contains_markdown(value)
+    if value == nil then return false end
+
+    local function has_markdown_formatting(inlines)
+        for _, il in ipairs(inlines) do
+            if il.t ~= "Str" and il.t ~= "Space" and il.t ~= "SoftBreak" and il.t ~= "LineBreak" then
+                return true
+            end
+        end
+        return false
+    end
+
+    if Helpers.isAtLeastVersion({2, 17}) then
+        local typ = pandoc.utils.type(value)
+        if typ == "Inlines" or typ == "MetaInlines" or typ == "List" then
+            local inlines = Helpers.ensure_inlines(value)
+            return has_markdown_formatting(inlines)
+        end
+    end
+
+    -- If it's a plain Lua array of inline-like nodes, inspect element types
+    if type(value) == "table" then
+        if Helpers.is_inline_array(value) then
+            return has_markdown_formatting(value)
+        end
+    end
+
+    -- Fallback heuristic on string content: common markdown tokens
+    local s = tostring(value)
+    if s:find("%*%*.-%*%*")  -- **strong**
+       or s:find("%*.-%*")    -- *emph*
+       or s:find("_.-_")      -- _emph_
+       or s:find("`")         -- inline code
+       or s:find("!?%[.-%]%(") -- [text](link) or ![text](image)
+       or s:find("~~.-~~")    -- ~~strikethrough~~
+       then
+        return true
+    end
+
+    return false
+end
+
+-- Normalize a value (string or Pandoc Inlines/list) to a plain string.
+-- If v is an Inlines object (or a plain Lua array of inline nodes), we
+-- stringify it using pandoc.utils.stringify; otherwise fallback to tostring.
+function Helpers.inlines_to_string(v)
+    if Helpers.isAtLeastVersion({2, 17}) then
+        local t = pandoc.utils.type(v)
+        if t == "Inlines" then
+            return pandoc.utils.stringify(v)
+        elseif t == "List" then
+            -- Heuristic: list whose elements are inline nodes (tables w/ .t)
+            local is_inlines = true
+            for _, il in ipairs(v) do
+                if type(il) ~= "table" or il.t == nil then
+                    is_inlines = false; break
+                end
+            end
+            if is_inlines then
+                return pandoc.utils.stringify(pandoc.Inlines(v))
+            end
+        end
+    end
+    return tostring(v)
+end
+
+
+-- Serialize an array of inline nodes (or any value that can be normalized
+-- to inlines) into a single Markdown string without trailing newlines.
+-- Falls back to `inlines_to_string` when pandoc.write is unavailable.
+function Helpers.serialize_inlines(v)
+    if v == nil then return "" end
+    if pandoc and pandoc.write then
+        local inlines = Helpers.ensure_inlines(v)
+        local doc = pandoc.Pandoc({ pandoc.Para(inlines) })
+        local ok, md = pcall(function() return pandoc.write(doc, 'markdown') end)
+        if ok and md then
+            return md:gsub('\n+$', '')
+        end
+    end
+    return Helpers.inlines_to_string(v)
+end
+
+-- Extract a metadata field (shortname/longname or plural variants) as either
+-- raw Inlines (array) when parse_markdown is true and the field is MetaInlines/Inlines,
+-- or as a plain string otherwise. Returns nil if the input is nil.
+function Helpers.extract_meta_field(field, parse_markdown)
+    if field == nil then return nil end
+    if parse_markdown then
+        local ptype = Helpers.isAtLeastVersion({2, 17}) and pandoc.utils.type(field)
+        if ptype == "Inlines" then
+            return field
+        elseif type(field) == "table" and field.t == "MetaInlines" then
+            local arr = {}
+            for i=1,#field do arr[#arr+1] = field[i] end
+            return arr
+        else
+            -- Always parse to inlines so markdown formatting is preserved
+            local text = pandoc.utils.stringify(field)
+            return Helpers.parse_markdown_snippet(text)
+        end
+    else
+        return pandoc.utils.stringify(field)
+    end
+end
+
+
+-- Capitalize first alphabetical character of a string.
+function Helpers.capitalize_first(s)
+    return (tostring(s):gsub("^%l", string.upper))
+end
+
+
+-- Normalize value into an array of Pandoc inlines.
+function Helpers.ensure_inlines(obj)
+    if type(obj) == "string" then return { pandoc.Str(obj) } end
+    if Helpers.isAtLeastVersion({2, 17}) then
+        local t = pandoc.utils.type(obj)
+        if t == "Inlines" then
+            local arr = {}
+            for i = 1, #obj do arr[#arr+1] = obj[i] end
+            return arr
+        elseif t == "List" then
+            local ok = true
+            for i = 1, #obj do
+                local v = obj[i]
+                if type(v) ~= "table" or v.t == nil then ok = false break end
+            end
+            if ok then
+                local arr = {}
+                for i = 1, #obj do arr[#arr+1] = obj[i] end
+                return arr
+            end
+        end
+    end
+    if type(obj) == "table" and obj.t ~= nil then
+        return { obj }
+    end
+    if type(obj) == "table" then
+        local ok = true
+        for _, v in ipairs(obj) do if type(v) ~= "table" or v.t == nil then ok = false break end end
+        if ok then return obj end
+    end
+    return { pandoc.Str(pandoc.utils and pandoc.utils.stringify and pandoc.utils.stringify(obj) or tostring(obj)) }
+end
+
+
+-- Detect whether a table is an array of Pandoc inline nodes
+function Helpers.is_inline_array(tbl)
+    if type(tbl) ~= "table" then return false end
+    for i, v in ipairs(tbl) do
+        if type(v) ~= "table" or v.t == nil then return false end
+    end
+    return #tbl > 0
+end
+
 
 return Helpers
