@@ -57,7 +57,8 @@ provided the same features, but for [RMarkdown][rmarkdown] documents.
     or ignore an non-existing key, how to sort, ...
   + Sane defaults are included, such that this package can be used
     out-of-the-box.
-- 🎉 NEW 🎉 Support for [plural form](https://rchaput.github.io/acronyms/articles/plural.html)
+- Support for [plural form](https://rchaput.github.io/acronyms/articles/plural.html)
+- :tada: NEW :tada: Acronyms can include Markdown content (still in preview, see below)
 
 
 ## Installation
@@ -84,6 +85,13 @@ filters:
 
 If you already have a `filters:` block, simply add the `- acronyms` line at
 the end of the list.
+
+:new: The feature to include Markdown in the acronyms themselves is available
+in preview, by installing the `markdown` branch instead of the default one:
+
+```sh
+quarto add rchaput/acronyms@markdown
+```
 
 
 ## Usage
